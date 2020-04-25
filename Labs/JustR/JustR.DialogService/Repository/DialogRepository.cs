@@ -1,4 +1,6 @@
-﻿using SqlKata.Compilers;
+﻿using System;
+using JustR.Models.Entity;
+using SqlKata.Compilers;
 
 namespace JustR.DialogService.Repository
 {
@@ -11,14 +13,14 @@ namespace JustR.DialogService.Repository
             _sqlCompiler = sqlCompiler;
         }
 
-        public void Dialog()
+        public Dialog ReadDialog(Guid userId, Guid dialogId)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public void GetDialogs()
+        public Dialog CreateDialog(Guid firstUserId, Guid secondUserId)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
