@@ -24,7 +24,7 @@ namespace JustR.FriendService
         }
 
         [HttpPut]
-        public ActionResult<FriendRequestDto> CreateFriendResponse(Guid userId, Guid secondUserId, Boolean state)
+        public ActionResult<FriendRequestDto> CreateFriendResponse(FriendRequestDto dto)
         {
             throw new NotImplementedException();
         }

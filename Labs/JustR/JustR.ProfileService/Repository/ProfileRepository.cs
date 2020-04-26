@@ -1,4 +1,7 @@
-﻿using SqlKata;
+﻿using System;
+using JustR.Models.Dto;
+using JustR.Models.Entity;
+using SqlKata;
 using SqlKata.Compilers;
 
 namespace JustR.ProfileService.Repository
@@ -12,19 +15,19 @@ namespace JustR.ProfileService.Repository
             _sqlCompiler = sqlCompiler;
         }
 
-        public void GetUserProfile()
+        public User ReadUserProfile(Guid userId)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public void GetUserPreview()
+        public User UpdateUserProfile(User newProfile)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public void UpdateUserProfile()
+        public ChangeProfileDto UpdateUserProfile(ChangeProfileDto dto)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

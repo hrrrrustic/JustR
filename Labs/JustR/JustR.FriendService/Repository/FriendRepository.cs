@@ -1,4 +1,7 @@
-﻿using SqlKata.Compilers;
+﻿using System;
+using System.Collections.Generic;
+using JustR.Models.Entity;
+using SqlKata.Compilers;
 
 namespace JustR.FriendService.Repository
 {
@@ -11,24 +14,24 @@ namespace JustR.FriendService.Repository
             _sqlCompiler = sqlCompiler;
         }
 
-        public void ReadUserFriends()
+        public FriendRequest CreateFriendRequest(FriendRequest request)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public void CreateFriendRequest()
+        public List<User> ReadUserFriends(Guid userId)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public void UpdateFriendRequest()
+        public FriendRequest UpdateFriendRequest(FriendRequest request)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public void DeleteFriend()
+        public void DeleteFriend(FriendRequest request)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

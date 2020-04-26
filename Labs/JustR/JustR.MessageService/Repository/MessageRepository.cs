@@ -1,4 +1,7 @@
-﻿using SqlKata.Compilers;
+﻿using System;
+using System.Collections.Generic;
+using JustR.Models.Entity;
+using SqlKata.Compilers;
 
 namespace JustR.MessageService.Repository
 {
@@ -11,14 +14,14 @@ namespace JustR.MessageService.Repository
             _sqlCompiler = sqlCompiler;
         }
 
-        public void GetMessage()
+        public List<Message> ReadMessages(Guid dialogId, Int32 count, Int32 offset = 0)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public void AddMessage()
+        public Message CreateMessage(Message message)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

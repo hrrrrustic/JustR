@@ -1,10 +1,14 @@
-﻿namespace JustR.FriendService.Repository
+﻿using System;
+using System.Collections.Generic;
+using JustR.Models.Entity;
+
+namespace JustR.FriendService.Repository
 {
     public interface IFriendRepository
     {
-        void CreateFriendRequest();
-        void ReadUserFriends();
-        void UpdateFriendRequest();
-        void DeleteFriend();
+        FriendRequest CreateFriendRequest(FriendRequest request);
+        List<User> ReadUserFriends(Guid userId);
+        FriendRequest UpdateFriendRequest(FriendRequest request);
+        void DeleteFriend(FriendRequest request);
     }
 }

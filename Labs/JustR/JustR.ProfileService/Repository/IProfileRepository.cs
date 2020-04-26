@@ -1,9 +1,13 @@
-﻿namespace JustR.ProfileService.Repository
+﻿using System;
+using JustR.Models.Dto;
+using JustR.Models.Entity;
+
+namespace JustR.ProfileService.Repository
 {
     public interface IProfileRepository
     {
-        void GetUserProfile();
-        void GetUserPreview();
-        void UpdateUserProfile();
+        User ReadUserProfile(Guid userId);
+        User UpdateUserProfile(User newProfile);
+        ChangeProfileDto UpdateUserProfile(ChangeProfileDto dto);
     }
 }
