@@ -15,5 +15,10 @@ namespace JustR.DialogService.Service
         {
             throw new NotImplementedException();
         }
+
+        public DialogInfoDto CreateDialog(Guid firstUserId, Guid secondUserId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

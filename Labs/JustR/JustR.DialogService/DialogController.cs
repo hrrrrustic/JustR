@@ -46,5 +46,19 @@ namespace JustR.DialogService
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPost]
+        public ActionResult<DialogInfoDto> CreateDialog(Guid userId, Guid secondUserId)
+        {
+            try
+            {
+                DialogInfoDto result = _dialogService.CreateDialog(userId, secondUserId);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }
