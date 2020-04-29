@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JustR.MessageService.Service;
 using JustR.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,16 +12,27 @@ namespace JustR.MessageService
 {
     public class MessageController : Controller
     {
-        [HttpGet]
-        public ActionResult<IEnumerable<MessageDto>> GetMessages(Guid userId, Guid dialogId, Int32? offset, Int32 count)
+
+        private readonly IMessageService _messageService;
+
+        public MessageController(IMessageService messageService)
         {
-            throw new NotImplementedException();
+            _messageService = messageService;
         }
 
-        [HttpPost("{dialogId}")]
+        [HttpGet("t/t")]
+        public ActionResult<IEnumerable<MessageDto>> GetMessages(Guid userId, Guid dialogId, Int32? offset, Int32 count)
+        {
+            return Ok(_messageService.GetMessages(userId, dialogId, offset, count));
+        }
+
+        [HttpPost("t/{dialogId}")]
         public ActionResult<MessageDto> SendMessage(Guid userId, Guid dialogId, String text)
         {
-            throw new NotImplementedException();
+            if (String.IsNullOrWhiteSpace(text))
+                return BadRequest();
+
+            return Ok(_messageService.SendMessage(userId, dialogId, text));
         }
     }
 }
