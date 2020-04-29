@@ -7,7 +7,7 @@ namespace JustR.FriendService.Repository
     public interface IFriendRepository
     {
         FriendRequest CreateFriendRequest(FriendRequest request);
-        List<User> ReadUserFriends(Guid userId);
+        List<Guid> ReadUserFriends(Guid userId);
         FriendRequest UpdateFriendRequest(FriendRequest request);
         void DeleteFriend(FriendRequest request);
     }

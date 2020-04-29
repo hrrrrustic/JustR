@@ -19,7 +19,7 @@ namespace JustR.FriendService.Repository
             throw new NotImplementedException();
         }
 
-        public List<User> ReadUserFriends(Guid userId)
+        public List<Guid> ReadUserFriends(Guid userId)
         {
             throw new NotImplementedException();
         }

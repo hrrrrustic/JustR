@@ -6,7 +6,7 @@ namespace JustR.FriendService.Service
 {
     public class FriendService : IFriendService
     {
-        public List<FriendRequestDto> GetFriends(Guid userId)
+        public List<Guid> GetFriends(Guid userId)
         {
             throw new NotImplementedException();
         }

@@ -7,7 +7,9 @@ namespace JustR.Models.Dto
 {
     public class FriendRequestDto
     {
-        public Guid UserId { get; set; }
+        public Guid FirstUserId { get; set; }
+        public Guid SecondUserId { get; set; }
+
         public FriendRequestState State { get; set; }
     }
 }
