@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using JustR.Models.Dto;
 
 namespace JustR.ProfileService.Service
@@ -7,6 +8,6 @@ namespace JustR.ProfileService.Service
     {
         UserProfileDto GetUserProfile(Guid userId);
         UserPreviewDto GetUserPreview(Guid userId);
-        UserPreviewDto SearchUser(String query);
+        IEnumerable<UserPreviewDto> SearchUser(String query);
     }
 }

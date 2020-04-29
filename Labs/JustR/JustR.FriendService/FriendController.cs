@@ -18,8 +18,9 @@ namespace JustR.FriendService
         }
 
         [HttpPost]
-        public ActionResult<FriendRequestDto> CreateFriendRequest(FriendRequestDto dto)
+        public ActionResult<FriendRequestDto> CreateFriendRequest([FromBody] FriendRequestDto dto)
         {
+            
             throw new NotImplementedException();
         }
 

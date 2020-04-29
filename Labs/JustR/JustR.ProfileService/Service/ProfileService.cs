@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using JustR.Models.Dto;
 
 namespace JustR.ProfileService.Service
@@ -15,7 +16,7 @@ namespace JustR.ProfileService.Service
             throw new NotImplementedException();
         }
 
-        public UserPreviewDto SearchUser(String query)
+        public IEnumerable<UserPreviewDto> SearchUser(String query)
         {
             throw new NotImplementedException();
         }

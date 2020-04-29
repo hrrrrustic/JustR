@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JustR.Models.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JustR.DesktopGateway.Controllers
@@ -12,6 +13,7 @@ namespace JustR.DesktopGateway.Controllers
     [Route("api/[controller]")]
     public class FriendController : Controller
     {
+        [Authorize]
         [HttpGet]
         public ActionResult<IEnumerable<UserPreviewDto>> GetUserFriends(Guid userId)
         {

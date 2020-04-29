@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using JustR.Models.Dto;
 using JustR.Models.Entity;
 using SqlKata;
@@ -16,6 +17,11 @@ namespace JustR.ProfileService.Repository
         }
 
         public User ReadUserProfile(Guid userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<User> ReadUserProfiles(String userTag)
         {
             throw new NotImplementedException();
         }
