@@ -8,7 +8,15 @@ namespace JustR.FriendService.Repository
 {
     public class DummyFriendRepository : IFriendRepository
     {
-        private static List<FriendRequest> _requests = new List<FriendRequest>();
+        private static List<FriendRequest> _requests = new List<FriendRequest>()
+        {
+            new FriendRequest
+            {
+                FirstUserId = Guid.Parse("5B77A766-7B44-4E1B-BAF9-083713D1ABA3"),
+                SecondUserId = Guid.Parse("8E924714-8E37-4AD4-81E1-80F691DEAD10"),
+                State = FriendRequestState.Accepted
+            }
+        };
 
         public FriendRequest CreateFriendRequest(FriendRequest request)
         {

@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using JustR.FriendService.Service;
 using JustR.Models.Dto;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,9 +28,21 @@ namespace JustR.FriendService
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Guid>> GetUserFriends(Guid userId)
+        public async Task<ActionResult<IEnumerable<UserPreviewDto>>> GetUserFriends(Guid userId)
         {
-            return Ok(_friendService.GetFriends(userId));
+            List<Guid> usersId = _friendService.GetFriends(userId);
+
+            String profileServiceSource = "https://localhost:44308";
+            HttpClient client = new HttpClient {BaseAddress = new Uri(profileServiceSource)};
+            List<UserPreviewDto> result = new List<UserPreviewDto>();
+
+            foreach (Guid id in usersId)
+            {
+                var response = await client.GetAsync("api/Profile/" + id.ToString());
+                var str = await response.Content.ReadAsStringAsync();
+                result.Add(JsonConvert.DeserializeObject<UserPreviewDto>(str));
+            }
+            return Ok(result);
         }
 
         [HttpPost]

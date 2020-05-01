@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JustR.ProfileService
 {
+    [Route("api/[controller]")]
     public class ProfileController : Controller
     {
         private readonly IProfileService _profileService;
