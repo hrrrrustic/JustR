@@ -5,27 +5,21 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using JustR.Desktop.Annotations;
 using JustR.Desktop.Commands;
 using JustR.Desktop.Model;
+using JustR.Desktop.View;
 
 namespace JustR.Desktop.ViewModel
 { 
     public class MainWindowViewModel : BaseViewModel
     {
-        //private readonly AuthenticationModel _authenticationModel;
-
-        //public MainWindowViewModel(AuthenticationModel authenticationModel)
-        //{
-          //  _authenticationModel = authenticationModel;
-        //}
 
         public MainWindowViewModel()
         {
-            
         }
 
-        private Page _pageForRender;
         private readonly AuthenticationModel _authenticationModel = new AuthenticationModel();
         public ICommand LoginCommand => new ActionCommand(Authenticate);
 
@@ -34,6 +28,8 @@ namespace JustR.Desktop.ViewModel
             if (_authenticationModel.Login == _authenticationModel.Password)
             {
                 MessageBox.Show("Yes");
+                new StartWindow().Show();
+                return;
             }
 
             MessageBox.Show("Nope");
@@ -50,5 +46,6 @@ namespace JustR.Desktop.ViewModel
             get => _authenticationModel.Password;
             set => _authenticationModel.Password = value;
         }
+
     }
 }

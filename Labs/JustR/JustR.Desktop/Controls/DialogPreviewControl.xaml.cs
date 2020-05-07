@@ -11,14 +11,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace JustR.Desktop.View
+namespace JustR.Desktop.Controls
 {
     /// <summary>
-    /// Interaction logic for StartPage.xaml
+    /// Interaction logic for DialogPreviewControl.xaml
     /// </summary>
-    public partial class StartPage : Page
+    public partial class DialogPreviewControl : UserControl
     {
-        public StartPage()
+        public DialogPreviewControl()
         {
             InitializeComponent();
         }
