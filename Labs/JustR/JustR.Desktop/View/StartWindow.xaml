@@ -5,16 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JustR.Desktop.View"
         xmlns:controls="clr-namespace:JustR.Desktop.Controls"
+        xmlns:viewModels="clr-namespace:JustR.Desktop.ViewModel"
         mc:Ignorable="d"
         Title="StartWindow" Height="450" Width="800">
     <Grid>
         <StackPanel Orientation="Horizontal">
-            <StackPanel>
-                <Button>Профиль</Button>
-                <Button>Друзья</Button>
-                <Button>Поиск</Button>
-                <Button>Настройки</Button>
-            </StackPanel>
+            <controls:MenuControl></controls:MenuControl>
             <StackPanel>
                 <controls:DialogPreviewControl></controls:DialogPreviewControl>
                 <controls:DialogPreviewControl></controls:DialogPreviewControl>

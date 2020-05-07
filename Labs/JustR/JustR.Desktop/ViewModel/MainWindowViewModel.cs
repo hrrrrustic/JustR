@@ -28,7 +28,9 @@ namespace JustR.Desktop.ViewModel
             if (_authenticationModel.Login == _authenticationModel.Password)
             {
                 MessageBox.Show("Yes");
-                new StartWindow().Show();
+                var start = new StartWindow();
+                ((Window)start.Parent).Close();
+                start.Show();
                 return;
             }
 
