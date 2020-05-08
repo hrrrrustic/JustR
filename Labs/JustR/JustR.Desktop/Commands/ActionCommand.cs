@@ -19,9 +19,6 @@ namespace JustR.Desktop.Commands
 
         public void Execute(Object parameter)
         {
-            if (parameter != null)
-                throw new Exception();
-
             _action();
         }
 

@@ -8,16 +8,15 @@
         xmlns:viewModels="clr-namespace:JustR.Desktop.ViewModel"
         mc:Ignorable="d"
         Title="StartWindow" Height="450" Width="800">
-    <Grid>
-        <StackPanel Orientation="Horizontal">
-            <controls:MenuControl></controls:MenuControl>
-            <StackPanel>
-                <controls:DialogPreviewControl></controls:DialogPreviewControl>
-                <controls:DialogPreviewControl></controls:DialogPreviewControl>
-                <controls:DialogPreviewControl></controls:DialogPreviewControl>
-                <controls:DialogPreviewControl></controls:DialogPreviewControl>
 
-            </StackPanel>
-        </StackPanel>
+    <Window.DataContext>
+        <viewModels:StartWindowViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <Button x:Name="button" Content="Войти" HorizontalAlignment="Center" Margin="0,164,0,0" VerticalAlignment="Top" Width="120" Command="{Binding LoginCommand}"/>
+        <Button x:Name="button1" Content="Зарегистрироваться" HorizontalAlignment="Center" Margin="0,344,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Center" Margin="0,64,0,0" Text="{Binding Login}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Center" Margin="0,109,0,0" Text="{Binding Password}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

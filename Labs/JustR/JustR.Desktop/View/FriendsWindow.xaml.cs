@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,11 +13,11 @@ using System.Windows.Shapes;
 namespace JustR.Desktop.View
 {
     /// <summary>
-    /// Interaction logic for ProfileWindow.xaml
+    /// Interaction logic for FriendsWindow.xaml
     /// </summary>
-    public partial class ProfileWindow : Window
+    public partial class FriendsWindow : Window
     {
-        public ProfileWindow()
+        public FriendsWindow()
         {
             InitializeComponent();
         }

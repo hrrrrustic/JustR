@@ -1,0 +1,19 @@
+﻿<Page x:Class="JustR.Desktop.View.ProfilePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:JustR.Desktop.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ProfilePage">
+
+    <Grid>
+        <StackPanel>
+            <Image Source="C:\Users\hrrrrustic\OneDrive\Desktop\Кисик.jpg" Width="125" Height="125"></Image>
+            <Button Width="125">Change Photo</Button>
+            <TextBlock HorizontalAlignment="Center">User Name</TextBlock>
+            <TextBlock HorizontalAlignment="Center">User Tag</TextBlock>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -18,36 +18,19 @@ namespace JustR.Desktop.ViewModel
 
         public MainWindowViewModel()
         {
+            PageNavigator.Register(this);
         }
 
-        private readonly AuthenticationModel _authenticationModel = new AuthenticationModel();
-        public ICommand LoginCommand => new ActionCommand(Authenticate);
+        private Page _currentDialog = new DialogEmptyPage();
 
-        public void Authenticate()
+        public Page CurrentDialog
         {
-            if (_authenticationModel.Login == _authenticationModel.Password)
+            get => _currentDialog;
+            set
             {
-                MessageBox.Show("Yes");
-                var start = new StartWindow();
-                ((Window)start.Parent).Close();
-                start.Show();
-                return;
+                _currentDialog = value;
+                OnPropertyChanged();
             }
-
-            MessageBox.Show("Nope");
-
         }
-        public String Login
-        {
-            get => _authenticationModel.Login;
-            set => _authenticationModel.Login = value;
-        }
-
-        public String Password
-        {
-            get => _authenticationModel.Password;
-            set => _authenticationModel.Password = value;
-        }
-
     }
 }

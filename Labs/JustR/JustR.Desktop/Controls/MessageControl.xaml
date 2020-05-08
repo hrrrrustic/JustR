@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="JustR.Desktop.Controls.DialogPreviewControl"
+﻿<UserControl x:Class="JustR.Desktop.Controls.MessageControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,13 +7,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel Orientation="Horizontal" MouseDown="Control_OnMouseDown">
-            <Image Source="C:\Users\hrrrrustic\OneDrive\Desktop\Кисик.jpg" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top"></Image>
+        <StackPanel Orientation="Horizontal">
+            <Image Source="C:\Users\hrrrrustic\OneDrive\Desktop\Кисик.jpg" Width="75" Height="75" VerticalAlignment="Top" HorizontalAlignment="Left"></Image>
             <StackPanel>
-                <TextBlock>Dialog Name</TextBlock>
-                <TextBlock>Message Value</TextBlock>
+                <TextBlock>User Name</TextBlock>
+                <TextBlock>Message Text</TextBlock>
             </StackPanel>
-            <TextBlock>Message Time</TextBlock>
+            <TextBlock>Send date</TextBlock>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using JustR.Desktop.View;
 
 namespace JustR.Desktop.Controls
 {
@@ -21,6 +22,11 @@ namespace JustR.Desktop.Controls
         public DialogPreviewControl()
         {
             InitializeComponent();
+        }
+
+        private void Control_OnMouseDown(Object sender, MouseButtonEventArgs e)
+        {
+            new DialogWindow().Show();
         }
     }
 }

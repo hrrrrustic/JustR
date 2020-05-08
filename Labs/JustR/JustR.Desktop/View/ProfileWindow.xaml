@@ -7,11 +7,6 @@
         mc:Ignorable="d"
         Title="ProfileWindow" Height="450" Width="800">
     <Grid>
-        <StackPanel>
-            <Image Source="C:\Users\hrrrrustic\OneDrive\Desktop\Кисик.jpg" Width="125" Height="125"></Image>
-            <Button Width="125">Change Photo</Button>
-            <TextBlock HorizontalAlignment="Center">User Name</TextBlock>
-            <TextBlock HorizontalAlignment="Center">User Tag</TextBlock>
-        </StackPanel>
+        
     </Grid>
 </Window>
