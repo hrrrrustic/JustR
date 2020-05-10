@@ -6,13 +6,25 @@
       xmlns:local="clr-namespace:JustR.Desktop.View"
       xmlns:controls="clr-namespace:JustR.Desktop.Controls"
       xmlns:viewModels="clr-namespace:JustR.Desktop.ViewModel"
+      xmlns:desktop="clr-namespace:JustR.Desktop"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="UserDialogsPage">
     <Page.DataContext>
         <viewModels:UserDialogsViewModel></viewModels:UserDialogsViewModel>
     </Page.DataContext>
+    <Page.Resources>
+        <desktop:TestConverter x:Key="Converter"></desktop:TestConverter>
+    </Page.Resources>
+
     <Grid>
-        
+        <ListBox ItemsSource="{Binding DialogsPreview}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <ContentPresenter Content="{Binding Converter={StaticResource Converter}}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Frame Source="{Binding CurrentDialog}"></Frame>
     </Grid>
 </Page>

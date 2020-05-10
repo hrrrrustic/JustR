@@ -21,14 +21,14 @@ namespace JustR.Desktop.ViewModel
             PageNavigator.Register(this);
         }
 
-        private Page _currentDialog = new DialogEmptyPage();
+        private Page _currentPage = new UserDialogsPage();
 
-        public Page CurrentDialog
+        public Page CurrentPage
         {
-            get => _currentDialog;
+            get => _currentPage;
             set
             {
-                _currentDialog = value;
+                _currentPage = value;
                 OnPropertyChanged();
             }
         }

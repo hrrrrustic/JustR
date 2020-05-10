@@ -2,13 +2,15 @@
 using System.Windows;
 using System.Windows.Input;
 using JustR.Desktop.Commands;
+using JustR.Desktop.Controls;
 using JustR.Desktop.Model;
 using JustR.Desktop.View;
+using JustR.Models.Entity;
 
 namespace JustR.Desktop.ViewModel
 {
-    public class StartWindowViewModel
-    {
+    public class StartWindowViewModel : BaseViewModel
+    { 
         private readonly AuthenticationModel _authenticationModel = new AuthenticationModel();
 
         public ICommand LoginCommand => new ActionCommand(Authenticate);

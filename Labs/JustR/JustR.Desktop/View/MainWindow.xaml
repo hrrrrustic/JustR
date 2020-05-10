@@ -15,15 +15,7 @@
     <Grid>
         <StackPanel Orientation="Horizontal">
             <controls:MenuControl></controls:MenuControl>
-            <ListBox>
-                <controls:DialogPreviewControl></controls:DialogPreviewControl>
-                <controls:DialogPreviewControl></controls:DialogPreviewControl>
-                <controls:DialogPreviewControl></controls:DialogPreviewControl>
-                <controls:DialogPreviewControl></controls:DialogPreviewControl>
-                <controls:DialogPreviewControl></controls:DialogPreviewControl>
-                <controls:DialogPreviewControl></controls:DialogPreviewControl>
-            </ListBox>
-            <Frame Content="{Binding CurrentDialog}">
+            <Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden">
             </Frame>
         </StackPanel>
     </Grid>

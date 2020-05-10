@@ -13,7 +13,7 @@ namespace JustR.Desktop
 
         public static void NavigateTo(Page page)
         {
-            _mainViewModel.CurrentDialog = page;
+            _mainViewModel.CurrentPage = page;
         }
     }
 }

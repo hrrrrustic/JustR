@@ -7,10 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel Orientation="Horizontal" MouseDown="Control_OnMouseDown">
+        <StackPanel Orientation="Horizontal" MouseLeftButtonDown="Control_OnMouseDown">
             <Image Source="C:\Users\hrrrrustic\OneDrive\Desktop\Кисик.jpg" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top"></Image>
             <StackPanel>
-                <TextBlock>Dialog Name</TextBlock>
+                <TextBlock Name="DialogName" >Dialog Name</TextBlock>
                 <TextBlock>Message Value</TextBlock>
             </StackPanel>
             <TextBlock>Message Time</TextBlock>

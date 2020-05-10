@@ -14,6 +14,7 @@
         <StackPanel>
             <Button Command="{Binding ProfileCommand}">Профиль</Button>
             <Button Command="{Binding FriendCommand}">Друзья</Button>
+            <Button Command="{Binding MessageCommand}">Сообщения</Button>
             <Button Command="{Binding SearchCommand}">Поиск</Button>
             <Button Command="{Binding SettingCommand}">Настройки</Button>
         </StackPanel>

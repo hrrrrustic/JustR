@@ -8,16 +8,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace JustR.Desktop.View
 {
     /// <summary>
-    /// Interaction logic for FriendsWindow.xaml
+    /// Interaction logic for SearchPage.xaml
     /// </summary>
-    public partial class FriendsWindow : Window
+    public partial class SearchPage : Page
     {
-        public FriendsWindow()
+        public SearchPage()
         {
             InitializeComponent();
         }
