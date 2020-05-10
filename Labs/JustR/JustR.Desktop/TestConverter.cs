@@ -15,7 +15,7 @@ namespace JustR.Desktop
         {
             DialogPreviewDto dto = (DialogPreviewDto) value;
             var control = new DialogPreviewControl();
-            control.DialogName.Text = dto.DialogName;
+            control.DialogName.Text = dto!.DialogName;
 
             return control;
         }

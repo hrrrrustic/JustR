@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using JustR.Desktop.ViewModel;
 
 namespace JustR.Desktop.View
 {
@@ -21,6 +22,11 @@ namespace JustR.Desktop.View
         public UserDialogsPage()
         {
             InitializeComponent();
+        }
+        private void Selector_OnSelected(Object sender, RoutedEventArgs e)
+        {
+            var t = (UserDialogsViewModel)DataContext;
+            t.CurrentDialog = new DialogPage();
         }
     }
 }

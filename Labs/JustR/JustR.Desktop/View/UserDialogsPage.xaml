@@ -18,13 +18,20 @@
     </Page.Resources>
 
     <Grid>
-        <ListBox ItemsSource="{Binding DialogsPreview}">
+        <ListBox ItemsSource="{Binding DialogsPreview}" HorizontalAlignment="Left">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <ContentPresenter Content="{Binding Converter={StaticResource Converter}}"/>
+                    <ContentPresenter>
+                        <ContentPresenter.Content>
+                            <Binding Converter="{StaticResource Converter}" />
+                        </ContentPresenter.Content>
+                        <ContentPresenter.InputBindings>
+                            <MouseBinding MouseAction="LeftClick" Command="{Binding DataContext.Test, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"></MouseBinding>
+                        </ContentPresenter.InputBindings>
+                    </ContentPresenter>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Frame Source="{Binding CurrentDialog}"></Frame>
+        <Frame Content="{Binding CurrentDialog}" Margin="270,0,0,0"></Frame>
     </Grid>
 </Page>

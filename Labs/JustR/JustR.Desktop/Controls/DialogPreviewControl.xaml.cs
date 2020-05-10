@@ -23,10 +23,5 @@ namespace JustR.Desktop.Controls
         {
             InitializeComponent();
         }
-
-        private void Control_OnMouseDown(Object sender, MouseButtonEventArgs e)
-        {
-            new DialogWindow().Show();
-        }
     }
 }
