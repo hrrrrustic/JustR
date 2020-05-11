@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using System.Windows.Controls;
 using System.Windows.Data;
 using JustR.Desktop.Controls;
 using JustR.Models.Dto;
@@ -16,7 +17,8 @@ namespace JustR.Desktop
             DialogPreviewDto dto = (DialogPreviewDto) value;
             var control = new DialogPreviewControl();
             control.DialogName.Text = dto!.DialogName;
-
+            control.MessageText.Text = dto.LastMessageText;
+            control.MessageTime.Text = dto.LastMessageTime.ToString("t");
             return control;
         }
 

@@ -17,15 +17,21 @@ namespace JustR.Desktop.ViewModel
         {
             new DialogPreviewDto
             {
-                DialogName = "Dialog 1"
+                DialogName = "Dialog 1",
+                LastMessageText = "Message 1",
+                LastMessageTime = new DateTime(2020, 1, 14, 3, 14, 4)
             },
             new DialogPreviewDto
             {
-                DialogName = "Dialog 2"
+                DialogName = "Dialog 2",
+                LastMessageText = "Message 1",
+                LastMessageTime = new DateTime(2020, 2, 15, 4, 15, 5)
             },
             new DialogPreviewDto
             {
-                DialogName = "Dialog 3"
+                DialogName = "Dialog 3",
+                LastMessageText = "Message 1",
+                LastMessageTime = new DateTime(2020, 3, 16, 5, 16, 6)
             },
         };
 

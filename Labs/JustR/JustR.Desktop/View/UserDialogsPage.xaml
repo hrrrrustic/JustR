@@ -18,7 +18,12 @@
     </Page.Resources>
 
     <Grid>
-        <ListBox ItemsSource="{Binding DialogsPreview}" HorizontalAlignment="Left">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" MinWidth="375"></ColumnDefinition>
+            <ColumnDefinition Width="7*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <ListBox ItemsSource="{Binding DialogsPreview}" Grid.Column="0" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <ContentPresenter>
@@ -32,6 +37,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Frame Content="{Binding CurrentDialog}" Margin="270,0,0,0"></Frame>
+        <Frame Content="{Binding CurrentDialog}" Grid.Column="1"></Frame>
     </Grid>
 </Page>

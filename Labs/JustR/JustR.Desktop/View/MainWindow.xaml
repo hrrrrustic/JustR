@@ -13,10 +13,12 @@
     </Window.DataContext>
 
     <Grid>
-        <StackPanel Orientation="Horizontal">
-            <controls:MenuControl></controls:MenuControl>
-            <Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden">
-            </Frame>
-        </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" MaxWidth="200" MinWidth="100"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <controls:MenuControl Grid.Column="0"></controls:MenuControl>
+        <Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden" Grid.Column="1">
+        </Frame>
     </Grid>
 </Window>

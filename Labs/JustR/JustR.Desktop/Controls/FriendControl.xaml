@@ -5,17 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JustR.Desktop.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="100"  d:DesignWidth="800">
     <Grid>
-        <StackPanel Orientation="Horizontal">
-            <Image Source="C:\Users\hrrrrustic\OneDrive\Desktop\Кисик.jpg" Width="100" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left"></Image> 
-            <StackPanel>
-                <TextBlock>Friend Name</TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <Button>Написать</Button>
-                    <Button>Удалить</Button>
-                </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+            <ColumnDefinition Width="10*" MinWidth="100"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="0" Source="C:\Users\hrrrrustic\OneDrive\Desktop\Кисик.jpg" Width="100" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left"></Image>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="4*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Margin="10,5,0,0" Style="{StaticResource MaterialDesignHeadline6TextBlock}">Friend Name</TextBlock>
+            <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                <Button MaxWidth="200">Написать</Button>
+                <Button MaxWidth="200">Удалить</Button>
             </StackPanel>
-        </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>
