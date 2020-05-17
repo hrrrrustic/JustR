@@ -5,10 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:JustR.Desktop.View"
       xmlns:controls="clr-namespace:JustR.Desktop.Controls"
+      xmlns:viewModels="clr-namespace:JustR.Desktop.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DialogPage">
-
+    <Page.DataContext>
+        <viewModels:DialogViewModel></viewModels:DialogViewModel>
+    </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
@@ -17,14 +20,12 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0">Dialog Name</TextBlock>
-        <ListView Grid.Row="1" HorizontalContentAlignment="Stretch">
-            <controls:MessageControl></controls:MessageControl>
-            <controls:MessageControl></controls:MessageControl>
-            <controls:MessageControl></controls:MessageControl>
-            <controls:MessageControl></controls:MessageControl>
-            <controls:MessageControl></controls:MessageControl>
-            <controls:MessageControl></controls:MessageControl>
-
+        <ListView Grid.Row="1" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Messages}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <controls:MessageControl Message="{Binding}"></controls:MessageControl>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
         <Grid Grid.Row="2">
@@ -34,7 +35,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBox Grid.Column="0">Your Message</TextBox>
-            <Button Grid.Column="1">Send</Button>
+            <Button Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">Send</Button>
         </Grid>
     </Grid>
 </Page>

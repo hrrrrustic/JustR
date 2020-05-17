@@ -10,6 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using JustR.Desktop.Commands;
+using JustR.Desktop.View;
+using JustR.Models.Dto;
 
 namespace JustR.Desktop.Controls
 {
@@ -21,6 +24,23 @@ namespace JustR.Desktop.Controls
         public FriendControl()
         {
             InitializeComponent();
+        }
+
+        public static DependencyProperty FriendNameProperty = DependencyProperty.Register("FriendName", typeof(String),
+            typeof(FriendControl), new PropertyMetadata(null));
+        public String FriendName
+        {
+            get => (String)GetValue(FriendNameProperty);
+            set => SetValue(FriendNameProperty, value);
+        }
+
+        public static DependencyProperty OpenDialogProperty = DependencyProperty.Register("OpenDialog", typeof(ICommand),
+            typeof(FriendControl), new PropertyMetadata(null));
+
+        public ICommand OpenDialog
+        {
+            get => (ICommand)GetValue(OpenDialogProperty);
+            set => SetValue(OpenDialogProperty, value);
         }
     }
 }

@@ -13,27 +13,20 @@
     <Page.DataContext>
         <viewModels:UserDialogsViewModel></viewModels:UserDialogsViewModel>
     </Page.DataContext>
-    <Page.Resources>
-        <desktop:TestConverter x:Key="Converter"></desktop:TestConverter>
-    </Page.Resources>
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" MinWidth="375"></ColumnDefinition>
             <ColumnDefinition Width="7*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-
+        <Border Grid.Column="0" BorderBrush="Black" BorderThickness="0,0,1,0"></Border>
         <ListBox ItemsSource="{Binding DialogsPreview}" Grid.Column="0" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <ContentPresenter>
-                        <ContentPresenter.Content>
-                            <Binding Converter="{StaticResource Converter}" />
-                        </ContentPresenter.Content>
-                        <ContentPresenter.InputBindings>
-                            <MouseBinding MouseAction="LeftClick" Command="{Binding DataContext.Test, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"></MouseBinding>
-                        </ContentPresenter.InputBindings>
-                    </ContentPresenter>
+                    <controls:DialogPreviewControl DialogPreview="{Binding}">
+                        <controls:DialogPreviewControl.InputBindings>
+                            <MouseBinding MouseAction="LeftClick" Command="{Binding DataContext.Test, RelativeSource={RelativeSource AncestorType={x:Type local:UserDialogsPage}}}"></MouseBinding>
+                        </controls:DialogPreviewControl.InputBindings>
+                    </controls:DialogPreviewControl>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

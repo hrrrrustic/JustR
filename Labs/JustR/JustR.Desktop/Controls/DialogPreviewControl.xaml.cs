@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using JustR.Desktop.View;
+using JustR.Models.Dto;
 
 namespace JustR.Desktop.Controls
 {
@@ -22,6 +23,15 @@ namespace JustR.Desktop.Controls
         public DialogPreviewControl()
         {
             InitializeComponent();
+        }
+
+        public static DependencyProperty DialogPreviewProperty = DependencyProperty.Register("DialogPreview",
+            typeof(DialogPreviewDto),
+            typeof(DialogPreviewControl), new PropertyMetadata(null));
+        public DialogPreviewDto DialogPreview
+        {
+            get => (DialogPreviewDto)GetValue(DialogPreviewProperty);
+            set => SetValue(DialogPreviewProperty, value);
         }
     }
 }

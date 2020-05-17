@@ -23,10 +23,5 @@ namespace JustR.Desktop.View
         {
             InitializeComponent();
         }
-        private void Selector_OnSelected(Object sender, RoutedEventArgs e)
-        {
-            var t = (UserDialogsViewModel)DataContext;
-            t.CurrentDialog = new DialogPage();
-        }
     }
 }
