@@ -9,6 +9,7 @@ using System.Windows.Navigation;
 using JustR.Desktop.Annotations;
 using JustR.Desktop.Commands;
 using JustR.Desktop.Model;
+using JustR.Desktop.Services.Implementations;
 using JustR.Desktop.View;
 
 namespace JustR.Desktop.ViewModel

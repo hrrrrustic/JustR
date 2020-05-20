@@ -13,20 +13,21 @@ namespace JustR.Desktop.ViewModel
     { 
         private readonly AuthenticationModel _authenticationModel = new AuthenticationModel();
 
-        public ICommand LoginCommand => new ActionCommand(Authenticate);
+        public ICommand LoginCommand => new ActionCommand(arg => Authenticate());
         public void Authenticate()
         {
             if (_authenticationModel.Login == _authenticationModel.Password)
             {
-                MessageBox.Show("Yes");
-                var start = new MainWindow();
+                var start = new View.MainWindow();
                 start.Show();
+                Application.Current?.MainWindow?.Close();
                 return;
             }
 
             MessageBox.Show("Nope");
 
         }
+
         public String Login
         {
             get => _authenticationModel.Login;

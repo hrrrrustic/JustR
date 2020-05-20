@@ -5,6 +5,10 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using JustR.Desktop.Services.Abstractions;
+using JustR.Desktop.Services.Implementations;
+using JustR.Desktop.View;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace JustR.Desktop
 {
@@ -13,5 +17,8 @@ namespace JustR.Desktop
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+        }
     }
 }

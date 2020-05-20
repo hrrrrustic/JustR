@@ -13,10 +13,18 @@
         <viewModels:StartWindowViewModel/>
     </Window.DataContext>
 
-    <Grid>
-        <Button x:Name="button" Content="Войти" HorizontalAlignment="Center" Margin="0,164,0,0" VerticalAlignment="Top" Width="120" Command="{Binding LoginCommand}"/>
-        <Button x:Name="button1" Content="Зарегистрироваться" HorizontalAlignment="Center" Margin="0,344,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="textBox"  HorizontalAlignment="Center" Margin="0,64,0,0" Text="{Binding Login}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Center" Margin="0,109,0,0" Text="{Binding Password}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+    <Grid Background="Bisque">
+        <Border Background="{StaticResource PrimaryHueLightBrush}" CornerRadius="20" Width="300" Height="400">
+            <Grid>
+                <StackPanel Margin="5, 40, 5, 0">
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center">Логин:</TextBlock>
+                    <TextBox Text="{Binding Login}"></TextBox>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center">Пароль:</TextBlock>
+                    <TextBox Text="{Binding Password}"></TextBox>
+                    <Button Command="{Binding LoginCommand}" Margin="0, 10, 0, 0">Войти</Button>
+                    <Button Visibility="Collapsed">Зарегистрироваться</Button>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

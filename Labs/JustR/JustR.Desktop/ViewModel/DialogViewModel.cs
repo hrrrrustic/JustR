@@ -1,12 +1,26 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
+using JustR.Desktop.Commands;
 using JustR.Models.Dto;
 
 namespace JustR.Desktop.ViewModel
 {
-    public class DialogViewModel
+    public class DialogViewModel : BaseViewModel
     {
-        public ObservableCollection<MessageDto> Messages { get; set; } = new ObservableCollection<MessageDto> 
+        public DialogViewModel()
+        {
+            SendMessage = new ActionCommand<String>(arg =>
+            {
+                Messages.Add(new MessageDto
+                {
+                    SendDate = DateTime.Now,
+                    MessageText = arg
+                });
+                TypedMessage = String.Empty;
+            });
+        }
+        public ObservableCollection<MessageDto> Messages { get; set; } = new ObservableCollection<MessageDto>
         {
             new MessageDto
             {
@@ -19,5 +33,18 @@ namespace JustR.Desktop.ViewModel
                 SendDate = DateTime.MaxValue
             }
         };
+
+        private String _typedMessage;
+        public String TypedMessage
+        {
+            get => _typedMessage;
+            set
+            {
+                _typedMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand SendMessage { get; set; }
     }
 }

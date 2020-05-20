@@ -9,5 +9,6 @@ namespace JustR.Models.Dto
         public String DialogName { get; set; }
         public DateTime LastMessageTime { get; set; }
         public String LastMessageText { get; set; }
+        public UserPreviewDto InterlocutorPreview { get; set; }
     }
 }

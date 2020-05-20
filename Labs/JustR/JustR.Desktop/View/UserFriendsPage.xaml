@@ -14,12 +14,12 @@
     </Page.DataContext>
 
     <Grid>
-        <ListView ItemsSource="{Binding Friends}">
-            <ListView.ItemTemplate>
+        <ItemsControl ItemsSource="{Binding Friends}" >
+            <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <controls:FriendControl FriendName="{Binding Name}" OpenDialog="{Binding DataContext.OpedDialogCommand, RelativeSource={RelativeSource AncestorType={x:Type local:UserFriendsPage}}}"></controls:FriendControl>
+                    <controls:FriendControl Friend="{Binding}" OpenDialog="{Binding DataContext.OpedDialogCommand, RelativeSource={RelativeSource AncestorType=local:UserFriendsPage}}" DeleteFriend="{Binding DataContext.DeleteFriendCommand, RelativeSource={RelativeSource AncestorType=local:UserFriendsPage}}"></controls:FriendControl>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Page>

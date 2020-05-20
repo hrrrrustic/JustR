@@ -38,10 +38,10 @@ namespace JustR.Desktop.Annotations
   /// so checking for <c>null</c> is required before its usage.
   /// </summary>
   /// <example><code>
-  /// [CanBeNull] object Test() => null;
+  /// [CanBeNull] object LoginCommand() => null;
   /// 
   /// void UseTest() {
-  ///   var p = Test();
+  ///   var p = LoginCommand();
   ///   var s = p.ToString(); // Warning: Possible 'System.NullReferenceException'
   /// }
   /// </code></example>
@@ -152,7 +152,7 @@ namespace JustR.Desktop.Annotations
   ///     [ValueProvider("TestNamespace.Constants")] public int myField;
   ///     public void Foo([ValueProvider("TestNamespace.Constants")] string str) { }
   ///
-  ///     public void Test()
+  ///     public void LoginCommand()
   ///     {
   ///       Foo(/*try completion here*/);//
   ///       myField = /*try completion here*/
@@ -331,7 +331,7 @@ namespace JustR.Desktop.Annotations
   /// class NoEquality { }
   /// 
   /// class UsesNoEquality {
-  ///   void Test() {
+  ///   void LoginCommand() {
   ///     var ca1 = new NoEquality();
   ///     var ca2 = new NoEquality();
   ///     if (ca1 != null) { // OK
@@ -900,7 +900,7 @@ namespace JustR.Desktop.Annotations
   ///     return this.ElementAt(0);
   ///   }
   /// }
-  /// class Test
+  /// class LoginCommand
   /// {
   ///   public void Foo()
   ///   {

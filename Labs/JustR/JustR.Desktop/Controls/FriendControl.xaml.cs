@@ -26,12 +26,12 @@ namespace JustR.Desktop.Controls
             InitializeComponent();
         }
 
-        public static DependencyProperty FriendNameProperty = DependencyProperty.Register("FriendName", typeof(String),
+        public static DependencyProperty FriendProperty = DependencyProperty.Register("Friend", typeof(FriendDto),
             typeof(FriendControl), new PropertyMetadata(null));
-        public String FriendName
+        public FriendDto Friend
         {
-            get => (String)GetValue(FriendNameProperty);
-            set => SetValue(FriendNameProperty, value);
+            get => (FriendDto)GetValue(FriendProperty);
+            set => SetValue(FriendProperty, value);
         }
 
         public static DependencyProperty OpenDialogProperty = DependencyProperty.Register("OpenDialog", typeof(ICommand),
@@ -41,6 +41,15 @@ namespace JustR.Desktop.Controls
         {
             get => (ICommand)GetValue(OpenDialogProperty);
             set => SetValue(OpenDialogProperty, value);
+        }
+
+        public static DependencyProperty DeleteFriendProperty = DependencyProperty.Register("DeleteFriend", typeof(ICommand),
+            typeof(FriendControl), new PropertyMetadata(null));
+
+        public ICommand DeleteFriend
+        {
+            get => (ICommand)GetValue(DeleteFriendProperty);
+            set => SetValue(DeleteFriendProperty, value);
         }
     }
 }
