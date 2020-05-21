@@ -47,10 +47,10 @@ namespace JustR.Desktop.ViewModel
                     }, TaskScheduler.FromCurrentSynchronizationContext());
             });
         }
-        public ObservableCollection<FriendDto> Friends { get; set; } = new ObservableCollection<FriendDto>();
+        public ObservableCollection<FriendDto> Friends { get; } = new ObservableCollection<FriendDto>();
 
         public ICommand GetFriendsCommand { get; }
-        public ICommand OpedDialogCommand { get; set; } = new ActionCommand<Guid>(arg =>
+        public ICommand OpedDialogCommand { get; } = new ActionCommand<Guid>(arg =>
         {
             var page = new UserDialogsPage();
             page
@@ -59,6 +59,6 @@ namespace JustR.Desktop.ViewModel
                 .Execute(arg);
             PageNavigator.NavigateTo(page);
         });
-        public ICommand DeleteFriendCommand { get; set; } 
+        public ICommand DeleteFriendCommand { get; } 
     }
 }

@@ -39,8 +39,8 @@ namespace JustR.Desktop.ViewModel
             });
         }
 
-        public ICommand SendFriendRequest { get; set; }
-        public ICommand OpedDialogCommand { get; set; } = new ActionCommand<Guid>(arg =>
+        public ICommand SendFriendRequest { get; }
+        public ICommand OpedDialogCommand { get; } = new ActionCommand<Guid>(arg =>
         {
             var page = new UserDialogsPage();
             
@@ -52,6 +52,6 @@ namespace JustR.Desktop.ViewModel
         });
         public ICommand SearchCommand { get; set; }
 
-        public ObservableCollection<UserPreviewDto> Users { get; set; } = new ObservableCollection<UserPreviewDto>();
+        public ObservableCollection<UserPreviewDto> Users { get; } = new ObservableCollection<UserPreviewDto>();
     }
 }

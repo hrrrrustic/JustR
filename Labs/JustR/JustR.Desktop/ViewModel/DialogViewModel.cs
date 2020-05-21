@@ -15,7 +15,6 @@ namespace JustR.Desktop.ViewModel
     public class DialogViewModel : BaseViewModel
     {
 
-        private readonly IProfileService _profileService = new DummyProfileService();
 
         private readonly IDialogService _dialogService = new DummyDialogService();
 
@@ -87,7 +86,7 @@ namespace JustR.Desktop.ViewModel
         public ICommand GetDialogInfoCommand { get; }
 
 
-        public ObservableCollection<MessageDto> Messages { get; set; } = new ObservableCollection<MessageDto>();
+        public ObservableCollection<MessageDto> Messages { get; } = new ObservableCollection<MessageDto>();
 
         private String _typedMessage;
         private DialogInfoDto _currentDialog;
@@ -102,6 +101,6 @@ namespace JustR.Desktop.ViewModel
             }
         }
 
-        public ICommand SendMessage { get; set; }
+        public ICommand SendMessage { get; }
     }
 }
