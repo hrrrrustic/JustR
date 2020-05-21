@@ -9,5 +9,8 @@ namespace JustR.Desktop.Services.Abstractions
     {
         Task<List<DialogPreviewDto>> GetDialogsPreviewAsync(Guid userId);
         Task<DialogInfoDto> GetDialogInfoAsync(Guid dialogId);
+        Task<Guid> GetDialogIdAsync(Guid userId);
+        Task<Guid> CreateDialogAsync(DialogPreviewDto newDialog);
+        Task UpdateDialogLastMessageInfo(Guid dialogId, String message, DateTime time);
     }
 }

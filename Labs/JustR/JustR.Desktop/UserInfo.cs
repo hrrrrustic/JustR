@@ -9,7 +9,7 @@ namespace JustR.Desktop
     {
         public static SampleData.SampleData.Person CurrentUser => new User();
 
-        public class User : SampleData.SampleData.Person
+        private class User : SampleData.SampleData.Person
         {
             public User() : base("Kappa.png", "Vlad", "17FD3701-C416-4FE1-BB01-98A5AB9E178C", "@hrrrrustic",
                 "A5DA2549-DE49-4A97-A377-19A2DB36E0DC")

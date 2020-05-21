@@ -20,7 +20,7 @@
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,0,0,0" Style="{StaticResource MaterialDesignTextBlock}" Text="{Binding DialogPreview.DialogName, RelativeSource={RelativeSource AncestorType=local:DialogPreviewControl}}"></TextBlock>
-            <TextBlock Visibility="Collapsed"  Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="10, 0, 0, 5" Style="{StaticResource MaterialDesignBody2TextBlock}" Text="{Binding DialogPreview.LastMessageText, RelativeSource={RelativeSource AncestorType=local:DialogPreviewControl}}"></TextBlock>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="10, 0, 0, 5" Style="{StaticResource MaterialDesignBody2TextBlock}" Text="{Binding DialogPreview.LastMessageText, RelativeSource={RelativeSource AncestorType=local:DialogPreviewControl}}"></TextBlock>
         </Grid>
 
         <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0" Style="{StaticResource MaterialDesignBody2TextBlock}" Text="{Binding DialogPreview.LastMessageTime, RelativeSource={RelativeSource AncestorType=local:DialogPreviewControl}, StringFormat='{}{0:HH:mm}'}"></TextBlock>

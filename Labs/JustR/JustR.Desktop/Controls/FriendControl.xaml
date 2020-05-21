@@ -11,7 +11,7 @@
             <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
             <ColumnDefinition Width="10*" MinWidth="100"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Image Grid.Column="0" Source="C:\Users\hrrrrustic\OneDrive\Desktop\Кисик.jpg" Width="100" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left"></Image>
+        <Image Grid.Column="0" Source="{Binding Friend.Avatar, RelativeSource={RelativeSource AncestorType=local:FriendControl}}" Width="100" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left"></Image>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -19,7 +19,7 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Margin="10,5,0,0" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="{Binding Friend.Name, RelativeSource={RelativeSource AncestorType=local:FriendControl}}"></TextBlock>
             <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                <Button MaxWidth="200" Command="{Binding OpenDialog, RelativeSource={RelativeSource AncestorType=local:FriendControl}}">Написать</Button>
+                <Button MaxWidth="200" Command="{Binding OpenDialog, RelativeSource={RelativeSource AncestorType=local:FriendControl}}" CommandParameter="{Binding Friend.UserId, RelativeSource={RelativeSource AncestorType=local:FriendControl}}">Написать</Button>
                 <Button MaxWidth="200" Command="{Binding DeleteFriend, RelativeSource={RelativeSource AncestorType=local:FriendControl}}" CommandParameter="{Binding Friend.UserId, RelativeSource={RelativeSource AncestorType=local:FriendControl}}">Удалить</Button>
             </StackPanel>
         </Grid>

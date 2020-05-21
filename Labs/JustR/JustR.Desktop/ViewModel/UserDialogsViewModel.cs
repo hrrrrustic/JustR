@@ -18,10 +18,11 @@ namespace JustR.Desktop.ViewModel
 {
     public class UserDialogsViewModel : BaseViewModel
     {
-        private readonly IDialogService _dialogService;
+        private readonly IDialogService _dialogService = new DummyDialogService();
+
+        private readonly IProfileService _profileService = new DummyProfileService();
         public UserDialogsViewModel()
         {
-            _dialogService = new DummyDialogService();
             GetDialogsCommand = new ActionCommand<Guid>(async arg =>
             {
                 await _dialogService
@@ -38,13 +39,34 @@ namespace JustR.Desktop.ViewModel
 
         public ObservableCollection<DialogPreviewDto> DialogsPreview { get; } = new ObservableCollection<DialogPreviewDto>();
 
-        public ICommand OpenDialog => new ActionCommand<Guid>(arg =>
+        public ICommand OpenDialogByDialogId => new ActionCommand<Guid>(arg =>
         {
             Page page = new DialogPage();
             DialogViewModel viewModel = page.GetViewModel<DialogViewModel>();
-            viewModel.CurrentDialogId = arg;
+            viewModel.CurrentDialog = new DialogInfoDto();
             viewModel.GetMessages.Execute(arg);
             viewModel.GetDialogInfoCommand.Execute(arg);
+            CurrentDialog = page;
+        });
+        public ICommand OpenDialogByInterlocutorId => new ActionCommand<Guid>(async arg =>
+        {
+            Page page = new DialogPage();
+            DialogViewModel viewModel = page.GetViewModel<DialogViewModel>();
+            viewModel.CurrentDialog = new DialogInfoDto();
+            Guid dialogId = await _dialogService.GetDialogIdAsync(arg);
+
+            if (dialogId == Guid.Empty)
+            {
+                viewModel.Test(await _profileService.GetProfilePreviewAsync(arg));
+            }
+            else
+            {
+                viewModel.GetMessages.Execute(dialogId);
+                viewModel.GetDialogInfoCommand.Execute(dialogId);
+                viewModel.CurrentDialog.DialogId = dialogId;
+            }
+
+            viewModel.CurrentDialog.DialogId = dialogId;
             CurrentDialog = page;
         });
 

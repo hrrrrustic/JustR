@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows.Input;
 using Accessibility;
 using JustR.Desktop.Commands;
@@ -22,9 +24,20 @@ namespace JustR.Desktop.ViewModel
         {
             SendMessage = new ActionCommand<String>(async arg =>
             {
-                var message = new MessageDto
+
+                if (CurrentDialog.DialogId == Guid.Empty)
                 {
-                    DialogId = CurrentDialogId,
+                    CurrentDialog.DialogId = await _dialogService.CreateDialogAsync(new DialogPreviewDto
+                    {
+                        DialogName = CurrentDialog.Interlocutor.UserName,
+                        InterlocutorPreview = CurrentDialog.Interlocutor,
+                        LastMessageTime = DateTime.MinValue
+                    });
+                }
+
+                MessageDto message = new MessageDto
+                {
+                    DialogId = CurrentDialog.DialogId,
                     SendDate = DateTime.Now,
                     MessageText = arg,
                     Sender = UserInfo.CurrentUser.ToUserPreviewDto()
@@ -36,32 +49,49 @@ namespace JustR.Desktop.ViewModel
 
                 TypedMessage = String.Empty;
             });
+            
 
             GetMessages = new ActionCommand<Guid>(async arg =>
             {
                 var messages = await _messageService.GetMessagesAsync(arg);
-                CurrentDialogId = messages.DialogId;
+                CurrentDialog.DialogId = messages.DialogId;
                 foreach (var message in messages.Messages)
                 {
                     Messages.Add(message);
                 }
             });
 
-            GetDialogInfoCommand = new ActionCommand<Guid>(async arg =>
+            GetDialogInfoCommand = new ActionCommand<Guid>(async arg => 
             {
-                var dialogInfo = await _dialogService.GetDialogInfoAsync(arg);
-                Interlocutor = dialogInfo.Interlocutor;
+                CurrentDialog = await _dialogService.GetDialogInfoAsync(arg);
             });
         }
 
-        public Guid CurrentDialogId { get; set; }
+        public void Test(UserPreviewDto dto)
+        {
+            _currentDialog.Interlocutor = dto;
+            OnPropertyChanged(nameof(CurrentDialog));
+        }
+        public DialogInfoDto CurrentDialog
+        {
+            get => _currentDialog;
+            set
+            {
+                _currentDialog = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand GetMessages { get; }
+
         public ICommand GetDialogInfoCommand { get; }
-        public UserPreviewDto Interlocutor { get; set; }
+
 
         public ObservableCollection<MessageDto> Messages { get; set; } = new ObservableCollection<MessageDto>();
 
         private String _typedMessage;
+        private DialogInfoDto _currentDialog;
+
         public String TypedMessage
         {
             get => _typedMessage;

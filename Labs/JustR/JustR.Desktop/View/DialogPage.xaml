@@ -19,7 +19,7 @@
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0">Dialog Name</TextBlock>
+        <TextBlock Grid.Row="0" Text="{Binding CurrentDialog.Interlocutor.UserName}" HorizontalAlignment="Center"></TextBlock>
         <ListView Grid.Row="1" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Messages}">
             <ListView.ItemTemplate>
                 <DataTemplate>

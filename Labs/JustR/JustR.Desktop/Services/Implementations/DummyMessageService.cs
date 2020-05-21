@@ -9,6 +9,7 @@ namespace JustR.Desktop.Services.Implementations
 {
     public class DummyMessageService : IMessageService
     {
+        private readonly IDialogService _dialogService = new DummyDialogService();
         private static readonly List<DialogMessagesDto> Messages = new List<DialogMessagesDto>
         {
             new DialogMessagesDto
@@ -26,18 +27,12 @@ namespace JustR.Desktop.Services.Implementations
                     {
                         MessageText = "s4xack",
                         SendDate = DateTime.MinValue,
-                        Sender = new UserPreviewDto
-                        {
-                            Avatar = SampleData.SampleData.Sergey.Avatar,
-                            UniqueTag = SampleData.SampleData.Sergey.UniqueTag,
-                            UserName = SampleData.SampleData.Sergey.Name,
-                            UserId = SampleData.SampleData.Sergey.UserId
-                        }
+                        Sender = SampleData.SampleData.Sergey.ToUserPreviewDto()
                     }
                 }
             },
             new DialogMessagesDto
-            {
+            {   
                 DialogId = SampleData.SampleData.Katya.DialogId,
                 Messages = new List<MessageDto>
                 {
@@ -51,13 +46,7 @@ namespace JustR.Desktop.Services.Implementations
                     {
                         MessageText = "я пират",
                         SendDate = DateTime.MinValue,
-                        Sender = new UserPreviewDto
-                        {
-                            Avatar = SampleData.SampleData.Katya.Avatar,
-                            UniqueTag = SampleData.SampleData.Katya.UniqueTag,
-                            UserName = SampleData.SampleData.Katya.Name,
-                            UserId = SampleData.SampleData.Katya.UserId
-                        }
+                        Sender = SampleData.SampleData.Katya.ToUserPreviewDto()
                     }
                 }
             },
@@ -76,13 +65,7 @@ namespace JustR.Desktop.Services.Implementations
                     {
                         MessageText = "академия уже началась?",
                         SendDate = DateTime.MinValue,
-                        Sender = new UserPreviewDto
-                        {
-                            Avatar = SampleData.SampleData.Maksim.Avatar,
-                            UniqueTag = SampleData.SampleData.Maksim.UniqueTag,
-                            UserName = SampleData.SampleData.Maksim.Name,
-                            UserId = SampleData.SampleData.Maksim.UserId
-                        }
+                        Sender = SampleData.SampleData.Maksim.ToUserPreviewDto()
                     }
                 }
             },
@@ -101,13 +84,7 @@ namespace JustR.Desktop.Services.Implementations
                     {
                         MessageText = "Ага, держи в курсе",
                         SendDate = DateTime.MinValue,
-                        Sender = new UserPreviewDto
-                        {
-                            Avatar = SampleData.SampleData.Zeleniy.Avatar,
-                            UniqueTag = SampleData.SampleData.Zeleniy.UniqueTag,
-                            UserName = SampleData.SampleData.Zeleniy.Name,
-                            UserId = SampleData.SampleData.Zeleniy.UserId
-                        }
+                        Sender = SampleData.SampleData.Zeleniy.ToUserPreviewDto()
                     }
                 }
             }
@@ -119,10 +96,21 @@ namespace JustR.Desktop.Services.Implementations
 
         public async Task SendMessage(MessageDto message)
         {
-            Messages
-                .Single(k => k.DialogId == message.DialogId)
-                .Messages
-                .Add(message);
+            var dialog = Messages.SingleOrDefault(k => k.DialogId == message.DialogId);
+
+            if(dialog is null)
+            {
+                dialog = new DialogMessagesDto
+                {
+                    DialogId = message.DialogId,
+                    Messages = new List<MessageDto>()
+                };
+
+                Messages.Add(dialog);
+            }
+
+            dialog.Messages.Add(message);
+            await _dialogService.UpdateDialogLastMessageInfo(dialog.DialogId, message.MessageText, message.SendDate);
 
             return;
         }

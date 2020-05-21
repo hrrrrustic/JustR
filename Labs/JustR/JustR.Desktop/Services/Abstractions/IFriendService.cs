@@ -10,5 +10,6 @@ namespace JustR.Desktop.Services.Abstractions
     {
         Task<List<FriendDto>> GetFriendsAsync(Guid userId);
         Task DeleteFriend(Guid friendId);
+        Task CreateFriendRequestAsync(Guid secondUserId);
     }
 }

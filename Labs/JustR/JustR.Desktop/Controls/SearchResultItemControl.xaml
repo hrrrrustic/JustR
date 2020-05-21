@@ -21,6 +21,13 @@
             <TextBlock Grid.Row="0" HorizontalAlignment="Stretch" Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignTextBlock}" Text="{Binding UserPreview.UserName, RelativeSource={RelativeSource AncestorType=local:SearchResultItemControl}}"></TextBlock>
             <TextBlock Grid.Row="1" HorizontalAlignment="Stretch" Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignBody2TextBlock}" Text="{Binding UserPreview.UniqueTag, RelativeSource={RelativeSource AncestorType=local:SearchResultItemControl}}"></TextBlock>
         </Grid>
-        <Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">Добавить</Button>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Command="{Binding OpenDialog, RelativeSource={RelativeSource AncestorType=local:SearchResultItemControl}}" CommandParameter="{Binding UserPreview.UserId, RelativeSource={RelativeSource AncestorType=local:SearchResultItemControl}}">Написать</Button>
+            <Button Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Command="{Binding SendFriendRequest, RelativeSource={RelativeSource AncestorType=local:SearchResultItemControl}}" CommandParameter="{Binding UserPreview.UserId, RelativeSource={RelativeSource AncestorType=local:SearchResultItemControl}}">Добавить</Button>
+        </Grid>
     </Grid>
 </UserControl>

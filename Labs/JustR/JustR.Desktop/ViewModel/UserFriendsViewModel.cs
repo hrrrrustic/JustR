@@ -16,11 +16,10 @@ namespace JustR.Desktop.ViewModel
 {
     public class UserFriendsViewModel : BaseViewModel
     {
-        private readonly IFriendService _friendService;
+        private readonly IFriendService _friendService = new DummyFriendService();
 
         public UserFriendsViewModel()
         {
-            _friendService = new DummyFriendService();
             DeleteFriendCommand = new ActionCommand<Guid>(async arg =>
             {
                 await _friendService
@@ -54,10 +53,10 @@ namespace JustR.Desktop.ViewModel
         public ICommand OpedDialogCommand { get; set; } = new ActionCommand<Guid>(arg =>
         {
             var page = new UserDialogsPage();
-            var viewModel = page
+            page
                 .GetViewModel<UserDialogsViewModel>()
-                .CurrentDialog
-                .GetViewModel<DialogViewModel>();
+                .OpenDialogByInterlocutorId
+                .Execute(arg);
             PageNavigator.NavigateTo(page);
         });
         public ICommand DeleteFriendCommand { get; set; } 

@@ -5,11 +5,13 @@ using System.Security.Cryptography.Xml;
 using System.Threading.Tasks;
 using JustR.Desktop.Services.Abstractions;
 using JustR.Models.Dto;
+using JustR.Models.Enum;
 
 namespace JustR.Desktop.Services.Implementations
 {
     public class DummyFriendService : IFriendService
     {
+        private static readonly List<FriendRequestDto> _requests = new List<FriendRequestDto>();
         private static readonly List<FriendDto> _friends = new List<FriendDto>
         {
             new FriendDto
@@ -51,6 +53,22 @@ namespace JustR.Desktop.Services.Implementations
                 return;
 
             _friends.Remove(friend);
+        }
+
+        public async Task CreateFriendRequestAsync(Guid secondUserId)
+        {
+            SampleData.SampleData.Person currentUser = UserInfo.CurrentUser;
+            if(_requests.Any(k =>
+                k.FirstUserId == currentUser.UserId && k.SecondUserId == secondUserId &&
+                k.State == FriendRequestState.Something1))
+                return;
+
+            _requests.Add(new FriendRequestDto
+            {
+                FirstUserId = currentUser.UserId,
+                SecondUserId = secondUserId,
+                State = FriendRequestState.Something1
+            });
         }
     }
 }

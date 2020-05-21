@@ -32,7 +32,7 @@
         <ListBox Grid.Row="1" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Users}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <controls:SearchResultItemControl UserPreview="{Binding}"></controls:SearchResultItemControl>
+                    <controls:SearchResultItemControl UserPreview="{Binding}" SendFriendRequest="{Binding DataContext.SendFriendRequest, RelativeSource={RelativeSource AncestorType=local:SearchPage}}" OpenDialog="{Binding DataContext.OpedDialogCommand, RelativeSource={RelativeSource AncestorType=local:SearchPage}}"></controls:SearchResultItemControl>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

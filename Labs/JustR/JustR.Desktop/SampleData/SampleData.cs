@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Printing.IndexedProperties;
 using System.Reflection;
+using System.Windows.Documents;
 using JustR.Models.Dto;
 
 namespace JustR.Desktop.SampleData
@@ -15,6 +17,10 @@ namespace JustR.Desktop.SampleData
         public static Person Vova => new VovaPerson();
         public static Person Ilya => new IlyaPerson();
 
+        public static List<Person> DefaultPersons = new List<Person>
+        {
+            Sergey, Katya, Zeleniy, Maksim, Vova, Ilya
+        };
         public abstract class Person
         {
             public static readonly String PicturesPath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent?.Parent?.FullName!, "SampleData");
@@ -43,54 +49,69 @@ namespace JustR.Desktop.SampleData
                     UserId = UserId
                 };
             }
+
+            public UserProfileDto ToUserProfileDto()
+            {
+                return new UserProfileDto
+                {
+                    Avatar = Avatar,
+                    UserName = Name,
+                    UniqueTag = UniqueTag,
+                    UserId = UserId,
+                };
+            }
         }
-        public class SergeyPerson : Person
+
+        private class SergeyPerson : Person
         {
-            public SergeyPerson() : base("Sergey.jpg", "Sergey", "D0CAEA21-05B7-491A-8E80-BD8F5619CA98", "@s4xack",
-                "1855AAC5-C325-444F-ABA4-6AAF7FFCA6D9")
+            public SergeyPerson() : base("Sergey.jpg", "Sergey", "7028358D-356B-4F2E-84E5-823B651919C7", "@s4xack",
+                "78DC7134-344C-4885-B71E-D132E8C42468")
             {
 
             }
 
         }
-        public class KatyaPerson : Person
-        {
-            public KatyaPerson() : base("Katya.jpg", "Katya", "88E90EE1-2F0B-4AF1-8EA5-0DD90F791B0D", "@hatulmadan",
-                "D73F6869-E4F7-474F-B267-00658F0B5AFA")
-            {
 
-            }
-        }
-        public class MaksimPerson : Person
+        private class KatyaPerson : Person
         {
-            public MaksimPerson() : base("Maksim.jpg", "Maksim", "6BA45289-5A34-415B-8187-B72A637C63F2", "@coomman",
-                "14D6485C-DDA9-4C9B-9D3B-6CFB19630290")
-            {
-
-            }
-        }
-        public class ZeleniyPerson : Person
-        {
-            public ZeleniyPerson() : base("Кисик.jpg", "Zeleniy", "064E8F45-A625-4183-9B42-2A5EA6F45AFA", "@Im2strng4dtwrld",
-                "09BB4BBC-CAAB-459A-BDD2-B533E9188FC7")
+            public KatyaPerson() : base("Katya.jpg", "Katya", "3D30EBC8-5701-4385-96EF-C7C831AA64B2", "@hatulmadan",
+                "8C4FDE54-ADBD-4656-B001-24FE46C329CE")
             {
 
             }
         }
 
-        public class VovaPerson : Person
+        private class MaksimPerson : Person
         {
-            public VovaPerson() : base("Vova.jpg", "Vova", "D3168C22-AB9C-49D0-904E-A613638E7EFE", "@DBECTNWECTON",
-                "B464DB99-E3B8-432C-9C31-44983325E412")
+            public MaksimPerson() : base("Maksim.jpg", "Maksim", "7884C5EC-A9E2-48DA-B04C-5A03C76FCECC", "@coomman",
+                "D7C404B2-0B4D-4FED-A2AB-4399254AB325")
             {
 
             }
         }
 
-        public class IlyaPerson : Person
+        private class ZeleniyPerson : Person
         {
-            public IlyaPerson() : base("Ilya.jpg", "Ilya", "11A0FB3F-57CC-41BF-A4FA-336D26F4118C", "@Aroize",
-                "E8C73FC4-3C67-41A1-985F-49C1F20FDCD7")
+            public ZeleniyPerson() : base("Кисик.jpg", "Zeleniy", "BB188BF5-F451-4F40-B912-D159F2E658AC", "@Im2strng4dtwrld",
+                "0F91DAE2-42F1-4C4B-AD85-0638C6DE1037")
+            {
+
+            }
+        }
+
+        private class VovaPerson : Person
+        {
+            public VovaPerson() : base("Vova.jpg", "Vova", "C2412B87-DC6B-4971-B7F6-4ACDFF66C95B", "@DBECTNWECTON",
+                "4327B089-3D03-491B-AB89-60E2C9A6B3A6")
+            {
+
+            }
+        }
+
+        private class IlyaPerson : Person
+        {
+            public IlyaPerson() : base("Ilya.jpg", "Ilya", "32D98910-7546-4C49-92EE-1B4335F4862F", "@Aroize",
+                "3990BDEA-544D-4682-8A93-DFBF7601922D")
             {
 
             }
