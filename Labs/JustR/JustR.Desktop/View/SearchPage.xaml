@@ -25,7 +25,7 @@
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" x:Name="Query" VerticalAlignment="Stretch"></TextBox>
+            <TextBox Grid.Column="0" x:Name="Query" VerticalAlignment="Stretch">Поиск работает,но доступно всего два юзера. "@" - найдутся оба</TextBox>
             <Button Grid.Column="1" VerticalAlignment="Top" Command="{Binding SearchCommand}" CommandParameter="{Binding Text, ElementName=Query}">Поиск</Button>
         </Grid>
        

@@ -18,9 +18,15 @@ namespace JustR.Desktop.ViewModel
                 OpenFileDialog fd = new OpenFileDialog();
                 fd.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.png) | *.jpg; *.jpeg; *.jpe; *.png";
                 if (fd.ShowDialog() == true)
-                { 
-                    var test = File.ReadAllBytes(fd.FileName);
-                    Avatar = test;
+                {
+                    try
+                    {
+                        Avatar = File.ReadAllBytes(fd.FileName);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Invalid picture");
+                    }
                 }
             });
         }
@@ -31,6 +37,25 @@ namespace JustR.Desktop.ViewModel
             set
             {
                 UserInfo.CurrentUser.Avatar = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public String UserName
+        {
+            get => UserInfo.CurrentUser.Name;
+            set
+            {
+                UserInfo.CurrentUser.Name = value;
+                OnPropertyChanged();
+            }
+        }
+        public String UserTag
+        {
+            get => UserInfo.CurrentUser.UniqueTag;
+            set
+            {
+                UserInfo.CurrentUser.UniqueTag = value;
                 OnPropertyChanged();
             }
         }
