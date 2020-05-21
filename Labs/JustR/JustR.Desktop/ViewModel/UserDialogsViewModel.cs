@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -23,12 +24,15 @@ namespace JustR.Desktop.ViewModel
             _dialogService = new DummyDialogService();
             GetDialogsCommand = new ActionCommand<Guid>(async arg =>
             {
-                var dialogs = await _dialogService.GetDialogsPreviewAsync(arg);
-
-                foreach (DialogPreviewDto dialog in dialogs)
-                {
-                    DialogsPreview.Add(dialog);
-                }
+                await _dialogService
+                    .GetDialogsPreviewAsync(arg)
+                    .ContinueWith(task =>
+                    {
+                        foreach (DialogPreviewDto dialog in task.Result)
+                        {
+                            DialogsPreview.Add(dialog);
+                        }
+                    }, TaskScheduler.FromCurrentSynchronizationContext());
             });
         }
 

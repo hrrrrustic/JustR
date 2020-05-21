@@ -9,5 +9,6 @@ namespace JustR.Desktop.Services.Abstractions
     public interface IFriendService
     {
         Task<List<FriendDto>> GetFriendsAsync(Guid userId);
+        Task DeleteFriend(Guid friendId);
     }
 }

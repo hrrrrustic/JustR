@@ -20,22 +20,31 @@ namespace JustR.Desktop.ViewModel
         public UserFriendsViewModel()
         {
             _friendService = new DummyFriendService();
-            DeleteFriendCommand = new ActionCommand<Guid>(arg =>
+            DeleteFriendCommand = new ActionCommand<Guid>(async arg =>
             {
-                var friend = Friends.FirstOrDefault(k => k.UserId == arg);
-                if (friend is null)
-                    return;
+                await _friendService
+                    .DeleteFriend(arg)
+                    .ContinueWith(task =>
+                    {
+                        var friend = Friends.Single(k => k.UserId == arg);
+                        if (friend is null)
+                            return;
 
-                Friends.Remove(friend);
+                        Friends.Remove(friend);
+                    }, TaskScheduler.FromCurrentSynchronizationContext());
             });
 
             GetFriendsCommand = new ActionCommand(async arg =>
             {
-                List<FriendDto> friends = await _friendService.GetFriendsAsync(Guid.Empty);
-                foreach (FriendDto friend in friends)
-                {
-                    Friends.Add(friend);
-                }
+                await _friendService
+                    .GetFriendsAsync(UserInfo.CurrentUser.UserId)
+                    .ContinueWith(task =>
+                    {
+                        foreach (FriendDto friend in task.Result)
+                        {
+                            Friends.Add(friend);
+                        }
+                    }, TaskScheduler.FromCurrentSynchronizationContext());
             });
         }
         public ObservableCollection<FriendDto> Friends { get; set; } = new ObservableCollection<FriendDto>();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Accessibility;
 using JustR.Desktop.Commands;
@@ -21,19 +22,18 @@ namespace JustR.Desktop.ViewModel
         {
             SendMessage = new ActionCommand<String>(async arg =>
             {
-                await _messageService.SendMessage(new MessageDto
+                var message = new MessageDto
                 {
-                        DialogId = CurrentDialogId,
-                        SendDate = DateTime.Now,
-                        MessageText = arg,
-                        Sender = new UserPreviewDto
-                        {
-                            Avatar = UserInfo.Avatar,
-                            UniqueTag = UserInfo.UniqueTag,
-                            UserId = UserInfo.UserId,
-                            UserName = UserInfo.UserName
-                        }
-                    });
+                    DialogId = CurrentDialogId,
+                    SendDate = DateTime.Now,
+                    MessageText = arg,
+                    Sender = UserInfo.CurrentUser.ToUserPreviewDto()
+                };
+
+                await _messageService
+                    .SendMessage(message)
+                    .ContinueWith(task => Messages.Add(message), TaskScheduler.FromCurrentSynchronizationContext());
+
                 TypedMessage = String.Empty;
             });
 

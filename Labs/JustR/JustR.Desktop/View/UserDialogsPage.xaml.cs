@@ -27,7 +27,7 @@ namespace JustR.Desktop.View
 
         private void UserDialogsPage_OnLoaded(Object sender, RoutedEventArgs e)
         {
-            this.GetViewModel<UserDialogsViewModel>().GetDialogsCommand.Execute(UserInfo.UserId);
+            this.GetViewModel<UserDialogsViewModel>().GetDialogsCommand.Execute(UserInfo.CurrentUser.UserId);
         }
     }
 }

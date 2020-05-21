@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Threading.Tasks;
 using JustR.Desktop.Services.Abstractions;
 using JustR.Models.Dto;
@@ -39,6 +41,16 @@ namespace JustR.Desktop.Services.Implementations
         public async Task<List<FriendDto>> GetFriendsAsync(Guid userId)
         {
             return _friends;
+        }
+
+        public async Task DeleteFriend(Guid friendId)
+        {
+            var friend = _friends.Find(k => k.UserId == friendId);
+
+            if (friend is null)
+                return;
+
+            _friends.Remove(friend);
         }
     }
 }

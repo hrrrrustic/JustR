@@ -20,13 +20,7 @@ namespace JustR.Desktop.Services.Implementations
                     {
                         MessageText = "эсчухак",
                         SendDate = DateTime.MinValue,
-                        Sender = new UserPreviewDto
-                        {
-                            Avatar = UserInfo.Avatar,
-                            UniqueTag = UserInfo.UniqueTag,
-                            UserName = UserInfo.UserName,
-                            UserId = UserInfo.UserId
-                        }
+                        Sender = UserInfo.CurrentUser.ToUserPreviewDto()
                     },
                     new MessageDto
                     {
@@ -51,13 +45,7 @@ namespace JustR.Desktop.Services.Implementations
                     {
                         MessageText = "когда лицуха цивы",
                         SendDate = DateTime.MinValue,
-                        Sender = new UserPreviewDto
-                        {
-                            Avatar = UserInfo.Avatar,
-                            UniqueTag = UserInfo.UniqueTag,
-                            UserName = UserInfo.UserName,
-                            UserId = UserInfo.UserId
-                        }
+                        Sender = UserInfo.CurrentUser.ToUserPreviewDto()
                     },
                     new MessageDto
                     {
@@ -82,13 +70,7 @@ namespace JustR.Desktop.Services.Implementations
                     {
                         MessageText = "как там в порталах",
                         SendDate = DateTime.MinValue,
-                        Sender = new UserPreviewDto
-                        {
-                            Avatar = UserInfo.Avatar,
-                            UniqueTag = UserInfo.UniqueTag,
-                            UserName = UserInfo.UserName,
-                            UserId = UserInfo.UserId
-                        }
+                        Sender = UserInfo.CurrentUser.ToUserPreviewDto()
                     },
                     new MessageDto
                     {
@@ -113,13 +95,7 @@ namespace JustR.Desktop.Services.Implementations
                     {
                         MessageText = "Когда в маршаллинг будем няшиться?",
                         SendDate = DateTime.MinValue,
-                        Sender = new UserPreviewDto
-                        {
-                            Avatar = UserInfo.Avatar,
-                            UniqueTag = UserInfo.UniqueTag,
-                            UserName = UserInfo.UserName,
-                            UserId = UserInfo.UserId
-                        }
+                        Sender = UserInfo.CurrentUser.ToUserPreviewDto()
                     },
                     new MessageDto
                     {
