@@ -1,6 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Accessibility;
+using JustR.Desktop.Commands;
 using JustR.Desktop.Services.Abstractions;
 using JustR.Desktop.Services.Implementations;
 using JustR.Models.Dto;
@@ -13,20 +16,23 @@ namespace JustR.Desktop.ViewModel
 
         public SearchViewModel()
         {
+            SearchCommand = new ActionCommand<String>(async arg =>
+            {
+                Users.Clear();
+                await _searchService
+                    .FindUsersByTagAsync(arg)
+                    .ContinueWith(task =>
+                    {
+                        foreach (UserPreviewDto user in task?.Result)
+                        {
+                            Users.Add(user);
+                        }
+                    }, TaskScheduler.FromCurrentSynchronizationContext());
+            });
         }
-        
-        public ObservableCollection<UserPreviewDto> Users { get; set; } = new ObservableCollection<UserPreviewDto>
-        {
-            new UserPreviewDto
-            {
-                UniqueTag = "@Test1",
-                UserName = "User 1"
-            },
-            new UserPreviewDto
-            {
-                UniqueTag = "@Test2",
-                UserName = "User 2"
-            }
-        };
+
+        public ICommand SearchCommand { get; set; }
+
+        public ObservableCollection<UserPreviewDto> Users { get; set; } = new ObservableCollection<UserPreviewDto>();
     }
 }

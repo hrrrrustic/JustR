@@ -25,8 +25,8 @@
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="Поиск" VerticalAlignment="Stretch"></TextBox>
-            <Button Grid.Column="1" VerticalAlignment="Top">Поиск</Button>
+            <TextBox Grid.Column="0" x:Name="Query" VerticalAlignment="Stretch"></TextBox>
+            <Button Grid.Column="1" VerticalAlignment="Top" Command="{Binding SearchCommand}" CommandParameter="{Binding Text, ElementName=Query}">Поиск</Button>
         </Grid>
        
         <ListBox Grid.Row="1" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Users}">

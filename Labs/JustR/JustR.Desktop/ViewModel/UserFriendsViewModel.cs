@@ -17,6 +17,7 @@ namespace JustR.Desktop.ViewModel
     public class UserFriendsViewModel : BaseViewModel
     {
         private readonly IFriendService _friendService;
+
         public UserFriendsViewModel()
         {
             _friendService = new DummyFriendService();
@@ -50,10 +51,13 @@ namespace JustR.Desktop.ViewModel
         public ObservableCollection<FriendDto> Friends { get; set; } = new ObservableCollection<FriendDto>();
 
         public ICommand GetFriendsCommand { get; }
-        public ICommand OpedDialogCommand { get; set; } = new ActionCommand(arg =>
+        public ICommand OpedDialogCommand { get; set; } = new ActionCommand<Guid>(arg =>
         {
             var page = new UserDialogsPage();
-            ((UserDialogsViewModel)page.DataContext).CurrentDialog = new DialogPage();
+            var viewModel = page
+                .GetViewModel<UserDialogsViewModel>()
+                .CurrentDialog
+                .GetViewModel<DialogViewModel>();
             PageNavigator.NavigateTo(page);
         });
         public ICommand DeleteFriendCommand { get; set; } 

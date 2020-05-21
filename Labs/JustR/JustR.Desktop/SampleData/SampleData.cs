@@ -46,7 +46,7 @@ namespace JustR.Desktop.SampleData
         }
         public class SergeyPerson : Person
         {
-            public SergeyPerson() : base("SergeyPerson.jpg", "SergeyPerson", "D0CAEA21-05B7-491A-8E80-BD8F5619CA98", "@s4xack",
+            public SergeyPerson() : base("Sergey.jpg", "Sergey", "D0CAEA21-05B7-491A-8E80-BD8F5619CA98", "@s4xack",
                 "1855AAC5-C325-444F-ABA4-6AAF7FFCA6D9")
             {
 
@@ -55,7 +55,7 @@ namespace JustR.Desktop.SampleData
         }
         public class KatyaPerson : Person
         {
-            public KatyaPerson() : base("KatyaPerson.jpg", "KatyaPerson", "88E90EE1-2F0B-4AF1-8EA5-0DD90F791B0D", "@hatulmadan",
+            public KatyaPerson() : base("Katya.jpg", "Katya", "88E90EE1-2F0B-4AF1-8EA5-0DD90F791B0D", "@hatulmadan",
                 "D73F6869-E4F7-474F-B267-00658F0B5AFA")
             {
 
@@ -63,7 +63,7 @@ namespace JustR.Desktop.SampleData
         }
         public class MaksimPerson : Person
         {
-            public MaksimPerson() : base("MaksimPerson.jpg", "Coomman", "6BA45289-5A34-415B-8187-B72A637C63F2", "@coomman",
+            public MaksimPerson() : base("Maksim.jpg", "Maksim", "6BA45289-5A34-415B-8187-B72A637C63F2", "@coomman",
                 "14D6485C-DDA9-4C9B-9D3B-6CFB19630290")
             {
 
@@ -71,7 +71,7 @@ namespace JustR.Desktop.SampleData
         }
         public class ZeleniyPerson : Person
         {
-            public ZeleniyPerson() : base("Кисик.jpg", "ZeleniyPerson", "064E8F45-A625-4183-9B42-2A5EA6F45AFA", "@Im2strng4dtwrld",
+            public ZeleniyPerson() : base("Кисик.jpg", "Zeleniy", "064E8F45-A625-4183-9B42-2A5EA6F45AFA", "@Im2strng4dtwrld",
                 "09BB4BBC-CAAB-459A-BDD2-B533E9188FC7")
             {
 
@@ -80,7 +80,7 @@ namespace JustR.Desktop.SampleData
 
         public class VovaPerson : Person
         {
-            public VovaPerson() : base("VovaPerson.jpg", "VovaPerson", "D3168C22-AB9C-49D0-904E-A613638E7EFE", "@DBECTNWECTON",
+            public VovaPerson() : base("Vova.jpg", "Vova", "D3168C22-AB9C-49D0-904E-A613638E7EFE", "@DBECTNWECTON",
                 "B464DB99-E3B8-432C-9C31-44983325E412")
             {
 
@@ -89,7 +89,7 @@ namespace JustR.Desktop.SampleData
 
         public class IlyaPerson : Person
         {
-            public IlyaPerson() : base("IlyaPerson.jpg", "IlyaPerson", "11A0FB3F-57CC-41BF-A4FA-336D26F4118C", "@Aroize",
+            public IlyaPerson() : base("Ilya.jpg", "Ilya", "11A0FB3F-57CC-41BF-A4FA-336D26F4118C", "@Aroize",
                 "E8C73FC4-3C67-41A1-985F-49C1F20FDCD7")
             {
 
