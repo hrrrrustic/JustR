@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JustR.Desktop.Controls"
              xmlns:entity="clr-namespace:JustR.Models.Entity;assembly=JustR.Models"
+             xmlns:viewModels="clr-namespace:JustR.Desktop.ViewModel"
              mc:Ignorable="d" 
+             xmlns:pages="clr-namespace:JustR.Desktop.View"
              d:DesignHeight="50" d:DesignWidth="400">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -14,14 +16,14 @@
         <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Image Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Source="C:\Users\hrrrrustic\OneDrive\Desktop\Кисик.jpg">
+        <Image Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Source="{Binding Message.Sender.Avatar, RelativeSource={RelativeSource AncestorType=local:MessageControl}}">
         </Image>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"  Style="{StaticResource MaterialDesignTextBlock}" >Dialog Name</TextBlock>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"  Style="{StaticResource MaterialDesignTextBlock}" Text="{Binding Message.Sender.UserName, RelativeSource={RelativeSource AncestorType=local:MessageControl}}"></TextBlock>
             <TextBlock Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10, 0, 0, 5" Style="{StaticResource MaterialDesignBody2TextBlock}" Text="{Binding Message.MessageText, RelativeSource={RelativeSource AncestorType=local:MessageControl}}"></TextBlock>
         </Grid>
 

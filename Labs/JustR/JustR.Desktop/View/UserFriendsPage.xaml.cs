@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using JustR.Desktop.ViewModel;
 using JustR.Models.Dto;
 
 namespace JustR.Desktop.View
@@ -22,6 +23,11 @@ namespace JustR.Desktop.View
         public UserFriendsPage()
         {
             InitializeComponent();
+        }
+
+        private void UserFriendsPage_OnLoaded(Object sender, RoutedEventArgs e)
+        {
+            this.GetViewModel<UserFriendsViewModel>().GetFriendsCommand.Execute(e);
         }
     }
 }

@@ -7,6 +7,7 @@
       xmlns:controls="clr-namespace:JustR.Desktop.Controls"
       xmlns:viewModels="clr-namespace:JustR.Desktop.ViewModel"
       mc:Ignorable="d" 
+      Loaded="UserFriendsPage_OnLoaded"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="UserFriendsPage">
     <Page.DataContext>

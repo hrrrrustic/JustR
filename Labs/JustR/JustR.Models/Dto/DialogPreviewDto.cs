@@ -6,6 +6,7 @@ namespace JustR.Models.Dto
 {
     public class DialogPreviewDto
     {
+        public Guid DialogId { get; set; }
         public String DialogName { get; set; }
         public DateTime LastMessageTime { get; set; }
         public String LastMessageText { get; set; }

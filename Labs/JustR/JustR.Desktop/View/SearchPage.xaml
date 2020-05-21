@@ -32,7 +32,7 @@
         <ListBox Grid.Row="1" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Users}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <controls:SearchResultItemControl></controls:SearchResultItemControl>
+                    <controls:SearchResultItemControl UserPreview="{Binding}"></controls:SearchResultItemControl>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

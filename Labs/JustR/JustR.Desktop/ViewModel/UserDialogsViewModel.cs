@@ -21,13 +21,30 @@ namespace JustR.Desktop.ViewModel
         public UserDialogsViewModel()
         {
             _dialogService = new DummyDialogService();
-            DialogsPreview = new ObservableCollection<DialogPreviewDto>(_dialogService.GetDialogsPreview(Guid.Empty));
+            GetDialogsCommand = new ActionCommand<Guid>(async arg =>
+            {
+                var dialogs = await _dialogService.GetDialogsPreviewAsync(arg);
+
+                foreach (DialogPreviewDto dialog in dialogs)
+                {
+                    DialogsPreview.Add(dialog);
+                }
+            });
         }
 
-        public ObservableCollection<DialogPreviewDto> DialogsPreview { get; private set; }
+        public ObservableCollection<DialogPreviewDto> DialogsPreview { get; } = new ObservableCollection<DialogPreviewDto>();
 
-        public ICommand OpenDialog => new ActionCommand(arg => CurrentDialog = new DialogPage());
+        public ICommand OpenDialog => new ActionCommand<Guid>(arg =>
+        {
+            Page page = new DialogPage();
+            DialogViewModel viewModel = page.GetViewModel<DialogViewModel>();
+            viewModel.CurrentDialogId = arg;
+            viewModel.GetMessages.Execute(arg);
+            viewModel.GetDialogInfoCommand.Execute(arg);
+            CurrentDialog = page;
+        });
 
+        public ICommand GetDialogsCommand { get; }
         private Page _currentDialog = new DialogEmptyPage();
         public Page CurrentDialog
         {

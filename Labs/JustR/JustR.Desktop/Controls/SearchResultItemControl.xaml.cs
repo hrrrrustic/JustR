@@ -27,7 +27,7 @@ namespace JustR.Desktop.Controls
         public static DependencyProperty UserPreviewProperty = DependencyProperty.Register("UserPreview",
             typeof(UserPreviewDto),
             typeof(SearchResultItemControl), new PropertyMetadata(null));
-        public UserPreviewDto DialogPreview
+        public UserPreviewDto UserPreview
         {
             get => (UserPreviewDto)GetValue(UserPreviewProperty);
             set => SetValue(UserPreviewProperty, value);

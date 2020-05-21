@@ -25,7 +25,6 @@ namespace JustR.Desktop.ViewModel
             }
 
             MessageBox.Show("Nope");
-
         }
 
         public String Login
