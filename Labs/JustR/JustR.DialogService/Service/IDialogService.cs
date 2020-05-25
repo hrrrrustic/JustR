@@ -7,8 +7,8 @@ namespace JustR.DialogService.Service
 {
     public interface IDialogService
     {
-        DialogInfoDto GetDialog(Guid dialogId);
-        IEnumerable<DialogPreviewDto> GetDialogsPreview(Guid userId, Int32? offset, Int32 count);
-        DialogInfoDto CreateDialog(Guid firstUserId, Guid secondUserId);
+        Dialog GetDialog(Guid dialogId);
+        IEnumerable<Dialog> GetDialogsPreview(Guid userId, Int32? offset, Int32 count);
+        Dialog CreateDialog(Guid firstUserId, Guid secondUserId);
     }
 }

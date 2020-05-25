@@ -1,24 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using JustR.Models.Dto;
+using JustR.Models.Entity;
 
 namespace JustR.ProfileService.Service
 {
     public class ProfileService : IProfileService
     {
-        public UserProfileDto GetUserProfile(Guid userId)
+        private readonly IProfileService _profileService;
+
+        public ProfileService(IProfileService profileService)
         {
-            throw new NotImplementedException();
+            _profileService = profileService;
         }
 
-        public UserPreviewDto GetUserPreview(Guid userId)
+        public User GetUserProfile(Guid userId)
         {
-            throw new NotImplementedException();
+            return _profileService.GetUserProfile(userId);
         }
 
-        public IEnumerable<UserPreviewDto> SearchUser(String query)
+        public User GetUserPreview(Guid userId)
         {
-            throw new NotImplementedException();
+            return _profileService.GetUserPreview(userId);
+        }
+
+        public IEnumerable<User> SearchUser(String query)
+        {
+            return _profileService.SearchUser(query);
         }
     }
 }

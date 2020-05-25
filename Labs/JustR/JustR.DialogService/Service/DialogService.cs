@@ -1,24 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using JustR.DialogService.Repository;
 using JustR.Models.Dto;
+using JustR.Models.Entity;
 
 namespace JustR.DialogService.Service
 {
     public class DialogService : IDialogService
     {
-        public DialogInfoDto GetDialog(Guid dialogId)
+        private readonly IDialogRepository _dialogRepository;
+
+        public DialogService(IDialogRepository dialogRepository)
         {
-            throw new NotImplementedException();
+            _dialogRepository = dialogRepository;
         }
 
-        public IEnumerable<DialogPreviewDto> GetDialogsPreview(Guid userId, Int32? offset, Int32 count)
+        public Dialog GetDialog(Guid dialogId)
         {
-            throw new NotImplementedException();
+            Dialog dialog = _dialogRepository.ReadDialog(dialogId);
+            return dialog;
         }
 
-        public DialogInfoDto CreateDialog(Guid firstUserId, Guid secondUserId)
+        public IEnumerable<Dialog> GetDialogsPreview(Guid userId, Int32? offset, Int32 count)
         {
-            throw new NotImplementedException();
+            var result =_dialogRepository.ReadDialogs(userId, count, offset ?? 0);
+            return result;
+        }
+
+        public Dialog CreateDialog(Guid firstUserId, Guid secondUserId)
+        {
+            return _dialogRepository.CreateDialog(firstUserId, secondUserId);
         }
     }
 }

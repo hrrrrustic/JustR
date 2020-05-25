@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using JustR.DialogService.Repository;
 using JustR.DialogService.Service;
 using JustR.Models.Dto;
+using JustR.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using SqlKata.Compilers;
 
 namespace JustR.DialogService
 {
@@ -24,7 +28,7 @@ namespace JustR.DialogService
         {
             try
             {
-                IEnumerable<DialogPreviewDto> result = _dialogService.GetDialogsPreview(userId, offset, count);
+                IEnumerable<Dialog> result = _dialogService.GetDialogsPreview(userId, offset, count);
                 return Ok(result);
             }
             catch (Exception e)
@@ -38,7 +42,7 @@ namespace JustR.DialogService
         {
             try
             {
-                DialogInfoDto result = _dialogService.GetDialog(dialogId);
+                Dialog result = _dialogService.GetDialog(dialogId);
                 return Ok(result);
             }
             catch (Exception e)
@@ -52,7 +56,7 @@ namespace JustR.DialogService
         {
             try
             {
-                DialogInfoDto result = _dialogService.CreateDialog(userId, secondUserId);
+                Dialog result = _dialogService.CreateDialog(userId, secondUserId);
                 return Ok(result);
             }
             catch (Exception e)

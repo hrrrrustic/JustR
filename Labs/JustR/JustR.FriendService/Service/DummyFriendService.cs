@@ -22,7 +22,7 @@ namespace JustR.FriendService.Service
 
         public FriendRequestDto CreateFriendRequest(FriendRequestDto requestDto)
         {
-            var res = _friendRepository.CreateFriendRequest(new FriendRequest
+            var res = _friendRepository.CreateFriendRequest(new Relationship
             {
                 FirstUserId = requestDto.FirstUserId, SecondUserId = requestDto.SecondUserId, State = requestDto.State
             });
@@ -36,7 +36,7 @@ namespace JustR.FriendService.Service
 
         public FriendRequestDto UpdateFriendRequest(FriendRequestDto requestDto)
         {
-            var res = _friendRepository.UpdateFriendRequest(new FriendRequest
+            var res = _friendRepository.UpdateFriendRequest(new Relationship
             {
                 FirstUserId = requestDto.FirstUserId,
                 SecondUserId = requestDto.SecondUserId,
@@ -52,7 +52,7 @@ namespace JustR.FriendService.Service
 
         public void DeleteFriend(Guid userId, Guid friendId)
         {
-            _friendRepository.DeleteFriend(new FriendRequest{FirstUserId = userId, SecondUserId = friendId, State = FriendRequestState.Something1});
+            _friendRepository.DeleteFriend(new Relationship{FirstUserId = userId, SecondUserId = friendId, State = RelationshipState.None});
         }
     }
 }

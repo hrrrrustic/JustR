@@ -14,29 +14,23 @@ namespace JustR.ProfileService.Service
         {
             _profileRepository = profileRepository;
         }
-        public UserProfileDto GetUserProfile(Guid userId)
+        public User GetUserProfile(Guid userId)
         {
             User result = _profileRepository.ReadUserProfile(userId);
 
-            return new UserProfileDto
-            {
-                UserName = result.FirstName 
-            };
+            return result;
         }
 
-        public UserPreviewDto GetUserPreview(Guid userId)
+        public User GetUserPreview(Guid userId)
         {
             User result = _profileRepository.ReadUserProfile(userId);
 
-            return new UserPreviewDto
-            {
-                UserName = result.FirstName
-            };
+            return result;
         }
 
-        public IEnumerable<UserPreviewDto> SearchUser(String query)
+        public IEnumerable<User> SearchUser(String query)
         {
-            return _profileRepository.ReadUserProfiles(query).Select(k => new UserPreviewDto{UserName = k.FirstName});
+            return _profileRepository.ReadUserProfiles(query);
             
         }
     }

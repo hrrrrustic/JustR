@@ -14,7 +14,7 @@ namespace JustR.FriendService.Repository
             _sqlCompiler = sqlCompiler;
         }
 
-        public FriendRequest CreateFriendRequest(FriendRequest request)
+        public Relationship CreateFriendRequest(Relationship request)
         {
             throw new NotImplementedException();
         }
@@ -24,12 +24,12 @@ namespace JustR.FriendService.Repository
             throw new NotImplementedException();
         }
 
-        public FriendRequest UpdateFriendRequest(FriendRequest request)
+        public Relationship UpdateFriendRequest(Relationship request)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteFriend(FriendRequest request)
+        public void DeleteFriend(Relationship request)
         {
             throw new NotImplementedException();
         }

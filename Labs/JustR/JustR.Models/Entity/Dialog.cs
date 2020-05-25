@@ -8,5 +8,8 @@ namespace JustR.Models.Entity
         public Guid FirstUserId { get; set; }
         public Guid SecondUserid { get; set; }
         public String DialogName { get; set; }
+        public String LastMessageText { get; set; }
+        public Guid LastMessageAuthor { get; set; }
+        public DateTime LastMessageTime { get; set; }
     }
 }

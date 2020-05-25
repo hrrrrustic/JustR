@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using JustR.Models.Dto;
@@ -43,6 +44,12 @@ namespace JustR.ProfileService
 
         [HttpPut]
         public ActionResult<ChangeProfileDto> UpdateUserProfile(ChangeProfileDto dto)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        public ActionResult<UserPreviewDto> SimpleLogIn([FromBody] String userTag)
         {
             throw new NotImplementedException();
         }

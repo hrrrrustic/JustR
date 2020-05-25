@@ -60,14 +60,14 @@ namespace JustR.Desktop.Services.Implementations
             SampleData.SampleData.Person currentUser = UserInfo.CurrentUser;
             if(_requests.Any(k =>
                 k.FirstUserId == currentUser.UserId && k.SecondUserId == secondUserId &&
-                k.State == FriendRequestState.Something1))
+                k.State == RelationshipState.OutputFriendRequest))
                 return;
 
             _requests.Add(new FriendRequestDto
             {
                 FirstUserId = currentUser.UserId,
                 SecondUserId = secondUserId,
-                State = FriendRequestState.Something1
+                State = RelationshipState.OutputFriendRequest
             });
         }
     }

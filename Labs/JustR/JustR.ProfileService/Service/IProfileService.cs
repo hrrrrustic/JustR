@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using JustR.Models.Dto;
+using JustR.Models.Entity;
 
 namespace JustR.ProfileService.Service
 {
     public interface IProfileService
     {
-        UserProfileDto GetUserProfile(Guid userId);
-        UserPreviewDto GetUserPreview(Guid userId);
-        IEnumerable<UserPreviewDto> SearchUser(String query);
+        User GetUserProfile(Guid userId);
+        User GetUserPreview(Guid userId);
+        IEnumerable<User> SearchUser(String query);
     }
 }

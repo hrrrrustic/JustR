@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JustR.DialogService.Repository;
 using JustR.Models.Dto;
+using JustR.Models.Entity;
 
 namespace JustR.DialogService.Service
 {
@@ -15,31 +16,25 @@ namespace JustR.DialogService.Service
             _dialogRepository = dialogRepository;
         }
 
-        public DialogInfoDto GetDialog(Guid dialogId)
+        public Dialog GetDialog(Guid dialogId)
         {
             var res = _dialogRepository.ReadDialog(dialogId);
 
-            return new DialogInfoDto
-            {
-                DialogName = res.DialogName
-            };
+            return res;
         }
 
-        public IEnumerable<DialogPreviewDto> GetDialogsPreview(Guid userId, Int32? offset, Int32 count)
+        public IEnumerable<Dialog> GetDialogsPreview(Guid userId, Int32? offset, Int32 count)
         {
             var res = _dialogRepository.ReadDialogs(userId, count, offset ?? 0);
 
-            return res.Select(k => new DialogPreviewDto {DialogName = k.DialogName});
+            return res;
         }
 
-        public DialogInfoDto CreateDialog(Guid firstUserId, Guid secondUserId)
+        public Dialog CreateDialog(Guid firstUserId, Guid secondUserId)
         {
             var res = _dialogRepository.CreateDialog(firstUserId, secondUserId);
 
-            return new DialogInfoDto
-            {
-                DialogName = res.DialogName
-            };
+            return res;
         }
     }
 }

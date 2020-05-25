@@ -8,17 +8,17 @@ namespace JustR.FriendService.Repository
 {
     public class DummyFriendRepository : IFriendRepository
     {
-        private static List<FriendRequest> _requests = new List<FriendRequest>()
+        private static List<Relationship> _requests = new List<Relationship>()
         {
-            new FriendRequest
+            new Relationship
             {
                 FirstUserId = Guid.Parse("5B77A766-7B44-4E1B-BAF9-083713D1ABA3"),
                 SecondUserId = Guid.Parse("8E924714-8E37-4AD4-81E1-80F691DEAD10"),
-                State = FriendRequestState.Accepted
+                State = RelationshipState.Friend
             }
         };
 
-        public FriendRequest CreateFriendRequest(FriendRequest request)
+        public Relationship CreateFriendRequest(Relationship request)
         {
             _requests.Add(request);
             return request;
@@ -28,16 +28,16 @@ namespace JustR.FriendService.Repository
         {
             return _requests
                 .Where(k => k.FirstUserId == userId)
-                .Where(k => k.State == FriendRequestState.Accepted)
+                .Where(k => k.State == RelationshipState.Friend)
                 .Select(k => k.SecondUserId)
                 .Union(_requests
                     .Where(k => k.SecondUserId == userId)
-                    .Where(k => k.State == FriendRequestState.Accepted)
+                    .Where(k => k.State == RelationshipState.Friend)
                     .Select(k => k.FirstUserId))
                 .ToList();
         }
 
-        public FriendRequest UpdateFriendRequest(FriendRequest request)
+        public Relationship UpdateFriendRequest(Relationship request)
         {
             var res = _requests.Find(
                 k => k.FirstUserId == request.FirstUserId && k.SecondUserId == request.SecondUserId);
@@ -50,7 +50,7 @@ namespace JustR.FriendService.Repository
             return res;
         }
 
-        public void DeleteFriend(FriendRequest request)
+        public void DeleteFriend(Relationship request)
         {
             var res = _requests.Find(
                 k => k.FirstUserId == request.FirstUserId && k.SecondUserId == request.SecondUserId);
