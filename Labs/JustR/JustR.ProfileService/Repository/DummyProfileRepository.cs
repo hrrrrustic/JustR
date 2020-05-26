@@ -47,5 +47,10 @@ namespace JustR.ProfileService.Repository
 
             return res;
         }
+
+        public User FakeLogIn(String userTag)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

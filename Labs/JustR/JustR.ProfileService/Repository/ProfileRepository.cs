@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using JustR.Models.Dto;
 using JustR.Models.Entity;
 using SqlKata;
@@ -12,7 +13,7 @@ namespace JustR.ProfileService.Repository
     public class ProfileRepository : IProfileRepository
     {
         private readonly QueryFactory _queryFactory;
-
+        private readonly String _baseTableName = "Users";
         public ProfileRepository(Compiler sqlCompiler)
         {
             _queryFactory = new QueryFactory(new SqlConnection(DbConfiguration.ConnectionString), sqlCompiler);
@@ -21,7 +22,7 @@ namespace JustR.ProfileService.Repository
         public User ReadUserProfile(Guid userId)
         {
             return _queryFactory
-                .Query("Users")
+                .Query(_baseTableName)
                 .Where("UserId", userId)
                 .First<User>();
         }
@@ -29,19 +30,28 @@ namespace JustR.ProfileService.Repository
         public IEnumerable<User> ReadUserProfiles(String userTag)
         {
             return _queryFactory
-                .Query("Users")
+                .Query(_baseTableName)
                 .WhereLike("UniqueTag", userTag)
                 .Get<User>();
         }
 
         public User UpdateUserProfile(User newProfile)
         {
-            throw new NotImplementedException();
+            Int32 res = _queryFactory
+                .Query(_baseTableName)
+                .Where("userId", newProfile.UserId)
+                .Update(newProfile);
+
+            return newProfile;
         }
 
-        public ChangeProfileDto UpdateUserProfile(ChangeProfileDto dto)
+        public User FakeLogIn(String userTag)
         {
-            throw new NotImplementedException();
+            return _queryFactory
+                .Query(_baseTableName)
+                .Where("UniqueTag", userTag)
+                .Get<User>()
+                .Single();
         }
     }
 }

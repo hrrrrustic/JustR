@@ -33,5 +33,15 @@ namespace JustR.ProfileService.Service
             return _profileRepository.ReadUserProfiles(query);
             
         }
+
+        public User FakeLogIn(String userTag)
+        {
+            return _profileRepository.FakeLogIn(userTag);
+        }
+
+        public User UpdateUserProfile(User user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

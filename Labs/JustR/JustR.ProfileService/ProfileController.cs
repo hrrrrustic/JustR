@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using JustR.Models.Dto;
+using JustR.Models.Entity;
 using JustR.ProfileService.Service;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace JustR.ProfileService
 {
     [Route("api/[controller]")]
+    [Consumes("application/json")]
+    [Produces("application/json")]
     public class ProfileController : Controller
     {
         private readonly IProfileService _profileService;
@@ -27,8 +30,8 @@ namespace JustR.ProfileService
             return Ok(_profileService.GetUserProfile(userId));
         }
 
-        [HttpGet("search/{query}")]
-        public ActionResult<IEnumerable<UserPreviewDto>> SearchUser(String query)
+        [HttpGet("search")]
+        public ActionResult<IEnumerable<UserPreviewDto>> SearchUser([FromQuery] String query)
         {
             if (query is null)
                 return BadRequest();
@@ -43,15 +46,26 @@ namespace JustR.ProfileService
         }
 
         [HttpPut]
-        public ActionResult<ChangeProfileDto> UpdateUserProfile(ChangeProfileDto dto)
+        public ActionResult<ChangeProfileDto> UpdateUserProfile([FromBody] User user)
         {
-            throw new NotImplementedException();
+            var res = _profileService.UpdateUserProfile(user);
+
+            return Ok(res);
         }
 
-        [HttpGet]
-        public ActionResult<UserPreviewDto> SimpleLogIn([FromBody] String userTag)
+        [HttpGet("login")]
+        public ActionResult<UserPreviewDto> SimpleLogIn([FromQuery] String userTag)
         {
-            throw new NotImplementedException();
+            var user = _profileService.FakeLogIn(userTag);
+            UserPreviewDto preview = new UserPreviewDto
+            {
+                Avatar = user.Avatar,
+                UserName = user.FirstName + user.LastName,
+                UniqueTag = user.UniqueTag,
+                UserId = user.UserId
+            };
+
+            return Ok(preview);
         }
     }
 }

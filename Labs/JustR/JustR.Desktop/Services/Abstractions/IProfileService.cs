@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using JustR.Desktop.Annotations;
 using JustR.Models.Dto;
 
 namespace JustR.Desktop.Services.Abstractions
@@ -8,5 +9,6 @@ namespace JustR.Desktop.Services.Abstractions
     {
         Task<UserPreviewDto> GetProfilePreviewAsync(Guid userId);
         Task<UserProfileDto> GetProfileAsync(Guid userId);
+        [ItemCanBeNull] Task<UserPreviewDto> SimpleLogin(String userTag);
     }
 }

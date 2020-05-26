@@ -10,5 +10,6 @@ namespace JustR.ProfileService.Repository
         User ReadUserProfile(Guid userId);
         IEnumerable<User> ReadUserProfiles(String userTag);
         User UpdateUserProfile(User newProfile);
+        User FakeLogIn(String userTag);
     }
 }

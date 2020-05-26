@@ -36,5 +36,10 @@ namespace JustR.Desktop.Services.Implementations
         {
             return Profiles.Single(k => k.UserId == userId);
         }
+
+        public Task<UserPreviewDto> SimpleLogin(String userTag)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

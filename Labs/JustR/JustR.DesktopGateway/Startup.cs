@@ -20,13 +20,13 @@ namespace JustR.DesktopGateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
+                /*services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
             {
                 options.Authority = "http://localhost:5001";
                 options.RequireHttpsMetadata = false;
                 options.Audience = "api1";
             });
-
+            */
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("JustR", new OpenApiInfo

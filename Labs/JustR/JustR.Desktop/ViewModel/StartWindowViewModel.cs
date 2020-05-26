@@ -1,30 +1,42 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Accessibility;
 using JustR.Desktop.Commands;
 using JustR.Desktop.Controls;
 using JustR.Desktop.Model;
+using JustR.Desktop.Services.Abstractions;
+using JustR.Desktop.Services.Implementations;
 using JustR.Desktop.View;
 using JustR.Models.Entity;
 
 namespace JustR.Desktop.ViewModel
 {
     public class StartWindowViewModel : BaseViewModel
-    { 
+    {
+        private readonly IProfileService _profileService = new ProfileService();
         private readonly AuthenticationModel _authenticationModel = new AuthenticationModel();
 
-        public ICommand LoginCommand => new ActionCommand(arg => Authenticate());
-        public void Authenticate()
+        public ICommand LoginCommand => new ActionCommand(async arg => await Authenticate());
+        public async Task Authenticate()
         {
-            if (_authenticationModel.Login == _authenticationModel.Password)
+            var profile = await _profileService.SimpleLogin(Login);
+
+            if (profile is null)
             {
-                var start = new View.MainWindow();
-                start.Show();
-                Application.Current?.MainWindow?.Close();
+                MessageBox.Show("Nope");
                 return;
             }
 
-            MessageBox.Show("Nope");
+            UserInfo.CurrentUser.Name = profile.UserName;
+            UserInfo.CurrentUser.Avatar = profile.Avatar;
+            UserInfo.CurrentUser.UserId = profile.UserId;
+            UserInfo.CurrentUser.UniqueTag = profile.UniqueTag;
+
+            var start = new MainWindow();
+            start.Show();
+            Application.Current?.MainWindow?.Close();
         }
 
         public String Login

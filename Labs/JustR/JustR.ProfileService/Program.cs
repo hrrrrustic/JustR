@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
@@ -15,12 +16,17 @@ namespace JustR.ProfileService
         {
             CreateHostBuilder(args).Build().Run();
         }
-
+        
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseConfiguration(new ConfigurationBuilder()
+                        .SetBasePath(Directory.GetCurrentDirectory())
+                        .AddJsonFile("hosting.json", optional:true)
+                        .Build()
+                        )
+                        .UseStartup<Startup>();
                 });
     }
 }
