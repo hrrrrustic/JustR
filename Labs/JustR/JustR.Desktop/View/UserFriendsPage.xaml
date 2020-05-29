@@ -1,0 +1,26 @@
+﻿<Page x:Class="JustR.Desktop.View.UserFriendsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:JustR.Desktop.View"
+      xmlns:controls="clr-namespace:JustR.Desktop.Controls"
+      xmlns:viewModels="clr-namespace:JustR.Desktop.ViewModel"
+      mc:Ignorable="d" 
+      Loaded="UserFriendsPage_OnLoaded"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UserFriendsPage">
+    <Page.DataContext>
+        <viewModels:UserFriendsViewModel></viewModels:UserFriendsViewModel>
+    </Page.DataContext>
+
+    <Grid>
+        <ItemsControl ItemsSource="{Binding Friends}" >
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <controls:FriendControl Friend="{Binding}" OpenDialog="{Binding DataContext.OpedDialogCommand, RelativeSource={RelativeSource AncestorType=local:UserFriendsPage}}" DeleteFriend="{Binding DataContext.DeleteFriendCommand, RelativeSource={RelativeSource AncestorType=local:UserFriendsPage}}"></controls:FriendControl>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Page>
