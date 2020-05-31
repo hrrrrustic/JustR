@@ -12,7 +12,6 @@ namespace JustR.ProfileService.Service
         
         public ProfileService(IProfileRepository profileRepository)
         {
-            
             _profileRepository = profileRepository;
         }
 
@@ -27,7 +26,7 @@ namespace JustR.ProfileService.Service
             return _profileRepository.ReadUserProfile(userId);
         }
 
-        public IEnumerable<User> SearchUser(String query)
+        public IReadOnlyList<User> SearchUser(String query)
         {
             return _profileRepository.ReadUserProfiles(query);
         }

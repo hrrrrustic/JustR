@@ -8,8 +8,7 @@ namespace JustR.ProfileService
     {
        public DbSet<User> Users { get; set; }
 
-       public ProfileDbContext(DbContextOptions<ProfileDbContext> options)
-           : base(options)
+       public ProfileDbContext(DbContextOptions<ProfileDbContext> options) : base(options)
        {
        }
 

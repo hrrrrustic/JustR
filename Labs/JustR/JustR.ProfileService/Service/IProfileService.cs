@@ -9,7 +9,7 @@ namespace JustR.ProfileService.Service
     {
         User GetUserProfile(Guid userId);
         User GetUserPreview(Guid userId);
-        IEnumerable<User> SearchUser(String query);
+        IReadOnlyList<User> SearchUser(String query);
         User FakeLogIn(String userTag);
         User UpdateUserProfile(User user);
     }

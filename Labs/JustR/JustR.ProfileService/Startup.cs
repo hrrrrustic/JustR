@@ -26,8 +26,6 @@ namespace JustR.ProfileService
         {
             Configuration = configuration;
         }
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -35,25 +33,32 @@ namespace JustR.ProfileService
             services.AddScoped<Compiler, SqlServerCompiler>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
             services.AddScoped<IProfileService, Service.ProfileService>();
+
             services.AddDbContext<ProfileDbContext>(options => options.UseSqlServer(DbConfiguration.ConnectionString));
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("JustR.ProfileService", new OpenApiInfo
+                c.SwaggerDoc("Profile", new OpenApiInfo
                 {
                     Title = "JustR API",
                     Version = "0.1.0"
                 });
-                String xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+
+                String fileName = Assembly
+                    .GetExecutingAssembly()
+                    .GetName()
+                    .Name;
+
+                String xmlFile = $"{fileName}.xml";
                 String xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             DbConfiguration.ConnectionString = Configuration.GetConnectionString("LocalDb");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

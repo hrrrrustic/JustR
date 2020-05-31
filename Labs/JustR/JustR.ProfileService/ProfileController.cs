@@ -28,46 +28,57 @@ namespace JustR.ProfileService
         [HttpGet]
         public ActionResult<User> GetUserProfile([FromQuery] Guid userId)
         {
-            return Ok(_profileService.GetUserProfile(userId));
+            User userProfile = _profileService.GetUserProfile(userId);
+
+            return Ok(userProfile);
         }
 
 
         [HttpGet]
-        public ActionResult<List<User>> GetUserProfile([FromQuery] List<Guid> usersId)
+
+        //TODO : Перекинуть айдишники в тело запроса
+        public ActionResult<IReadOnlyList<User>> GetUserProfile([FromQuery] List<Guid> usersId)
         {
-            var res = usersId.Select(k => _profileService.GetUserProfile(k)).ToList();
-            return Ok(res);
+            IReadOnlyList<User> usersProfile = usersId
+                .Select(k => _profileService.GetUserProfile(k))
+                .ToList();
+
+            return Ok(usersProfile);
         }
 
         [HttpGet("search")]
-        public ActionResult<List<User>> SearchUser([FromQuery] String query)
+        public ActionResult<IReadOnlyList<User>> SearchUser([FromQuery] String query)
         {
             if (query is null)
                 return BadRequest();
 
-            return Ok(_profileService.SearchUser(query));
+            IReadOnlyList<User> foundUsers = _profileService.SearchUser(query);
+
+            return Ok(foundUsers);
         }
 
         [HttpGet("preview")]
-        public ActionResult<User> GetUserPreview([FromQuery] Guid userId) // Что-то на уровне фотка + имя
+        public ActionResult<User> GetUserPreview([FromQuery] Guid userId)
         {
-            return Ok(_profileService.GetUserPreview(userId));
+            User userPreview = _profileService.GetUserPreview(userId);
+
+            return Ok(userPreview);
         }
 
         [HttpPut]
         public ActionResult<User> UpdateUserProfile([FromBody] User user)
         {
-            var res = _profileService.UpdateUserProfile(user);
+            User updatedUserProfile = _profileService.UpdateUserProfile(user);
 
-            return Ok(res);
+            return Ok(updatedUserProfile);
         }
 
         [HttpGet("login")]
         public ActionResult<User> SimpleLogIn([FromQuery] String userTag)
         {
-            var user = _profileService.FakeLogIn(userTag);
+            User loggedUser = _profileService.FakeLogIn(userTag);
 
-            return Ok(user);
+            return Ok(loggedUser);
         }
     }
 }

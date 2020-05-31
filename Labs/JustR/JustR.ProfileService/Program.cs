@@ -17,16 +17,24 @@ namespace JustR.ProfileService
             CreateHostBuilder(args).Build().Run();
         }
         
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            IHostBuilder hostBuilder = Host.CreateDefaultBuilder(args);
+
+            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("hosting.json");
+
+
+            hostBuilder = hostBuilder
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseConfiguration(new ConfigurationBuilder()
-                        .SetBasePath(Directory.GetCurrentDirectory())
-                        .AddJsonFile("hosting.json", optional:true)
-                        .Build()
-                        )
+                    webBuilder
+                        .UseConfiguration(configurationBuilder.Build())
                         .UseStartup<Startup>();
                 });
+
+            return hostBuilder;
+        }
     }
 }
