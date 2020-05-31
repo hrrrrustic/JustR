@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows.Documents;
+using JustR.Core.Dto;
+using JustR.Core.Extensions;
 using JustR.Desktop.Services.Abstractions;
-using JustR.Models.Dto;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
 
@@ -21,10 +21,10 @@ namespace JustR.Desktop.Services.Implementations
         {
             var request = new RestRequest("Message");
             request
-                .AddParameter("userId", userId, ParameterType.QueryString)
-                .AddParameter("dialogId", dialogId, ParameterType.QueryString)
-                .AddParameter("offset", 0, ParameterType.QueryString)
-                .AddParameter("count", 100, ParameterType.QueryString);
+                .AddQueryParameter("userId", userId)
+                .AddQueryParameter("dialogId", dialogId)
+                .AddQueryParameter("offset", 0)
+                .AddQueryParameter("count", 100);
 
             var res = await _restClient.GetAsync<List<MessageDto>>(request);
 
@@ -35,12 +35,11 @@ namespace JustR.Desktop.Services.Implementations
         {
             var request = new RestRequest("Message");
             request
-                .AddParameter("dialogId", message.DialogId, ParameterType.QueryString)
-                .AddParameter("authorId", message.Sender.UserId, ParameterType.QueryString)
-                .AddParameter("text", message.MessageText, ParameterType.QueryString);
+                .AddQueryParameter("dialogId", message.DialogId)
+                .AddQueryParameter("authorId", message.Sender.UserId)
+                .AddQueryParameter("text", message.MessageText);
 
             await _restClient.PostAsync<MessageDto>(request);
-
         }
     }
 }

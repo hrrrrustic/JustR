@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JustR.Models.Dto
+namespace JustR.Core.Dto
 {
     public class FriendDto
     {

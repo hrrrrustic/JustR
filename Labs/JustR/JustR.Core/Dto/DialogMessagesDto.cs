@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace JustR.Models.Dto
+namespace JustR.Core.Dto
 {
     public class DialogMessagesDto
     {

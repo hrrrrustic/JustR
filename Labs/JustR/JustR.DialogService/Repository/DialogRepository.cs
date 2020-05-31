@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using JustR.Core.Entity;
 using JustR.Models.Entity;
 using SqlKata;
 using SqlKata.Compilers;

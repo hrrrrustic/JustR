@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JustR.Desktop.Controls"
-             xmlns:entity="clr-namespace:JustR.Models.Entity;assembly=JustR.Models"
              xmlns:viewModels="clr-namespace:JustR.Desktop.ViewModel"
              mc:Ignorable="d" 
              xmlns:pages="clr-namespace:JustR.Desktop.View"

@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JustR.Models\JustR.Models.csproj" />
+    <ProjectReference Include="..\JustR.Core\JustR.Core.csproj" />
   </ItemGroup>
 
 </Project>

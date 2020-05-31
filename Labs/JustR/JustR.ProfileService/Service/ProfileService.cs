@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using JustR.Models.Dto;
+using JustR.Core.Entity;
 using JustR.Models.Entity;
 using JustR.ProfileService.Repository;
 

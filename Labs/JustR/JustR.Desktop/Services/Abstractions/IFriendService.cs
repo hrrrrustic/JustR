@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Documents;
-using JustR.Models.Dto;
+using JustR.Core.Dto;
 
 namespace JustR.Desktop.Services.Abstractions
 {

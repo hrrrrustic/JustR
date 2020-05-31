@@ -3,12 +3,12 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Accessibility;
+using JustR.Core.Dto;
+using JustR.Core.Enum;
 using JustR.Desktop.Commands;
 using JustR.Desktop.Services.Abstractions;
 using JustR.Desktop.Services.Implementations;
 using JustR.Desktop.View;
-using JustR.Models.Dto;
-using JustR.Models.Enum;
 
 namespace JustR.Desktop.ViewModel
 {

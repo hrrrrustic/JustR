@@ -10,9 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using JustR.Core.Dto;
 using JustR.Desktop.Commands;
 using JustR.Desktop.View;
-using JustR.Models.Dto;
 using JustR.Models.Entity;
 
 namespace JustR.Desktop.Controls

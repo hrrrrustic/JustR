@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using JustR.Models.Entity;
+using JustR.Core.Entity;
 
-namespace JustR.Models.Dto
+namespace JustR.Core.Dto
 {
     public class UserPreviewDto
     {

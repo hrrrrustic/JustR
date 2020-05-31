@@ -11,7 +11,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using JustR.Desktop.ViewModel;
-using JustR.Models.Dto;
 
 namespace JustR.Desktop.View
 {

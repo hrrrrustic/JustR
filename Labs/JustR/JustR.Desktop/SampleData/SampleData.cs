@@ -4,7 +4,7 @@ using System.IO;
 using System.Printing.IndexedProperties;
 using System.Reflection;
 using System.Windows.Documents;
-using JustR.Models.Dto;
+using JustR.Core.Dto;
 
 namespace JustR.Desktop.SampleData
 {

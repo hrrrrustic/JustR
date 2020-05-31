@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using JustR.Desktop.Services.Abstractions;
-using JustR.Models.Dto;
-using JustR.Models.Entity;
+using JustR.Core;
+using JustR.Core.Dto;
+using JustR.Core.Extensions;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
 
@@ -20,7 +21,7 @@ namespace JustR.Desktop.Services.Implementations
         public async Task<List<UserPreviewDto>> GetFriendsAsync(Guid userId)
         {
             var request = new RestRequest("Friend");
-            request.AddParameter("userId", userId, ParameterType.QueryString);
+            request.AddQueryParameter("userId", userId);
 
             var friends = await _restClient.GetAsync<List<UserPreviewDto>>(request);
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace JustR.Models.Enum
+﻿namespace JustR.Core.Enum
 {
     public enum RelationshipState
     {

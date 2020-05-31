@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.DesktopGateway", "JustR.DesktopGateway\JustR.DesktopGateway.csproj", "{ABE7A279-775B-48D3-ADB6-A84F77AABB1C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.Models", "JustR.Models\JustR.Models.csproj", "{54124DCC-7130-4509-AEE8-48ED4BF7E0DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.Core", "JustR.Core\JustR.Core.csproj", "{54124DCC-7130-4509-AEE8-48ED4BF7E0DB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.Desktop", "JustR.Desktop\JustR.Desktop.csproj", "{1B32B048-C80A-44B3-9747-76A60B595268}"
 EndProject

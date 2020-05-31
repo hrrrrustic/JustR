@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using JustR.Core.Dto;
 using JustR.Desktop.Services.Abstractions;
-using JustR.Models.Dto;
+using JustR.Core.Extensions;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
 
@@ -21,9 +22,9 @@ namespace JustR.Desktop.Services.Implementations
         {
             var request = new RestRequest("Dialog/all");
             request
-                .AddParameter("userId", userId, ParameterType.QueryString)
-                .AddParameter("offset", 0, ParameterType.QueryString)
-                .AddParameter("count", 15, ParameterType.QueryString);
+                .AddQueryParameter("userId", userId)
+                .AddQueryParameter("offset", 0)
+                .AddQueryParameter("count", 15);
 
             var response = await _restClient.GetAsync<List<DialogPreviewDto>>(request);
 
@@ -34,11 +35,11 @@ namespace JustR.Desktop.Services.Implementations
         {
             var request = new RestRequest("Dialog");
             request
-                .AddParameter("dialogId", dialogId, ParameterType.QueryString)
-                .AddParameter("userId", userId, ParameterType.QueryString);
+                .AddQueryParameter("dialogId", dialogId)
+                .AddQueryParameter("userId", userId);
             
             var info = await  _restClient.GetAsync<DialogInfoDto>(request);
-
+            
             return info;
         }
 
@@ -46,8 +47,8 @@ namespace JustR.Desktop.Services.Implementations
         {
             var request = new RestRequest("Dialog/id");
             request
-                .AddParameter("firstUserId", firstUserId, ParameterType.QueryString)
-                .AddParameter("secondUserId", secondUserId, ParameterType.QueryString);
+                .AddQueryParameter("firstUserId", firstUserId)
+                .AddQueryParameter("secondUserId", secondUserId);
 
             var id = await _restClient.GetAsync<Guid>(request);
 
@@ -58,19 +59,13 @@ namespace JustR.Desktop.Services.Implementations
         {
             var request = new RestRequest("Dialog");
             request
-                .AddParameter("firstUserId", newDialog.InterlocutorPreview.UserId, ParameterType.QueryString)
-                .AddParameter("secondUserId", UserInfo.CurrentUser.UserId, ParameterType.QueryString);
-
+                .AddQueryParameter("firstUserId", newDialog.InterlocutorPreview.UserId)
+                .AddQueryParameter("secondUserId", UserInfo.CurrentUser.UserId);
 
             var response = await _restClient.PostAsync<DialogInfoDto>(request);
 
             return response;
 
-        }
-
-        public async Task UpdateDialogLastMessageInfo(Guid dialogId, String message, DateTime time)
-        {
-            throw new NotImplementedException();
         }
     }
 }

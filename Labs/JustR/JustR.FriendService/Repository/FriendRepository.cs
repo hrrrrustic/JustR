@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using JustR.Core.Enum;
 using JustR.Models.Entity;
-using JustR.Models.Enum;
 using SqlKata.Compilers;
 
 namespace JustR.FriendService.Repository

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using JustR.Models.Dto;
+using JustR.Core.Dto;
+using JustR.Core.Entity;
 using JustR.Models.Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,7 @@ namespace JustR.DesktopGateway.Controllers
         public async Task<ActionResult<List<UserPreviewDto>>> GetUserFriends([FromQuery] Guid userId)
         {
             var request = new RestRequest();
-            request.AddParameter("userId", userId, ParameterType.QueryString);
+            request.AddQueryParameter("userId", userId, ParameterType.QueryString);
 
             List<Guid> friendsId = await _friendClient.GetAsync<List<Guid>>(request);
             if (friendsId is null)
@@ -39,7 +40,7 @@ namespace JustR.DesktopGateway.Controllers
             foreach (Guid id in friendsId)
             {
                 request = new RestRequest("preview");
-                request.AddParameter("userId", id, ParameterType.QueryString);
+                request.AddQueryParameter("userId", id, ParameterType.QueryString);
 
                 var res = await _profileClient.GetAsync<User>(request);
                 var result = UserPreviewDto.FromUser(res);

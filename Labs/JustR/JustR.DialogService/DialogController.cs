@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using JustR.Core.Dto;
+using JustR.Core.Entity;
 using JustR.DialogService.Repository;
 using JustR.DialogService.Service;
-using JustR.Models.Dto;
 using JustR.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -86,9 +87,9 @@ namespace JustR.DialogService
 
             var request = new RestRequest();
             request
-                .AddParameter("userId", authorId, ParameterType.QueryString)
-                .AddParameter("dialogId", dialogId, ParameterType.QueryString)
-                .AddParameter("text", text, ParameterType.QueryString);
+                .AddQueryParameter("userId", authorId, ParameterType.QueryString)
+                .AddQueryParameter("dialogId", dialogId, ParameterType.QueryString)
+                .AddQueryParameter("text", text, ParameterType.QueryString);
 
             await _messageClient.PostAsync<Message>(request);
 

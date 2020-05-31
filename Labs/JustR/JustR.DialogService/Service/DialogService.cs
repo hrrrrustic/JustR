@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using JustR.Core.Entity;
 using JustR.DialogService.Repository;
-using JustR.Models.Dto;
 using JustR.Models.Entity;
 
 namespace JustR.DialogService.Service

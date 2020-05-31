@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using JustR.Desktop.Annotations;
+using JustR.Core.Dto;
+using JustR.Core.Entity;
+using JustR.Core.Extensions;
 using JustR.Desktop.Services.Abstractions;
-using JustR.Models.Dto;
-using JustR.Models.Entity;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
 
@@ -19,14 +19,15 @@ namespace JustR.Desktop.Services.Implementations
         }
         public async Task<UserPreviewDto> GetProfilePreviewAsync(Guid userId)
         {
-            var request = new RestRequest("Profile/preview").AddParameter("userId", userId, ParameterType.QueryString);
+            var request = new RestRequest("Profile/preview")
+                .AddQueryParameter("userId", userId);
+
             var response = await _restClient.GetAsync<UserPreviewDto>(request);
             return response;
         }
 
         public Task<UserProfileDto> GetProfileAsync(Guid userId)
         {
-            
             throw new NotImplementedException();
         }
 
@@ -43,7 +44,7 @@ namespace JustR.Desktop.Services.Implementations
         public async Task<UserPreviewDto> SimpleLogin(String userTag)
         {
             var request = new RestRequest("Profile/login")
-                .AddParameter("userTag", userTag, ParameterType.QueryString);
+                .AddQueryParameter("userTag", userTag);
 
             var profile = await _restClient.GetAsync<UserPreviewDto>(request);
 

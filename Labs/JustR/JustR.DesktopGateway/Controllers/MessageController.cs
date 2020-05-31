@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using JustR.Models.Dto;
+using JustR.Core.Dto;
+using JustR.Core.Entity;
+using JustR.Core.Extensions;
 using JustR.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
@@ -33,10 +35,10 @@ namespace JustR.DesktopGateway.Controllers
         {
             var request = new RestRequest("all");
             request
-                .AddParameter("userId", userId, ParameterType.QueryString)
-                .AddParameter("dialogId", dialogId, ParameterType.QueryString)
-                .AddParameter("offset", offset ?? 0, ParameterType.QueryString)
-                .AddParameter("count", count, ParameterType.QueryString);
+                .AddQueryParameter("userId", userId)
+                .AddQueryParameter("dialogId", dialogId)
+                .AddQueryParameter("offset", offset ?? 0)
+                .AddQueryParameter("count", count);
 
             var messages = await _messageClient.GetAsync<List<Message>>(request);
             request = new RestRequest("preview");
@@ -44,7 +46,7 @@ namespace JustR.DesktopGateway.Controllers
             List<MessageDto> result = new List<MessageDto>(messages.Count);
             foreach (Message message in messages)
             {
-                request.AddParameter("userId", message.AuthorId, ParameterType.QueryString);
+                request.AddQueryParameter("userId", message.AuthorId, ParameterType.QueryString);
                 var user = await _profileClient.GetAsync<User>(request);
 
                 MessageDto dto = new MessageDto
@@ -64,10 +66,11 @@ namespace JustR.DesktopGateway.Controllers
         public async Task<ActionResult<MessageDto>> SendMessage([FromQuery] Guid dialogId, Guid authorId, String text)
         {
             var request = new RestRequest("message");
+
             request
-                .AddParameter("dialogId", dialogId, ParameterType.QueryString)
-                .AddParameter("authorId", authorId, ParameterType.QueryString)
-                .AddParameter("text", text, ParameterType.QueryString);
+                .AddQueryParameter("dialogId", dialogId)
+                .AddQueryParameter("authorId", authorId)
+                .AddQueryParameter("text", text);
 
             await _dialogClient.PostAsync<OkResult>(request);
 

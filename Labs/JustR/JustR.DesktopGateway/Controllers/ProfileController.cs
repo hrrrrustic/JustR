@@ -4,7 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using JustR.Models.Dto;
+using JustR.Core.Dto;
+using JustR.Core.Entity;
 using JustR.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -28,7 +29,7 @@ namespace JustR.DesktopGateway.Controllers
         [HttpGet]
         public async Task<ActionResult<UserProfileDto>> GetUserProfile([FromQuery] Guid userId)
         {
-            var request = new RestRequest("userId", Method.GET, DataFormat.Json).AddParameter("userId", userId, ParameterType.QueryString);
+            var request = new RestRequest("userId", Method.GET, DataFormat.Json).AddQueryParameter("userId", userId, ParameterType.QueryString);
 
             ServicePointManager.ServerCertificateValidationCallback +=
                 (sender, certificate, chain, sslPolicyErrors) => true;
@@ -42,7 +43,7 @@ namespace JustR.DesktopGateway.Controllers
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<UserPreviewDto>>> SearchUser([FromQuery] String query)
         {
-            var request = new RestRequest("search",DataFormat.Json).AddParameter("query", query, ParameterType.QueryString);
+            var request = new RestRequest("search",DataFormat.Json).AddQueryParameter("query", query, ParameterType.QueryString);
 
             var response = await _restClient.GetAsync<List<User>>(request);
 
@@ -55,7 +56,7 @@ namespace JustR.DesktopGateway.Controllers
         [HttpGet("preview")]
         public async Task<ActionResult<UserPreviewDto>> GetUserPreview([FromQuery] Guid userId) // Что-то на уровне фотка + имя
         {
-            var request = new RestRequest("preview").AddParameter("userId", userId, ParameterType.QueryString);
+            var request = new RestRequest("preview").AddQueryParameter("userId", userId, ParameterType.QueryString);
             var response = await _restClient.GetAsync<UserPreviewDto>(request);
 
             return Ok(response);
@@ -77,7 +78,7 @@ namespace JustR.DesktopGateway.Controllers
         public async Task<ActionResult<UserPreviewDto>> SimpleAuth([FromQuery] String userTag)
         {
             var request = new RestRequest("login", Method.GET, DataFormat.Json)
-                .AddParameter("userTag", userTag, ParameterType.QueryString);
+                .AddQueryParameter("userTag", userTag, ParameterType.QueryString);
 
             var response = await _restClient.GetAsync<UserPreviewDto>(request);
 

@@ -1,13 +1,12 @@
 ﻿using System;
-using JustR.Models.Enum;
+using JustR.Core.Enum;
 
-namespace JustR.Models.Entity
+namespace JustR.Core.Dto
 {
-    public class Relationship
+    public class FriendRequestDto
     {
         public Guid FirstUserId { get; set; }
         public Guid SecondUserId { get; set; }
         public RelationshipState State { get; set; }
-        
     }
 }

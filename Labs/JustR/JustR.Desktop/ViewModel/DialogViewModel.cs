@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using System.Transactions;
 using System.Windows.Input;
 using Accessibility;
+using JustR.Core.Dto;
 using JustR.Desktop.Commands;
 using JustR.Desktop.Services.Abstractions;
 using JustR.Desktop.Services.Implementations;
-using JustR.Models.Dto;
 
 namespace JustR.Desktop.ViewModel
 {

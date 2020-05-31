@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JustR.Core.Entity;
 using JustR.MessageService.Service;
-using JustR.Models.Dto;
 using JustR.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
 

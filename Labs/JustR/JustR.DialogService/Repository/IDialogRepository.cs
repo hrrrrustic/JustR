@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using JustR.Core.Entity;
 using JustR.Models.Entity;
 
 namespace JustR.DialogService.Repository

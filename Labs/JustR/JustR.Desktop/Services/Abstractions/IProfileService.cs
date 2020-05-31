@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using JustR.Core.Dto;
+using JustR.Core.Entity;
 using JustR.Desktop.Annotations;
-using JustR.Models.Dto;
 using JustR.Models.Entity;
 
 namespace JustR.Desktop.Services.Abstractions

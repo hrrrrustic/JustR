@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JustR.Models.Entity
+namespace JustR.Core.Entity
 {
     public class Message
     {

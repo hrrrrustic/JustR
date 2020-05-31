@@ -5,7 +5,8 @@ using System.Net.Http;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using JustR.Models.Dto;
+using JustR.Core.Dto;
+using JustR.Core.Entity;
 using JustR.Models.Entity;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -38,8 +39,8 @@ namespace JustR.DesktopGateway.Controllers
         {
             var request = new RestRequest("id");
             request
-                .AddParameter("firstUserId", firstUserId, ParameterType.QueryString)
-                .AddParameter("secondUserId", secondUserid, ParameterType.QueryString);
+                .AddQueryParameter("firstUserId", firstUserId, ParameterType.QueryString)
+                .AddQueryParameter("secondUserId", secondUserid, ParameterType.QueryString);
 
             var id = await _dialogClient.GetAsync<Guid>(request);
 
@@ -51,9 +52,9 @@ namespace JustR.DesktopGateway.Controllers
         {
             var request = new RestRequest("preview");
             request
-                .AddParameter("userId", userId, ParameterType.QueryString)
-                .AddParameter("count", count, ParameterType.QueryString)
-                .AddParameter("offset", offset ?? 0, ParameterType.QueryString);
+                .AddQueryParameter("userId", userId, ParameterType.QueryString)
+                .AddQueryParameter("count", count, ParameterType.QueryString)
+                .AddQueryParameter("offset", offset ?? 0, ParameterType.QueryString);
 
             var dialogs = await _dialogClient.GetAsync<List<Dialog>>(request);
             
@@ -63,7 +64,7 @@ namespace JustR.DesktopGateway.Controllers
             {
                 request.Parameters.Clear();
 
-                request.AddParameter("userId", dialog.FirstUserId == userId ? dialog.SecondUserid : dialog.FirstUserId);
+                request.AddQueryParameter("userId", dialog.FirstUserId == userId ? dialog.SecondUserid : dialog.FirstUserId);
 
                 var user = await _profileClient.GetAsync<User>(request);
 
@@ -86,7 +87,7 @@ namespace JustR.DesktopGateway.Controllers
         public async Task<ActionResult<DialogInfoDto>> GetDialog([FromQuery] Guid dialogId, Guid userId)
         {
             var request = new RestRequest();
-            request.AddParameter("dialogId", dialogId);
+            request.AddQueryParameter("dialogId", dialogId);
 
             var dialog = await _dialogClient.GetAsync<Dialog>(request);
 
@@ -95,7 +96,7 @@ namespace JustR.DesktopGateway.Controllers
 
 
             request = new RestRequest("preview");
-            request.AddParameter("userId", dialog.FirstUserId == userId ? dialog.SecondUserid : dialog.FirstUserId);
+            request.AddQueryParameter("userId", dialog.FirstUserId == userId ? dialog.SecondUserid : dialog.FirstUserId);
 
             User interlocutor = await _profileClient.GetAsync<User>(request);
 
@@ -114,8 +115,8 @@ namespace JustR.DesktopGateway.Controllers
         {
                 var request = new RestRequest();
             request
-                .AddParameter("firstUserId", firstUserId, ParameterType.QueryString)
-                .AddParameter("secondUserId", secondUserId, ParameterType.QueryString);
+                .AddQueryParameter("firstUserId", firstUserId, ParameterType.QueryString)
+                .AddQueryParameter("secondUserId", secondUserId, ParameterType.QueryString);
 
             User interlocutor = await _profileClient.GetAsync<User>(request);
             if (interlocutor is null)
@@ -124,7 +125,7 @@ namespace JustR.DesktopGateway.Controllers
             var newDialog = await _dialogClient.PostAsync<Dialog>(request);
 
             request = new RestRequest("preview");
-            request.AddParameter("userId", newDialog.FirstUserId == firstUserId ? newDialog.SecondUserid : newDialog.FirstUserId);
+            request.AddQueryParameter("userId", newDialog.FirstUserId == firstUserId ? newDialog.SecondUserid : newDialog.FirstUserId);
 
 
             DialogInfoDto dto = new DialogInfoDto

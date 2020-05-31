@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using JustR.Models.Dto;
+using JustR.Core.Dto;
 
 namespace JustR.Desktop.Services.Abstractions
 {
@@ -11,6 +11,5 @@ namespace JustR.Desktop.Services.Abstractions
         Task<DialogInfoDto> GetDialogInfoAsync(Guid dialogId, Guid userId);
         Task<Guid> GetDialogIdAsync(Guid userId, Guid secondUserId);
         Task<DialogInfoDto> CreateDialogAsync(DialogPreviewDto newDialog);
-        Task UpdateDialogLastMessageInfo(Guid dialogId, String message, DateTime time);
     }
 }
