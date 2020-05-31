@@ -7,13 +7,8 @@ namespace JustR.FriendService
     {
         public DbSet<Relationship> Relationships { get; set; }
 
-        public FriendDbContext(DbContextOptions<FriendDbContext> options)
-        : base(options)
+        public FriendDbContext(DbContextOptions<FriendDbContext> options) : base(options)
         {
-        }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(DbConfiguration.ConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

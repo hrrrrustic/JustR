@@ -14,7 +14,7 @@ namespace JustR.FriendService.Service
             _friendRepository = friendRepository;
         }
 
-        public List<Guid> GetFriends(Guid userId)
+        public IReadOnlyList<Guid> GetFriends(Guid userId)
         {
             return _friendRepository.ReadUserFriends(userId);
         }

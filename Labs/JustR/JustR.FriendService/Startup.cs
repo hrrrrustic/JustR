@@ -1,14 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using JustR.FriendService.Repository;
 using JustR.FriendService.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,19 +25,26 @@ namespace JustR.FriendService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             services.AddScoped<Compiler, SqlServerCompiler>();
             services.AddScoped<IFriendRepository, FriendRepository>();
             services.AddScoped<IFriendService, Service.FriendService>();
+
             services.AddDbContext<FriendDbContext>(options => options.UseSqlServer(DbConfiguration.ConnectionString));
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("JustR.FriendService", new OpenApiInfo
+                c.SwaggerDoc("Friends", new OpenApiInfo
                 {
                     Title = "JustR API",
                     Version = "0.1.0"
                 });
-                String xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                String fileName = Assembly
+                    .GetExecutingAssembly()
+                    .GetName()
+                    .Name;
+
+                String xmlFile = $"{fileName}.xml";
                 String xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
@@ -50,6 +53,7 @@ namespace JustR.FriendService
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             DbConfiguration.ConnectionString = Configuration.GetConnectionString("LocalDb");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

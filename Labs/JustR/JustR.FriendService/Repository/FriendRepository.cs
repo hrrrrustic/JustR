@@ -9,13 +9,11 @@ namespace JustR.FriendService.Repository
 {
     public class FriendRepository : IFriendRepository
     {
-        private readonly Compiler _sqlCompiler;
 
         private readonly FriendDbContext _context;
 
-        public FriendRepository(Compiler sqlCompiler, FriendDbContext context)
+        public FriendRepository(FriendDbContext context)
         {
-            _sqlCompiler = sqlCompiler;
             _context = context;
         }
 
@@ -41,7 +39,7 @@ namespace JustR.FriendService.Repository
             return directRelation.Entity;
         }
 
-        public List<Guid> ReadUserFriends(Guid userId)
+        public IReadOnlyList<Guid> ReadUserFriends(Guid userId)
         {
             return _context
                 .Relationships
