@@ -1,5 +1,4 @@
 ﻿using JustR.Core.Entity;
-using JustR.Models.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace JustR.MessageService
@@ -10,7 +9,6 @@ namespace JustR.MessageService
 
         public MessageDbContext(DbContextOptions<MessageDbContext> options) : base(options)
         {
-            
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

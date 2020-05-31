@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using JustR.Core.Entity;
 using JustR.MessageService.Service;
-using JustR.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JustR.MessageService
@@ -20,22 +17,28 @@ namespace JustR.MessageService
         {
             _messageService = messageService;
         }
-        
+
+        //TODO : userId здесь не нужен
+        //TODO : Вроде как решил отбрасывать наллабл на шлюзе, нужно пофиксить offset
         [HttpGet("all")]
-        public ActionResult<IEnumerable<Message>> GetMessages([FromQuery] Guid userId, Guid dialogId, Int32? offset, Int32 count)
+        public ActionResult<IReadOnlyList<Message>> GetMessages([FromQuery] Guid userId, Guid dialogId, Int32? offset, Int32 count)
         {
-            var res = _messageService.GetMessages(userId, dialogId, offset, count);
-            return Ok(res);
+            IReadOnlyList<Message> messages = _messageService.GetMessages(userId, dialogId, offset, count);
+
+            return Ok(messages);
         }
 
+
+        //TODO : Как минимум текст сообщения должен быть в теле запроса
         [HttpPost]
         public ActionResult<Message> SendMessage([FromQuery] Guid userId, Guid dialogId, String text)
         {
             if (String.IsNullOrWhiteSpace(text))
                 return BadRequest();
             
-            var message = _messageService.SendMessage(userId, dialogId, text);
-            return Ok(message);
+            Message sentMessage = _messageService.SendMessage(userId, dialogId, text);
+
+            return Ok(sentMessage);
         }
     }
 }

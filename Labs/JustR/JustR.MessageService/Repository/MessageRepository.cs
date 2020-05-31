@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using JustR.Core.Entity;
-using JustR.Models.Entity;
 using SqlKata.Compilers;
 
 namespace JustR.MessageService.Repository
@@ -19,7 +18,7 @@ namespace JustR.MessageService.Repository
             _context = context;
         }
 
-        public List<Message> ReadMessages(Guid dialogId, Int32 count, Int32 offset = 0)
+        public IReadOnlyList<Message> ReadMessages(Guid dialogId, Int32 count, Int32 offset = 0)
         {
             return _context
                 .Messages
@@ -33,7 +32,7 @@ namespace JustR.MessageService.Repository
         {
             message.MessageId = Guid.NewGuid();
 
-            var entity = _context.Messages.Add(message).Entity;
+            Message entity = _context.Messages.Add(message).Entity;
             _context.SaveChanges();
 
             return entity;

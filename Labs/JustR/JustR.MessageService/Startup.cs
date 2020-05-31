@@ -1,14 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using JustR.MessageService.Repository;
 using JustR.MessageService.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,16 +29,23 @@ namespace JustR.MessageService
             services.AddScoped<Compiler, SqlServerCompiler>();
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IMessageService, Service.MessageService>();
+
             services.AddDbContext<MessageDbContext>(options => options.UseSqlServer(DbConfiguration.ConnectionString));
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("JustR.MessageService", new OpenApiInfo
+                c.SwaggerDoc("Messages", new OpenApiInfo
                 {
                     Title = "JustR API",
                     Version = "0.1.0"
                 });
-                String xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+
+                String fileName = Assembly
+                    .GetExecutingAssembly()
+                    .GetName()
+                    .Name;
+
+                String xmlFile = $"{fileName}.xml";
                 String xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
