@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using JustR.Models.Entity;
+using JustR.Core.Entity;
 
 namespace JustR.MessageService.Repository
 {

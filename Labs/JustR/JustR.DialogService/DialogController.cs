@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using JustR.Core.Dto;
+using JustR.Core.Extensions;
 using JustR.Core.Entity;
 using JustR.DialogService.Repository;
 using JustR.DialogService.Service;
@@ -87,9 +88,9 @@ namespace JustR.DialogService
 
             var request = new RestRequest();
             request
-                .AddQueryParameter("userId", authorId, ParameterType.QueryString)
-                .AddQueryParameter("dialogId", dialogId, ParameterType.QueryString)
-                .AddQueryParameter("text", text, ParameterType.QueryString);
+                .AddQueryParameter("userId", authorId)
+                .AddQueryParameter("dialogId", dialogId)
+                .AddQueryParameter("text", text);
 
             await _messageClient.PostAsync<Message>(request);
 

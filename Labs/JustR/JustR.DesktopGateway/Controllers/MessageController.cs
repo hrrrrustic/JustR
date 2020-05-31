@@ -46,7 +46,10 @@ namespace JustR.DesktopGateway.Controllers
             List<MessageDto> result = new List<MessageDto>(messages.Count);
             foreach (Message message in messages)
             {
-                request.AddQueryParameter("userId", message.AuthorId, ParameterType.QueryString);
+                request
+                    .AddQueryParameter("userId", message.AuthorId);
+
+
                 var user = await _profileClient.GetAsync<User>(request);
 
                 MessageDto dto = new MessageDto
