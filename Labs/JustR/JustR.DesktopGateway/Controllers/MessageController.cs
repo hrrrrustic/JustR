@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using JustR.Core.Dto;
 using JustR.Core.Entity;
 using JustR.Core.Extensions;
-using JustR.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
@@ -17,30 +15,29 @@ namespace JustR.DesktopGateway.Controllers
     [Route("api/[controller]")]
     public class MessageController : Controller
     {
-        private readonly RestClient _messageClient = new RestClient(ServiceConfigurations.MessageServiceUri);
+        private readonly IRestClient _messageClient =
+            new RestClient(ServiceConfigurations.MessageServiceUri)
+                .UseNewtonsoftJson();
 
-        private readonly RestClient _profileClient = new RestClient(ServiceConfigurations.ProfileServiceUri);
+        private readonly IRestClient _profileClient =
+            new RestClient(ServiceConfigurations.ProfileServiceUri)
+                .UseNewtonsoftJson();
 
-        private readonly RestClient _dialogClient = new RestClient(ServiceConfigurations.DialogServiceUri);
-
-        public MessageController()
-        {
-            _messageClient.UseNewtonsoftJson();
-            _profileClient.UseNewtonsoftJson();
-            _dialogClient.UseNewtonsoftJson();
-        }
+        private readonly IRestClient _dialogClient =
+            new RestClient(ServiceConfigurations.DialogServiceUri)
+                .UseNewtonsoftJson();
 
         [HttpGet]
         public async Task<ActionResult<List<MessageDto>>> GetMessages(Guid userId, Guid dialogId, Int32? offset, Int32 count)
         {
-            var request = new RestRequest("all");
-            request
+            IRestRequest request = new RestRequest("all")
                 .AddQueryParameter("userId", userId)
                 .AddQueryParameter("dialogId", dialogId)
                 .AddQueryParameter("offset", offset ?? 0)
                 .AddQueryParameter("count", count);
 
-            var messages = await _messageClient.GetAsync<List<Message>>(request);
+            IReadOnlyList<Message> messages = await _messageClient.GetAsync<IReadOnlyList<Message>>(request);
+
             request = new RestRequest("preview");
 
             List<MessageDto> result = new List<MessageDto>(messages.Count);
@@ -49,16 +46,9 @@ namespace JustR.DesktopGateway.Controllers
                 request
                     .AddQueryParameter("userId", message.AuthorId);
 
+                User user = await _profileClient.GetAsync<User>(request);
 
-                var user = await _profileClient.GetAsync<User>(request);
-
-                MessageDto dto = new MessageDto
-                {
-                    DialogId = message.DialogId,
-                    MessageText = message.MessageText,
-                    SendDate = message.SendDate,
-                    Sender = UserPreviewDto.FromUser(user)
-                };
+                MessageDto dto = MessageDto.FromMessageAndUser(user, message);
                 result.Add(dto);
             }
 
@@ -68,9 +58,7 @@ namespace JustR.DesktopGateway.Controllers
         [HttpPost]
         public async Task<ActionResult<MessageDto>> SendMessage([FromQuery] Guid dialogId, Guid authorId, String text)
         {
-            var request = new RestRequest("message");
-
-            request
+            IRestRequest request = new RestRequest("message")
                 .AddQueryParameter("dialogId", dialogId)
                 .AddQueryParameter("authorId", authorId)
                 .AddQueryParameter("text", text);
@@ -78,7 +66,6 @@ namespace JustR.DesktopGateway.Controllers
             await _dialogClient.PostAsync<OkResult>(request);
 
             return Ok();
-
         }
     }
 }

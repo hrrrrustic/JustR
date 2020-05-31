@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using JustR.Core.Dto;
 using JustR.Core.Extensions;
 using JustR.Core.Entity;
-using JustR.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
 
@@ -20,81 +16,69 @@ namespace JustR.DesktopGateway.Controllers
     [Route("api/[controller]")]
     public class ProfileController : Controller
     {
-        private readonly RestClient _restClient;
+        private readonly IRestClient _restClient =
+            new RestClient(ServiceConfigurations.ProfileServiceUri)
+                .UseNewtonsoftJson();
 
-        public ProfileController()
-        {
-            _restClient = new RestClient(ServiceConfigurations.ProfileServiceUri);
-            _restClient.UseNewtonsoftJson();
-        }
         [HttpGet]
         public async Task<ActionResult<UserProfileDto>> GetUserProfile([FromQuery] Guid userId)
         {
-            var request = new RestRequest("userId");
-
-            request
+            IRestRequest request = new RestRequest("userId")
                 .AddQueryParameter("userId", userId);
 
-            var res = await _restClient.GetAsync<User>(request);
-
-            var preview = UserPreviewDto.FromUser(res);
+            User user = await _restClient.GetAsync<User>(request);
+            UserPreviewDto preview = UserPreviewDto.FromUser(user);
 
             return Ok(preview);
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<UserPreviewDto>>> SearchUser([FromQuery] String query)
+        public async Task<ActionResult<IReadOnlyList<UserPreviewDto>>> SearchUser([FromQuery] String query)
         {
-            var request = new RestRequest("search");
-            request
+            IRestRequest request = new RestRequest("search")
                 .AddQueryParameter("query", query);
 
-            var response = await _restClient.GetAsync<List<User>>(request);
+            List<User> response = await _restClient.GetAsync<List<User>>(request);
 
-            var res = response.Select(UserPreviewDto.FromUser);
+            IReadOnlyList<UserPreviewDto> res = response.Select(UserPreviewDto.FromUser).ToList();
 
-
-            return Ok(res.ToList());
+            return Ok(res);
         }
 
         [HttpGet("preview")]
         public async Task<ActionResult<UserPreviewDto>> GetUserPreview([FromQuery] Guid userId) // Что-то на уровне фотка + имя
         {
-            var request = new RestRequest("preview");
-            request
+            IRestRequest request = new RestRequest("preview")
                 .AddQueryParameter("userId", userId);
 
-            var response = await _restClient.GetAsync<UserPreviewDto>(request);
+            UserPreviewDto userPreview = await _restClient.GetAsync<UserPreviewDto>(request);
 
-            return Ok(response);
+            return Ok(userPreview);
         }
 
         [HttpPut]
-        public async Task<ActionResult<User>> UpdateUserProfile([FromBody] User dto)
+        public async Task<ActionResult<User>> UpdateUserProfile([FromBody] User newUserProfile)
         {
-            var request = new RestRequest(Method.PUT).AddJsonBody(dto);
+            IRestRequest request = new RestRequest()
+                .AddJsonBody(newUserProfile);
 
-            var response = await _restClient.PutAsync<User>(request);
+            User updatedProfile = await _restClient.PutAsync<User>(request);
 
-            if (response is null)
+            if (updatedProfile is null)
                 return BadRequest();
 
-            return Ok(response);
+            return Ok(updatedProfile);
         }
 
         [HttpGet("login")]
         public async Task<ActionResult<UserPreviewDto>> SimpleAuth([FromQuery] String userTag)
         {
-            var request = new RestRequest("login");
-
-            request
+            IRestRequest request = new RestRequest("login")
                 .AddQueryParameter("userTag", userTag);
 
-            var response = await _restClient.GetAsync<UserPreviewDto>(request);
+            UserPreviewDto response = await _restClient.GetAsync<UserPreviewDto>(request);
 
             return Ok(response);
-
-
         }
 
     }

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using JustR.Core.Dto;
 using JustR.Core.Entity;
 using JustR.Models.Entity;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 using JustR.Core.Extensions;
@@ -18,35 +16,34 @@ namespace JustR.DesktopGateway.Controllers
     [Route("api/[controller]")]
     public class FriendController : Controller
     {
-        private readonly RestClient _friendClient = new RestClient(ServiceConfigurations.FriendServiceUri);
-        private readonly RestClient _profileClient = new RestClient(ServiceConfigurations.ProfileServiceUri);
+        private readonly IRestClient _friendClient =
+            new RestClient(ServiceConfigurations.FriendServiceUri)
+                .UseNewtonsoftJson();
 
+        private readonly IRestClient _profileClient =
+            new RestClient(ServiceConfigurations.ProfileServiceUri)
+                .UseNewtonsoftJson();
 
-        public FriendController()
-        {
-            _friendClient.UseNewtonsoftJson();
-            _profileClient.UseNewtonsoftJson();
-        }
         [HttpGet]
         public async Task<ActionResult<List<UserPreviewDto>>> GetUserFriends([FromQuery] Guid userId)
         {
-            var request = new RestRequest();
-            request
+            var request = new RestRequest()
                 .AddQueryParameter("userId", userId);
 
             List<Guid> friendsId = await _friendClient.GetAsync<List<Guid>>(request);
+
             if (friendsId is null)
                 return Ok(Array.Empty<UserPreviewDto>());
 
             List<UserPreviewDto> previews = new List<UserPreviewDto>(friendsId.Count);
+
             foreach (Guid id in friendsId)
             {
-                request = new RestRequest("preview");
-                request
+                request = new RestRequest("preview")
                     .AddQueryParameter("userId", id);
 
-                var res = await _profileClient.GetAsync<User>(request);
-                var result = UserPreviewDto.FromUser(res);
+                User res = await _profileClient.GetAsync<User>(request);
+                UserPreviewDto result = UserPreviewDto.FromUser(res);
 
                 previews.Add(result);
             }
@@ -56,50 +53,29 @@ namespace JustR.DesktopGateway.Controllers
         [HttpPost]
         public async Task<ActionResult<FriendRequestDto>> CreateFriendRequest([FromBody] FriendRequestDto dto)
         {
-            Relationship relationship = new Relationship
-            {
-                FirstUserId = dto.FirstUserId,
-                SecondUserId = dto.SecondUserId,
-                State = dto.State
-            };
+            Relationship relationship = dto.ToRelationship();
 
-            var request = new RestRequest();
-            request.AddJsonBody(relationship);
-            request.RequestFormat = DataFormat.Json;
+            IRestRequest request = new RestRequest()
+                .AddJsonBody(relationship);
 
             relationship = await _friendClient.PostAsync<Relationship>(request);
 
-            var result = new FriendRequestDto
-            {
-                FirstUserId = relationship.FirstUserId,
-                SecondUserId = relationship.SecondUserId,
-                State = relationship.State
-            };
+            FriendRequestDto result = FriendRequestDto.FromRelationship(relationship);
+
             return Ok(result);
         }
 
         [HttpPut]
         public async Task<ActionResult<FriendRequestDto>> CreateFriendResponse(FriendRequestDto dto)
         {
-            Relationship relationship = new Relationship
-            {
-                FirstUserId = dto.FirstUserId,
-                SecondUserId = dto.SecondUserId,
-                State = dto.State
-            };
+            Relationship relationship = dto.ToRelationship();
 
-            var request = new RestRequest();
-            request.AddJsonBody(relationship);
-            request.RequestFormat = DataFormat.Json;
+            IRestRequest request = new RestRequest()
+                .AddJsonBody(relationship);
 
             relationship = await _friendClient.PutAsync<Relationship>(request);
 
-            var result = new FriendRequestDto
-            {
-                FirstUserId = relationship.FirstUserId,
-                SecondUserId = relationship.SecondUserId,
-                State = relationship.State
-            };
+            FriendRequestDto result = FriendRequestDto.FromRelationship(relationship);
 
             return Ok(result);
         }

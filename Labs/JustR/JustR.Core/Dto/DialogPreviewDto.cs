@@ -9,10 +9,17 @@ namespace JustR.Core.Dto
         public DateTime LastMessageTime { get; set; }
         public String LastMessageText { get; set; }
         public UserPreviewDto InterlocutorPreview { get; set; }
+        public static DialogPreviewDto FromDialogAndUser(Dialog dialog, User user)
+        {
+            DialogPreviewDto dto = new DialogPreviewDto
+            {
+                DialogId = dialog.DialogId,
+                LastMessageText = dialog.LastMessageText,
+                LastMessageTime = dialog.LastMessageTime,
+                InterlocutorPreview = UserPreviewDto.FromUser(user)
+            };
 
-        public void SetInterlocutorByUser(User user)
-        {   
-            InterlocutorPreview = UserPreviewDto.FromUser(user);
+            return dto;
         }
     }
 }
