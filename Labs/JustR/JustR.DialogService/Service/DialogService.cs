@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using JustR.Core.Entity;
 using JustR.DialogService.Repository;
-using JustR.Models.Entity;
 
 namespace JustR.DialogService.Service
 {
@@ -22,10 +20,11 @@ namespace JustR.DialogService.Service
             return dialog;
         }
 
-        public List<Dialog> GetDialogsPreview(Guid userId, Int32? offset, Int32 count)
+        public IReadOnlyList<Dialog> GetDialogsPreview(Guid userId, Int32? offset, Int32 count)
         {
-            var result = _dialogRepository.ReadDialogs(userId, count, offset ?? 0);
-            return result;
+            IReadOnlyList<Dialog> dialogs = _dialogRepository.ReadDialogs(userId, count, offset ?? 0);
+
+            return dialogs;
         }
 
         public Dialog CreateDialog(Guid firstUserId, Guid secondUserId)
@@ -43,14 +42,14 @@ namespace JustR.DialogService.Service
             return _dialogRepository.CreateDialog(dialog);
         }
 
-        public Guid GetUserId(Guid firstUserId, Guid secondUserId)
+        public Guid GetDialogId(Guid firstUserId, Guid secondUserId)
         {
             return _dialogRepository.ReadDialogId(firstUserId, secondUserId);
         }
 
-        public void UpdateLastMessage(Guid authorId, Guid dialogId, String text)
+        public Dialog UpdateLastMessage(Guid authorId, Guid dialogId, String text)
         {
-            _dialogRepository.UpdateLastMessage(dialogId, authorId, text, DateTime.Now);
+            return _dialogRepository.UpdateLastMessage(dialogId, authorId, text, DateTime.Now);
         }
     }
 }

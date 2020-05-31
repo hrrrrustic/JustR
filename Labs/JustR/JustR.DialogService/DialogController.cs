@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using JustR.Core.Dto;
 using JustR.Core.Extensions;
 using JustR.Core.Entity;
-using JustR.DialogService.Repository;
 using JustR.DialogService.Service;
-using JustR.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
-using SqlKata.Compilers;
 
 namespace JustR.DialogService
 {
@@ -22,6 +16,7 @@ namespace JustR.DialogService
     [Route("api/[controller]")]
     public class DialogController : Controller
     {
+        // TODO : Убрать куда-нибудь хардкор урла
         private readonly RestClient _messageClient = new RestClient("http://localhost:5007/api/Message");
         private readonly IDialogService _dialogService;
 
@@ -32,62 +27,48 @@ namespace JustR.DialogService
         }
 
         [HttpGet("preview")]
-        public ActionResult<List<DialogPreviewDto>> GetDialogsPreview([FromQuery] Guid userId, Int32 count, Int32 offset)
+        public ActionResult<IReadOnlyList<DialogPreviewDto>> GetDialogsPreview([FromQuery] Guid userId, Int32 count, Int32 offset)
         {
-            try
-            {
-                List<Dialog> result = _dialogService.GetDialogsPreview(userId, offset, count);
-                return Ok(result);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            IReadOnlyList<Dialog> dialogs = _dialogService.GetDialogsPreview(userId, offset, count);
+
+            return Ok(dialogs);
         }
 
         [HttpGet]
         public ActionResult<DialogInfoDto> GetDialog([FromQuery] Guid dialogId)
         {
-            try
-            {
-                Dialog result = _dialogService.GetDialog(dialogId);
-                return Ok(result);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            Dialog dialog = _dialogService.GetDialog(dialogId);
+
+            return Ok(dialog);
         }
 
         [HttpPost]
         public ActionResult<Dialog> CreateDialog([FromQuery] Guid firstUserId, Guid secondUserId)
         {
-            try
-            {
-                Dialog result = _dialogService.CreateDialog(firstUserId, secondUserId);
-                return Ok(result);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.ToString());
-            }
+            Dialog createdDialog = _dialogService.CreateDialog(firstUserId, secondUserId);
+
+            return Ok(createdDialog);
         }
 
         [HttpGet("id")]
         public ActionResult<Guid> GetDialogId([FromQuery] Guid firstUserId, Guid secondUserId)
         {
-            var id = _dialogService.GetUserId(firstUserId, secondUserId);
+            Guid id = _dialogService.GetDialogId(firstUserId, secondUserId);
 
             return Ok(id);
         }
 
+
+        // TODO : Убрать текст в тело запроса
         [HttpPost("message")]
         public async Task<ActionResult> SendMessage([FromQuery] Guid dialogId, Guid authorId, String text)
         {
-            _dialogService.UpdateLastMessage(authorId, dialogId, text);
+            Dialog dialog = _dialogService.UpdateLastMessage(authorId, dialogId, text);
 
-            var request = new RestRequest();
-            request
+            if (dialog is null)
+                return BadRequest();
+
+            IRestRequest request = new RestRequest()
                 .AddQueryParameter("userId", authorId)
                 .AddQueryParameter("dialogId", dialogId)
                 .AddQueryParameter("text", text);

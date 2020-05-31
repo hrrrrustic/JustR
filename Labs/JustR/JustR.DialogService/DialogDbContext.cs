@@ -1,5 +1,4 @@
 ﻿using JustR.Core.Entity;
-using JustR.Models.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace JustR.DialogService
@@ -10,7 +9,6 @@ namespace JustR.DialogService
 
         public DialogDbContext(DbContextOptions<DialogDbContext> context) : base(context)
         {
-            
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
