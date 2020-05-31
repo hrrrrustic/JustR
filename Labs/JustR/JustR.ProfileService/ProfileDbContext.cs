@@ -1,5 +1,4 @@
 ﻿using JustR.Core.Entity;
-using JustR.Models.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace JustR.ProfileService

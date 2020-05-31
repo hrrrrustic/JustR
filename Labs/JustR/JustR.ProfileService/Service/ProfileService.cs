@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using JustR.Core.Entity;
-using JustR.Models.Entity;
 using JustR.ProfileService.Repository;
 
 namespace JustR.ProfileService.Service
@@ -14,7 +13,6 @@ namespace JustR.ProfileService.Service
         {
             _profileRepository = profileRepository;
         }
-
 
         public User GetUserProfile(Guid userId)
         {

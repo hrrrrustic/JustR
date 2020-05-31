@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Data.SqlClient;
 using System.Linq;
 using JustR.Core.Entity;
-using JustR.Models.Entity;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using SqlKata;
-using SqlKata.Compilers;
-using SqlKata.Execution;
 
 namespace JustR.ProfileService.Repository
 {
