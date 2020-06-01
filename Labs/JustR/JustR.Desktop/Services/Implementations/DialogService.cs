@@ -11,60 +11,53 @@ namespace JustR.Desktop.Services.Implementations
 {
     public class DialogService : IDialogService
     {
-        private readonly RestClient _restClient = new RestClient(GatewayConfiguration.ApiGatewaySource);
-
-        public DialogService()
-        {
-            _restClient.UseNewtonsoftJson();
-        }
+        private readonly IRestClient _restClient =
+            new RestClient(GatewayConfiguration.ApiGatewaySource)
+                .UseNewtonsoftJson();
 
         public async Task<IReadOnlyList<DialogPreviewDto>> GetDialogsPreviewAsync(Guid userId)
         {
-            var request = new RestRequest("Dialog/all");
-            request
+            IRestRequest request = new RestRequest("Dialog/all")
                 .AddQueryParameter("userId", userId)
                 .AddQueryParameter("offset", 0)
                 .AddQueryParameter("count", 15);
 
-            var response = await _restClient.GetAsync<List<DialogPreviewDto>>(request);
+            IReadOnlyList<DialogPreviewDto> response = await _restClient.GetAsync<List<DialogPreviewDto>>(request);
 
             return response;
         }
 
         public async Task<DialogInfoDto> GetDialogInfoAsync(Guid dialogId, Guid userId)
         {
-            var request = new RestRequest("Dialog");
-            request
+            IRestRequest request = new RestRequest("Dialog")
                 .AddQueryParameter("dialogId", dialogId)
                 .AddQueryParameter("userId", userId);
             
-            var info = await  _restClient.GetAsync<DialogInfoDto>(request);
+            DialogInfoDto info = await  _restClient.GetAsync<DialogInfoDto>(request);
             
             return info;
         }
 
         public async Task<Guid> GetDialogIdAsync(Guid firstUserId, Guid secondUserId)
         {
-            var request = new RestRequest("Dialog/id");
-            request
+            IRestRequest request = new RestRequest("Dialog/id")
                 .AddQueryParameter("firstUserId", firstUserId)
                 .AddQueryParameter("secondUserId", secondUserId);
 
-            var id = await _restClient.GetAsync<Guid>(request);
+            Guid dialogId = await _restClient.GetAsync<Guid>(request);
 
-            return id;
+            return dialogId;
         }
 
         public async Task<DialogInfoDto> CreateDialogAsync(DialogPreviewDto newDialog)
         {
-            var request = new RestRequest("Dialog");
-            request
+            IRestRequest request = new RestRequest("Dialog")
                 .AddQueryParameter("firstUserId", UserInfo.CurrentUser.UserId)
                 .AddQueryParameter("secondUserId", newDialog.InterlocutorPreview.UserId);
 
-            var response = await _restClient.PostAsync<DialogInfoDto>(request);
+            DialogInfoDto dialogInfo = await _restClient.PostAsync<DialogInfoDto>(request);
 
-            return response;
+            return dialogInfo;
 
         }
     }

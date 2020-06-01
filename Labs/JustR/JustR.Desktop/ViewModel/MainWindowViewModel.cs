@@ -1,15 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.IO;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Navigation;
-using JustR.Desktop.Annotations;
-using JustR.Desktop.Commands;
-using JustR.Desktop.Model;
-using JustR.Desktop.Services.Implementations;
+﻿using System.Windows.Controls;
 using JustR.Desktop.View;
 
 namespace JustR.Desktop.ViewModel

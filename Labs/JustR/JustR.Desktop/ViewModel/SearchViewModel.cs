@@ -2,9 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Accessibility;
 using JustR.Core.Dto;
-using JustR.Core.Enum;
 using JustR.Desktop.Commands;
 using JustR.Desktop.Services.Abstractions;
 using JustR.Desktop.Services.Implementations;
@@ -31,21 +29,13 @@ namespace JustR.Desktop.ViewModel
                             return;
 
                         foreach (UserPreviewDto user in task.Result)
-                        {
                             Users.Add(user);
-                        }
                     }, TaskScheduler.FromCurrentSynchronizationContext());
             });
 
             SendFriendRequest = new ActionCommand<Guid>(async arg =>
             {
-                FriendRequestDto dto = new FriendRequestDto
-                {
-                    FirstUserId = UserInfo.CurrentUser.UserId,
-                    SecondUserId = arg,
-                    State = RelationshipState.OutputFriendRequest
-                };
-
+                FriendRequestDto dto = FriendRequestDto.OutputFriendRequest(UserInfo.CurrentUser.UserId, arg);
                 await _friendService.CreateFriendRequestAsync(dto);
             });
         }
@@ -59,6 +49,7 @@ namespace JustR.Desktop.ViewModel
                 .GetViewModel<UserDialogsViewModel>()
                 .OpenDialogByInterlocutorId
                 .Execute(arg);
+
             PageNavigator.NavigateTo(page);
         });
         public ICommand SearchCommand { get; set; }

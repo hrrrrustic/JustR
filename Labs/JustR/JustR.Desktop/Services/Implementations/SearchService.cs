@@ -10,18 +10,15 @@ namespace JustR.Desktop.Services.Implementations
 {
     public class SearchService : ISearchService
     {
-        private readonly RestClient _restClient = new RestClient(GatewayConfiguration.ApiGatewaySource);
-
-        public SearchService()
-        {
-            _restClient.UseNewtonsoftJson();
-        }
+        private readonly IRestClient _restClient =
+            new RestClient(GatewayConfiguration.ApiGatewaySource)
+                .UseNewtonsoftJson();
         public async Task<IReadOnlyList<UserPreviewDto>> FindUsersByTagAsync(String query)
         {
-            var request = new RestRequest("Profile/search")
+            IRestRequest request = new RestRequest("Profile/search")
                 .AddQueryParameter("query", query);
 
-            var response = await _restClient.GetAsync<List<UserPreviewDto>>(request);
+            IReadOnlyList<UserPreviewDto> response = await _restClient.GetAsync<List<UserPreviewDto>>(request);
 
             return response;
         }

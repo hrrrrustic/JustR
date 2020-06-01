@@ -1,14 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using JustR.Core.Entity;
 using JustR.Desktop.Commands;
 using JustR.Desktop.Services.Abstractions;
 using JustR.Desktop.Services.Implementations;
-using JustR.Models.Entity;
 using Microsoft.Win32;
 
 namespace JustR.Desktop.ViewModel
@@ -16,43 +13,53 @@ namespace JustR.Desktop.ViewModel
     public class ProfileViewModel : BaseViewModel
     {
         private readonly IProfileService _profileService = new ProfileService();
+
+        private const String Filters = "Image files (*.jpg, *.jpeg, *.jpe, *.png) | *.jpg; *.jpeg; *.jpe; *.png";
+
         public ProfileViewModel()
         {
             ChangeAvatarCommand = new ActionCommand(async arg =>
             {
                 OpenFileDialog fd = new OpenFileDialog();
-                fd.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.png) | *.jpg; *.jpeg; *.jpe; *.png";
-                if (fd.ShowDialog() == true)
+                fd.Filter = Filters;
+
+                if (fd.ShowDialog() != true)
+                    return;
+
+                Boolean result = TryUploadImage(fd.FileName, out Byte[] avatar);
+
+                if (!result)
+                    return;
+                
+
+                User user = new User
                 {
-                    Byte[] newAvatar;
-                    try
-                    {
-                        newAvatar = File.ReadAllBytes(fd.FileName);
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Invalid picture");
-                        return;
-                    }
+                    Avatar = avatar,
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    UniqueTag = UserTag,
+                    UserId = UserInfo.CurrentUser.UserId
+                };
 
-                    User user = new User
-                    {
-                        Avatar = newAvatar,
-                        FirstName = FirstName,
-                        LastName = LastName,
-                        UniqueTag = UserTag,
-                        UserId = UserInfo.CurrentUser.UserId
-                    };
+                User updatedUser = await _profileService.UpdateProfile(user);
 
-                    User result = await _profileService.UpdateProfile(user);
-
-                    if (result == null)
-                        return;
-
-                    Avatar = result.Avatar;
-
-                }
+                Avatar = updatedUser.Avatar;
             });
+        }
+
+        private Boolean TryUploadImage(String source, out Byte[] image)
+        {
+            image = default;
+
+            try
+            {
+                image = File.ReadAllBytes(source);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         public ICommand ChangeAvatarCommand { get; }
         public Byte[] Avatar

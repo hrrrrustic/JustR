@@ -11,12 +11,10 @@ namespace JustR.Desktop.Services.Implementations
 {
     public class MessageService : IMessageService
     {
-        private readonly RestClient _restClient = new RestClient(GatewayConfiguration.ApiGatewaySource);
+        private readonly IRestClient _restClient =
+            new RestClient(GatewayConfiguration.ApiGatewaySource)
+                .UseNewtonsoftJson();
 
-        public MessageService()
-        {
-            _restClient.UseNewtonsoftJson();
-        }
         public async Task<IReadOnlyList<MessageDto>> GetMessagesAsync(Guid dialogId, Guid userId)
         {
             var request = new RestRequest("Message");
@@ -33,12 +31,12 @@ namespace JustR.Desktop.Services.Implementations
 
         public async Task SendMessage(MessageDto message)
         {
-            var request = new RestRequest("Message");
-            request
+            IRestRequest request = new RestRequest("Message")
                 .AddQueryParameter("dialogId", message.DialogId)
                 .AddQueryParameter("authorId", message.Sender.UserId)
                 .AddQueryParameter("text", message.MessageText);
 
+            //TODO : Опять же просто await куда-то там не оч
             await _restClient.PostAsync<MessageDto>(request);
         }
     }

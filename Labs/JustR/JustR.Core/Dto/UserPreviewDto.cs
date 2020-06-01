@@ -3,6 +3,7 @@ using JustR.Core.Entity;
 
 namespace JustR.Core.Dto
 {
+    // TODO : Readonly?
     public class UserPreviewDto
     {
         private UserPreviewDto(Guid userId, String firstName, String lastName, String uniqueTag, Byte[] avatar)

@@ -23,12 +23,7 @@ namespace JustR.Desktop.ViewModel
         {
             DeleteFriendCommand = new ActionCommand<Guid>(async arg =>
             {
-                FriendRequestDto dto = new FriendRequestDto
-                {
-                    FirstUserId = UserInfo.CurrentUser.UserId,
-                    SecondUserId = arg,
-                    State = RelationshipState.OutputFriendRequest
-                };
+                FriendRequestDto dto = FriendRequestDto.InputFriendRequest(UserInfo.CurrentUser.UserId, arg);
 
                 await _friendService
                     .DeleteFriend(dto)
@@ -53,9 +48,7 @@ namespace JustR.Desktop.ViewModel
                             return;
 
                         foreach (UserPreviewDto friend in task.Result)
-                        {
                             Friends.Add(friend);
-                        }
                     }, TaskScheduler.FromCurrentSynchronizationContext());
             });
         }
@@ -69,6 +62,7 @@ namespace JustR.Desktop.ViewModel
                 .GetViewModel<UserDialogsViewModel>()
                 .OpenDialogByInterlocutorId
                 .Execute(arg);
+
             PageNavigator.NavigateTo(page);
         });
         public ICommand DeleteFriendCommand { get; } 

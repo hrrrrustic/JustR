@@ -33,5 +33,25 @@ namespace JustR.Core.Dto
 
             return dto;
         }
+
+        public static FriendRequestDto OutputFriendRequest(Guid firstUserId, Guid secondUserId)
+        {
+            return new FriendRequestDto
+            {
+                FirstUserId = firstUserId,
+                SecondUserId = secondUserId,
+                State = RelationshipState.OutputFriendRequest
+            };
+        }
+
+        public static FriendRequestDto InputFriendRequest(Guid firstUserId, Guid secondUserId)
+        {
+            return new FriendRequestDto
+            {
+                FirstUserId = firstUserId,
+                SecondUserId = secondUserId,
+                State = RelationshipState.InputFriendRequest
+            };
+        }
     }
 }

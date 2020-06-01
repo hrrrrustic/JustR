@@ -2,14 +2,12 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Accessibility;
+using JustR.Core.Dto;
 using JustR.Desktop.Commands;
-using JustR.Desktop.Controls;
 using JustR.Desktop.Model;
 using JustR.Desktop.Services.Abstractions;
 using JustR.Desktop.Services.Implementations;
 using JustR.Desktop.View;
-using JustR.Models.Entity;
 
 namespace JustR.Desktop.ViewModel
 {
@@ -26,7 +24,7 @@ namespace JustR.Desktop.ViewModel
         }
         public async Task Authenticate()
         {
-            var profile = await _profileService.SimpleLogin(Login);
+            UserPreviewDto profile = await _profileService.SimpleLogin(Login);
 
             if (profile is null)
             {
@@ -40,8 +38,9 @@ namespace JustR.Desktop.ViewModel
             UserInfo.CurrentUser.UserId = profile.UserId;
             UserInfo.CurrentUser.UniqueTag = profile.UniqueTag;
 
-            var start = new MainWindow();
+            MainWindow start = new MainWindow();
             start.Show();
+
             Application.Current?.MainWindow?.Close();
         }
         

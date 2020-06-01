@@ -64,7 +64,7 @@ namespace JustR.Desktop.ViewModel
             });
         }
 
-        public void Test(UserPreviewDto dto)
+        public void SetInterlocutor(UserPreviewDto dto)
         {
             _currentDialog.Interlocutor = dto;
             OnPropertyChanged(nameof(CurrentDialog));

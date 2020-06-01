@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
 using JustR.Core.Dto;
 using JustR.Desktop.Commands;
 using JustR.Desktop.Services.Abstractions;
 using JustR.Desktop.Services.Implementations;
 using JustR.Desktop.View;
-using JustR.Models.Entity;
 
 namespace JustR.Desktop.ViewModel
 {
@@ -33,9 +28,7 @@ namespace JustR.Desktop.ViewModel
                             return;
 
                         foreach (DialogPreviewDto dialog in task.Result)
-                        {
                             DialogsPreview.Add(dialog);
-                        }
                     }, TaskScheduler.FromCurrentSynchronizationContext());
             });
         }
@@ -46,21 +39,25 @@ namespace JustR.Desktop.ViewModel
         {
             Page page = new DialogPage();
             DialogViewModel viewModel = page.GetViewModel<DialogViewModel>();
+
             viewModel.CurrentDialog = new DialogInfoDto();
             viewModel.GetMessages.Execute(arg);
             viewModel.GetDialogInfoCommand.Execute(arg);
+
             CurrentDialog = page;
         });
         public ICommand OpenDialogByInterlocutorId => new ActionCommand<Guid>(async arg =>
         {
             Page page = new DialogPage();
+
             DialogViewModel viewModel = page.GetViewModel<DialogViewModel>();
             viewModel.CurrentDialog = new DialogInfoDto();
+
             Guid dialogId = await _dialogService.GetDialogIdAsync(arg, UserInfo.CurrentUser.UserId);
 
             if (dialogId == Guid.Empty)
             {
-                viewModel.Test(await _profileService.GetProfilePreviewAsync(arg));
+                viewModel.SetInterlocutor(await _profileService.GetProfilePreviewAsync(arg));
             }
             else
             {
