@@ -5,6 +5,7 @@ using JustR.Desktop.View;
 
 namespace JustR.Desktop.ViewModel
 {
+    // TODO : Перестать насиловать GC
     public class MenuViewModel : BaseViewModel
     {
         public ICommand ProfileCommand { get; set; } = new ActionCommand(arg => PageNavigator.NavigateTo(new ProfilePage()));

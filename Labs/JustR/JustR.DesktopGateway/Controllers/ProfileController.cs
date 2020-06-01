@@ -46,7 +46,7 @@ namespace JustR.DesktopGateway.Controllers
         }
 
         [HttpGet("preview")]
-        public async Task<ActionResult<UserPreviewDto>> GetUserPreview([FromQuery] Guid userId) // Что-то на уровне фотка + имя
+        public async Task<ActionResult<UserPreviewDto>> GetUserPreview([FromQuery] Guid userId)
         {
             IRestRequest request = new RestRequest("preview")
                 .AddQueryParameter("userId", userId);

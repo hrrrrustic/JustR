@@ -26,7 +26,7 @@ namespace JustR.DesktopGateway.Controllers
                 .UseNewtonsoftJson();
 
         [HttpGet]
-        public async Task<ActionResult<List<UserPreviewDto>>> GetUserFriends([FromQuery] Guid userId)
+        public async Task<ActionResult<IReadOnlyList<UserPreviewDto>>> GetUserFriends([FromQuery] Guid userId)
         {
             IRestRequest request = new RestRequest()
                 .AddQueryParameter("userId", userId);

@@ -3,7 +3,6 @@ using JustR.Core.Entity;
 
 namespace JustR.Core.Dto
 {
-    // TODO : Дтошки больше не используются на сервисах, но их все еще нужно шарить между шлюзом и клиентом. Возможно стоит сделать френдли сборки?
     public class UserPreviewDto
     {
         private UserPreviewDto(Guid userId, String firstName, String lastName, String uniqueTag, Byte[] avatar)
@@ -13,11 +12,6 @@ namespace JustR.Core.Dto
             LastName = lastName;
             UniqueTag = uniqueTag;
             Avatar = avatar;
-        }
-
-        public UserPreviewDto()
-        {
-            
         }
 
         public Guid UserId { get; set; }

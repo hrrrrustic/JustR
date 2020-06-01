@@ -29,7 +29,7 @@ namespace JustR.DesktopGateway.Controllers
                 .UseNewtonsoftJson();
 
         [HttpGet]
-        public async Task<ActionResult<List<MessageDto>>> GetMessages(Guid userId, Guid dialogId, Int32? offset, Int32 count)
+        public async Task<ActionResult<IReadOnlyList<MessageDto>>> GetMessages(Guid userId, Guid dialogId, Int32? offset, Int32 count)
         {
             IRestRequest request = new RestRequest("all")
                 .AddQueryParameter("userId", userId)
