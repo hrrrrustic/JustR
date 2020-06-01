@@ -24,6 +24,8 @@ namespace JustR.DesktopGateway.Controllers
             new RestClient(ServiceConfigurations.ProfileServiceUri)
                 .UseNewtonsoftJson();
 
+        #region HTTP GET
+
         [HttpGet("id")]
         public async Task<ActionResult<Guid>> GetDialogId([FromQuery] Guid firstUserId, Guid secondUserid)
         {
@@ -86,6 +88,10 @@ namespace JustR.DesktopGateway.Controllers
             return Ok(dto);
         }
 
+        #endregion
+
+        #region HTTP POST
+
         [HttpPost]
         public async Task<ActionResult<DialogInfoDto>> CreateDialog([FromQuery] Guid firstUserId, Guid secondUserId)
         {
@@ -113,5 +119,7 @@ namespace JustR.DesktopGateway.Controllers
 
             return Ok(dto);
         }
+
+        #endregion
     }
 }

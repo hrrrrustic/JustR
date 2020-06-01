@@ -19,6 +19,8 @@ namespace JustR.ProfileService
             _profileService = profileService;
         }
 
+        #region HTTP GET
+
         [HttpGet]
         public ActionResult<User> GetUserProfile([FromQuery] Guid userId)
         {
@@ -57,6 +59,18 @@ namespace JustR.ProfileService
             return Ok(userPreview);
         }
 
+        [HttpGet("login")]
+        public ActionResult<User> SimpleLogIn([FromQuery] String userTag)
+        {
+            User loggedUser = _profileService.FakeLogIn(userTag);
+
+            return Ok(loggedUser);
+        }
+
+        #endregion
+
+        #region HTTP PUT
+
         [HttpPut]
         public ActionResult<User> UpdateUserProfile([FromBody] User user)
         {
@@ -65,12 +79,6 @@ namespace JustR.ProfileService
             return Ok(updatedUserProfile);
         }
 
-        [HttpGet("login")]
-        public ActionResult<User> SimpleLogIn([FromQuery] String userTag)
-        {
-            User loggedUser = _profileService.FakeLogIn(userTag);
-
-            return Ok(loggedUser);
-        }
+        #endregion
     }
 }

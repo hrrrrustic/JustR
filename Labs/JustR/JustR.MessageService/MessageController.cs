@@ -18,6 +18,8 @@ namespace JustR.MessageService
             _messageService = messageService;
         }
 
+        #region HTTP GET
+
         //TODO : userId здесь не нужен
         //TODO : Вроде как решил отбрасывать наллабл на шлюзе, нужно пофиксить offset
         [HttpGet("all")]
@@ -28,6 +30,9 @@ namespace JustR.MessageService
             return Ok(messages);
         }
 
+        #endregion
+
+        #region HTTP POST
 
         //TODO : Как минимум текст сообщения должен быть в теле запроса
         [HttpPost]
@@ -40,5 +45,7 @@ namespace JustR.MessageService
 
             return Ok(sentMessage);
         }
+
+        #endregion
     }
 }

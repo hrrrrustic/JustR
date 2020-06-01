@@ -28,6 +28,8 @@ namespace JustR.DesktopGateway.Controllers
             new RestClient(ServiceConfigurations.DialogServiceUri)
                 .UseNewtonsoftJson();
 
+        #region HTTP GET
+
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<MessageDto>>> GetMessages(Guid userId, Guid dialogId, Int32? offset, Int32 count)
         {
@@ -52,7 +54,11 @@ namespace JustR.DesktopGateway.Controllers
 
             return Ok(dto);
         }
-        
+
+        #endregion
+
+        #region HTTP POST
+
         [HttpPost]
         public async Task<ActionResult<MessageDto>> SendMessage([FromQuery] Guid dialogId, Guid authorId, String text)
         {
@@ -65,5 +71,7 @@ namespace JustR.DesktopGateway.Controllers
 
             return Ok();
         }
+
+        #endregion
     }
 }

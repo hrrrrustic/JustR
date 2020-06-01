@@ -17,6 +17,8 @@ namespace JustR.FriendService
             _friendService = friendService;
         }
 
+        #region HTTP GET
+
         [HttpGet]
         public ActionResult<IReadOnlyList<Guid>> GetUserFriends([FromQuery] Guid userId)
         {
@@ -24,6 +26,10 @@ namespace JustR.FriendService
 
             return Ok(usersId);
         }
+
+        #endregion
+
+        #region HTTP POST
 
         [HttpPost]
         public ActionResult<Relationship> CreateFriendRequest([FromBody] Relationship relationship)
@@ -34,6 +40,9 @@ namespace JustR.FriendService
 
             return Ok(_friendService.CreateFriendRequest(relationship));
         }
+        #endregion
+
+        #region HTTP POST
 
         [HttpPut]
         public ActionResult<Relationship> CreateFriendResponse([FromBody] Relationship relationship)
@@ -43,6 +52,9 @@ namespace JustR.FriendService
 
             return Ok(_friendService.UpdateFriendRequest(relationship));
         }
+        #endregion
+
+        #region HTTP DELETE
 
         [HttpDelete]
         public ActionResult DeleteFriend([FromBody] Relationship relationship)
@@ -51,5 +63,6 @@ namespace JustR.FriendService
 
             return Ok();
         }
+        #endregion
     }
 }

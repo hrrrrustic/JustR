@@ -20,6 +20,8 @@ namespace JustR.DesktopGateway.Controllers
             new RestClient(ServiceConfigurations.ProfileServiceUri)
                 .UseNewtonsoftJson();
 
+        #region HTTP GET
+
         [HttpGet]
         public async Task<ActionResult<UserProfileDto>> GetUserProfile([FromQuery] Guid userId)
         {
@@ -56,6 +58,21 @@ namespace JustR.DesktopGateway.Controllers
             return Ok(userPreview);
         }
 
+        [HttpGet("login")]
+        public async Task<ActionResult<UserPreviewDto>> SimpleAuth([FromQuery] String userTag)
+        {
+            IRestRequest request = new RestRequest("login")
+                .AddQueryParameter("userTag", userTag);
+
+            UserPreviewDto response = await _restClient.GetAsync<UserPreviewDto>(request);
+
+            return Ok(response);
+        }
+
+        #endregion
+
+        #region HTTP PUT
+
         [HttpPut]
         public async Task<ActionResult<User>> UpdateUserProfile([FromBody] User newUserProfile)
         {
@@ -70,15 +87,6 @@ namespace JustR.DesktopGateway.Controllers
             return Ok(updatedProfile);
         }
 
-        [HttpGet("login")]
-        public async Task<ActionResult<UserPreviewDto>> SimpleAuth([FromQuery] String userTag)
-        {
-            IRestRequest request = new RestRequest("login")
-                .AddQueryParameter("userTag", userTag);
-
-            UserPreviewDto response = await _restClient.GetAsync<UserPreviewDto>(request);
-
-            return Ok(response);
-        }
+        #endregion
     }
 }

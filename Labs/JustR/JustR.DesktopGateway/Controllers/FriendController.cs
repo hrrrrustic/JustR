@@ -25,6 +25,8 @@ namespace JustR.DesktopGateway.Controllers
             new RestClient(ServiceConfigurations.ProfileServiceUri)
                 .UseNewtonsoftJson();
 
+        #region HTTP GET
+
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<UserPreviewDto>>> GetUserFriends([FromQuery] Guid userId)
         {
@@ -50,6 +52,10 @@ namespace JustR.DesktopGateway.Controllers
             return Ok(previews);
         }
 
+        #endregion
+
+        #region HTTP POST
+
         [HttpPost]
         public async Task<ActionResult<FriendRequestDto>> CreateFriendRequest([FromBody] FriendRequestDto dto)
         {
@@ -64,6 +70,10 @@ namespace JustR.DesktopGateway.Controllers
 
             return Ok(result);
         }
+
+        #endregion
+
+        #region HTTP PUT
 
         [HttpPut]
         public async Task<ActionResult<FriendRequestDto>> CreateFriendResponse(FriendRequestDto dto)
@@ -80,10 +90,16 @@ namespace JustR.DesktopGateway.Controllers
             return Ok(result);
         }
 
+        #endregion
+
+        #region HTTP DELETE
+
         [HttpDelete]
         public ActionResult DeleteFriend(Guid userId, Guid secondUserId)
         {
             throw new NotImplementedException();
         }
+
+        #endregion
     }
 }

@@ -17,13 +17,25 @@ namespace JustR.DialogService
     public class DialogController : Controller
     {
         // TODO : Убрать куда-нибудь хардкор урла
-        private readonly RestClient _messageClient = new RestClient("http://localhost:5007/api/Message");
-        private readonly IDialogService _dialogService;
+        private readonly IRestClient _messageClient =
+            new RestClient("http://localhost:5007/api/Message")
+                .UseNewtonsoftJson();
 
+        private readonly IDialogService _dialogService;
+         
         public DialogController(IDialogService dialogService)
         {
             _dialogService = dialogService;
-            _messageClient.UseNewtonsoftJson();
+        }
+
+        #region HTTP GET
+
+        [HttpGet("id")]
+        public ActionResult<Guid> GetDialogId([FromQuery] Guid firstUserId, Guid secondUserId)
+        {
+            Guid id = _dialogService.GetDialogId(firstUserId, secondUserId);
+
+            return Ok(id);
         }
 
         [HttpGet("preview")]
@@ -42,6 +54,10 @@ namespace JustR.DialogService
             return Ok(dialog);
         }
 
+        #endregion
+
+        #region HTTP POST
+
         [HttpPost]
         public ActionResult<Dialog> CreateDialog([FromQuery] Guid firstUserId, Guid secondUserId)
         {
@@ -49,16 +65,7 @@ namespace JustR.DialogService
 
             return Ok(createdDialog);
         }
-
-        [HttpGet("id")]
-        public ActionResult<Guid> GetDialogId([FromQuery] Guid firstUserId, Guid secondUserId)
-        {
-            Guid id = _dialogService.GetDialogId(firstUserId, secondUserId);
-
-            return Ok(id);
-        }
-
-
+       
         // TODO : Убрать текст в тело запроса
         [HttpPost("message")]
         public async Task<ActionResult> SendMessage([FromQuery] Guid dialogId, Guid authorId, String text)
@@ -77,5 +84,7 @@ namespace JustR.DialogService
 
             return Ok();
         }
+
+        #endregion
     }
 }
