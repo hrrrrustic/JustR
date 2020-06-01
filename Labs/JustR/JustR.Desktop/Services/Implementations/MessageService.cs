@@ -17,7 +17,7 @@ namespace JustR.Desktop.Services.Implementations
         {
             _restClient.UseNewtonsoftJson();
         }
-        public async Task<List<MessageDto>> GetMessagesAsync(Guid dialogId, Guid userId)
+        public async Task<IReadOnlyList<MessageDto>> GetMessagesAsync(Guid dialogId, Guid userId)
         {
             var request = new RestRequest("Message");
             request

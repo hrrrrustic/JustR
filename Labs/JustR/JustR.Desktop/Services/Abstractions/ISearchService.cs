@@ -8,6 +8,6 @@ namespace JustR.Desktop.Services.Abstractions
 {
     public interface ISearchService
     {
-        Task<List<UserPreviewDto>> FindUsersByTagAsync(String query);
+        Task<IReadOnlyList<UserPreviewDto>> FindUsersByTagAsync(String query);
     }
 }

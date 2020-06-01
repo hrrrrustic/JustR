@@ -16,7 +16,7 @@ namespace JustR.Desktop.Services.Implementations
         {
             _restClient.UseNewtonsoftJson();
         }
-        public async Task<List<UserPreviewDto>> FindUsersByTagAsync(String query)
+        public async Task<IReadOnlyList<UserPreviewDto>> FindUsersByTagAsync(String query)
         {
             var request = new RestRequest("Profile/search")
                 .AddQueryParameter("query", query);

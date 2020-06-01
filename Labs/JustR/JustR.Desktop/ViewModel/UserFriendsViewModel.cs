@@ -34,7 +34,8 @@ namespace JustR.Desktop.ViewModel
                     .DeleteFriend(dto)
                     .ContinueWith(task =>
                     {
-                        var friend = Friends.Single(k => k.UserId == arg);
+                        UserPreviewDto friend = Friends.Single(k => k.UserId == arg);
+
                         if (friend is null)
                             return;
 

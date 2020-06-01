@@ -18,7 +18,7 @@ namespace JustR.Desktop.Services.Implementations
         {
             _restClient.UseNewtonsoftJson();
         }
-        public async Task<List<UserPreviewDto>> GetFriendsAsync(Guid userId)
+        public async Task<IReadOnlyList<UserPreviewDto>> GetFriendsAsync(Guid userId)
         {
             var request = new RestRequest("Friend");
             request.AddQueryParameter("userId", userId);

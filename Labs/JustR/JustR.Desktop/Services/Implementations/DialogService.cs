@@ -18,7 +18,7 @@ namespace JustR.Desktop.Services.Implementations
             _restClient.UseNewtonsoftJson();
         }
 
-        public async Task<List<DialogPreviewDto>> GetDialogsPreviewAsync(Guid userId)
+        public async Task<IReadOnlyList<DialogPreviewDto>> GetDialogsPreviewAsync(Guid userId)
         {
             var request = new RestRequest("Dialog/all");
             request

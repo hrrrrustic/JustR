@@ -2,9 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Transactions;
 using System.Windows.Input;
-using Accessibility;
 using JustR.Core.Dto;
 using JustR.Desktop.Commands;
 using JustR.Desktop.Services.Abstractions;
@@ -12,10 +10,9 @@ using JustR.Desktop.Services.Implementations;
 
 namespace JustR.Desktop.ViewModel
 {
+    //TODO : Прикрутить наконец-то di
     public class DialogViewModel : BaseViewModel
     {
-
-
         private readonly IDialogService _dialogService = new DialogService();
 
         private readonly IMessageService _messageService = new MessageService();
@@ -40,7 +37,7 @@ namespace JustR.Desktop.ViewModel
                     DialogId = CurrentDialog.DialogId,
                     SendDate = DateTime.Now,
                     MessageText = arg,
-                    Sender = UserInfo.CurrentUser.ToUserPreviewDto()
+                    Sender = UserPreviewDto.FromUser(UserInfo.CurrentUser)
                 };
 
                 await _messageService
