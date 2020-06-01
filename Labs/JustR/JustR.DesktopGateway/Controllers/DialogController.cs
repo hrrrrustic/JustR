@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using JustR.Core.Dto;
 using JustR.Core.Entity;
@@ -46,22 +47,18 @@ namespace JustR.DesktopGateway.Controllers
             // TODO : null?
             var dialogs = await _dialogClient.GetAsync<List<Dialog>>(request);
             
-            List<DialogPreviewDto> result = new List<DialogPreviewDto>(dialogs.Count);
+            request = new RestRequest("previews");
 
             foreach (Dialog dialog in dialogs)
-            {
-                request.Parameters.Clear();
+                request.AddQueryParameter("usersId", dialog.GetInterlocutorId(userId));
 
-                request.AddQueryParameter("userId", dialog.FirstUserId == userId ? dialog.SecondUserid : dialog.FirstUserId);
+            IReadOnlyList<User> users = await _profileClient.GetAsync<List<User>>(request);
 
-                User user = await _profileClient.GetAsync<User>(request);
+            IReadOnlyList<DialogPreviewDto> previews = dialogs
+                .Zip(users, DialogPreviewDto.FromDialogAndUser)
+                .ToList();
 
-                DialogPreviewDto dto = DialogPreviewDto.FromDialogAndUser(dialog, user);
-
-                result.Add(dto);
-            }
-
-            return Ok(result);
+            return Ok(previews);
         }
         
         [HttpGet]
@@ -75,8 +72,8 @@ namespace JustR.DesktopGateway.Controllers
             if (dialog is null)
                 return BadRequest();
 
-            request = new RestRequest("preview");
-            request.AddQueryParameter("userId", dialog.FirstUserId == userId ? dialog.SecondUserid : dialog.FirstUserId);
+            request = new RestRequest("preview")
+                .AddQueryParameter("userId", dialog.GetInterlocutorId(userId));
 
             User interlocutor = await _profileClient.GetAsync<User>(request);
 
@@ -87,29 +84,26 @@ namespace JustR.DesktopGateway.Controllers
             };
 
             return Ok(dto);
-
         }
 
         [HttpPost]
         public async Task<ActionResult<DialogInfoDto>> CreateDialog([FromQuery] Guid firstUserId, Guid secondUserId)
         {
-            IRestRequest request = new RestRequest()
-                .AddQueryParameter("firstUserId", firstUserId)
-                .AddQueryParameter("secondUserId", secondUserId);
+
+            IRestRequest request = new RestRequest("preview")
+                .AddQueryParameter("userId", firstUserId);
 
             User interlocutor = await _profileClient.GetAsync<User>(request);
 
             if (interlocutor is null)
                 return BadRequest();
 
+            request = new RestRequest()
+                .AddQueryParameter("firstUserId", firstUserId)
+                .AddQueryParameter("secondUserId", secondUserId);
+
             // TODO : кажется там может null прилететь в ответ
             Dialog newDialog = await _dialogClient.PostAsync<Dialog>(request);
-
-            // TODO : нужно переместтить вверх к запросу юзера
-            request = new RestRequest("preview") 
-                .AddQueryParameter("userId",
-                    newDialog.FirstUserId == firstUserId ? newDialog.SecondUserid : newDialog.FirstUserId);
-
 
             DialogInfoDto dto = new DialogInfoDto
             {

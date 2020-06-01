@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using JustR.Core.Dto;
 using JustR.Core.Entity;
@@ -38,21 +39,18 @@ namespace JustR.DesktopGateway.Controllers
 
             IReadOnlyList<Message> messages = await _messageClient.GetAsync<IReadOnlyList<Message>>(request);
 
-            request = new RestRequest("preview");
+            request = new RestRequest("previews");
 
-            List<MessageDto> result = new List<MessageDto>(messages.Count);
             foreach (Message message in messages)
-            {
-                request
-                    .AddQueryParameter("userId", message.AuthorId);
+                request.AddQueryParameter("usersId", message.AuthorId);
 
-                User user = await _profileClient.GetAsync<User>(request);
+            IReadOnlyList<User> users = await _profileClient.GetAsync<List<User>>(request);
 
-                MessageDto dto = MessageDto.FromMessageAndUser(user, message);
-                result.Add(dto);
-            }
+            IReadOnlyList<MessageDto> dto =  messages
+                .Zip(users, (message, user) => MessageDto.FromMessageAndUser(user, message))
+                .ToList();
 
-            return Ok(result);
+            return Ok(dto);
         }
         
         [HttpPost]

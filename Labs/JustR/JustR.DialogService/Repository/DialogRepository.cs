@@ -10,7 +10,7 @@ namespace JustR.DialogService.Repository
     {
         private readonly DialogDbContext _context;
         public DialogRepository(DialogDbContext context)
-        {A
+        {
             _context = context;
         }
 

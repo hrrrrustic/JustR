@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace JustR.ProfileService
 {
     [Route("api/[controller]")]
-    [Consumes("application/json")]
     [Produces("application/json")]
+    [Consumes("application/json")]
     public class ProfileController : Controller
     {
         private readonly IProfileService _profileService;
@@ -23,15 +23,13 @@ namespace JustR.ProfileService
         public ActionResult<User> GetUserProfile([FromQuery] Guid userId)
         {
             User userProfile = _profileService.GetUserProfile(userId);
-
+            
             return Ok(userProfile);
         }
 
-
-        [HttpGet]
-
-        //TODO : Перекинуть айдишники в тело запроса
-        public ActionResult<IReadOnlyList<User>> GetUserProfile([FromQuery] List<Guid> usersId)
+        [HttpGet("previews")]
+        
+        public ActionResult<IReadOnlyList<User>> GetUsersPreview([FromQuery] List<Guid> usersId)
         {
             IReadOnlyList<User> usersProfile = usersId
                 .Select(k => _profileService.GetUserProfile(k))

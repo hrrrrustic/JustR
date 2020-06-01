@@ -10,5 +10,10 @@ namespace JustR.Core.Entity
         public String? LastMessageText { get; set; }
         public Guid LastMessageAuthor { get; set; }
         public DateTime LastMessageTime { get; set; }
+
+        public Guid GetInterlocutorId(Guid currentUserId)
+        {
+            return currentUserId == FirstUserId ? SecondUserid : FirstUserId;
+        }
     }
 }

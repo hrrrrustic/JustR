@@ -23,13 +23,13 @@ namespace JustR.ProfileService.Repository
 
         public IReadOnlyList<User> ReadUserProfiles(String userTag)
         {
-            String lowerUserTag = userTag.ToLowerInvariant();
+            String lowerUserTag = userTag.ToLower();
 
             return _context
                 .Users
                 .Where(k => k
                     .UniqueTag
-                    .ToLowerInvariant()
+                    .ToLower()
                     .Contains(lowerUserTag))
                 .ToList();
         }

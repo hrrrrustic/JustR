@@ -59,8 +59,8 @@ namespace JustR.Desktop.Services.Implementations
         {
             var request = new RestRequest("Dialog");
             request
-                .AddQueryParameter("firstUserId", newDialog.InterlocutorPreview.UserId)
-                .AddQueryParameter("secondUserId", UserInfo.CurrentUser.UserId);
+                .AddQueryParameter("firstUserId", UserInfo.CurrentUser.UserId)
+                .AddQueryParameter("secondUserId", newDialog.InterlocutorPreview.UserId);
 
             var response = await _restClient.PostAsync<DialogInfoDto>(request);
 

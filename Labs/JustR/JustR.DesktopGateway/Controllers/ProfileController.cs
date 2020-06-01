@@ -80,6 +80,5 @@ namespace JustR.DesktopGateway.Controllers
 
             return Ok(response);
         }
-
     }
 }

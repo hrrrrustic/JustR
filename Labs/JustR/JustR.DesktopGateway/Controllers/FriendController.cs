@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using JustR.Core.Dto;
 using JustR.Core.Entity;
@@ -27,26 +28,25 @@ namespace JustR.DesktopGateway.Controllers
         [HttpGet]
         public async Task<ActionResult<List<UserPreviewDto>>> GetUserFriends([FromQuery] Guid userId)
         {
-            var request = new RestRequest()
+            IRestRequest request = new RestRequest()
                 .AddQueryParameter("userId", userId);
 
-            List<Guid> friendsId = await _friendClient.GetAsync<List<Guid>>(request);
+            IReadOnlyList<Guid> friendsId = await _friendClient.GetAsync<List<Guid>>(request);
 
             if (friendsId is null)
                 return Ok(Array.Empty<UserPreviewDto>());
 
-            List<UserPreviewDto> previews = new List<UserPreviewDto>(friendsId.Count);
+            request = new RestRequest("previews");
 
-            foreach (Guid id in friendsId)
-            {
-                request = new RestRequest("preview")
-                    .AddQueryParameter("userId", id);
+            foreach (Guid guid in friendsId)
+                request.AddQueryParameter("usersId", guid);
 
-                User res = await _profileClient.GetAsync<User>(request);
-                UserPreviewDto result = UserPreviewDto.FromUser(res);
+            IReadOnlyList<User> users = await _profileClient.GetAsync<List<User>>(request);
 
-                previews.Add(result);
-            }
+            IReadOnlyList<UserPreviewDto> previews = users
+                .Select(UserPreviewDto.FromUser)
+                .ToList();
+
             return Ok(previews);
         }
 

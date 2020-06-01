@@ -68,7 +68,7 @@ namespace JustR.ProfileService
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/JustR.ProfileService/swagger.json", "JustR.ProfileService");
+                c.SwaggerEndpoint("/swagger/Profile/swagger.json", "Profile");
             });
         }
     }
