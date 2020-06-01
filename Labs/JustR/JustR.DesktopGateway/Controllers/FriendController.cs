@@ -18,11 +18,11 @@ namespace JustR.DesktopGateway.Controllers
     public class FriendController : Controller
     {
         private readonly IRestClient _friendClient =
-            new RestClient(ServiceConfigurations.FriendServiceUri)
+            new RestClient(ServiceConfigurations.FriendServiceUrl)
                 .UseNewtonsoftJson();
 
         private readonly IRestClient _profileClient =
-            new RestClient(ServiceConfigurations.ProfileServiceUri)
+            new RestClient(ServiceConfigurations.ProfileServiceUrl)
                 .UseNewtonsoftJson();
 
         #region HTTP GET

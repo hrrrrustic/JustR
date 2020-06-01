@@ -17,10 +17,12 @@ namespace JustR.DesktopGateway
         {
             IHostBuilder hostBuilder = Host.CreateDefaultBuilder(args);
 
-            // TODO : Нет файла - нет запуска
+            String directory = Directory.GetCurrentDirectory();
+            String fileName = "hosting.json";
+
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("hosting.json");
+                .SetBasePath(directory)
+                .AddJsonFile(fileName);
 
             hostBuilder = hostBuilder
                 .ConfigureWebHostDefaults(webBuilder =>

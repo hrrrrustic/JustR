@@ -34,7 +34,7 @@ namespace JustR.Desktop.Services.Implementations
             IRestRequest request = new RestRequest("Message")
                 .AddQueryParameter("dialogId", message.DialogId)
                 .AddQueryParameter("authorId", message.Sender.UserId)
-                .AddQueryParameter("text", message.MessageText);
+                .AddJsonBody(message.MessageText);
 
             //TODO : Опять же просто await куда-то там не оч
             await _restClient.PostAsync<MessageDto>(request);

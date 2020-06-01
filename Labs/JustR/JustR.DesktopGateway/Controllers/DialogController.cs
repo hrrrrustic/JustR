@@ -17,11 +17,11 @@ namespace JustR.DesktopGateway.Controllers
     public class DialogController : Controller
     {
         private readonly IRestClient _dialogClient =
-            new RestClient(ServiceConfigurations.DialogServiceUri)
+            new RestClient(ServiceConfigurations.DialogServiceUrl)
                 .UseNewtonsoftJson();
 
         private readonly IRestClient _profileClient =
-            new RestClient(ServiceConfigurations.ProfileServiceUri)
+            new RestClient(ServiceConfigurations.ProfileServiceUrl)
                 .UseNewtonsoftJson();
 
         #region HTTP GET
@@ -46,9 +46,10 @@ namespace JustR.DesktopGateway.Controllers
                 .AddQueryParameter("count", count)
                 .AddQueryParameter("offset", offset ?? 0);
 
-            // TODO : null?
-            var dialogs = await _dialogClient.GetAsync<List<Dialog>>(request);
-            
+            IReadOnlyList<Dialog> dialogs = await _dialogClient.GetAsync<List<Dialog>>(request);
+            if (dialogs is null)
+                return BadRequest();
+
             request = new RestRequest("previews");
 
             foreach (Dialog dialog in dialogs)
@@ -79,11 +80,7 @@ namespace JustR.DesktopGateway.Controllers
 
             User interlocutor = await _profileClient.GetAsync<User>(request);
 
-            DialogInfoDto dto = new DialogInfoDto
-            {
-                DialogId = dialog.DialogId,
-                Interlocutor = UserPreviewDto.FromUser(interlocutor)
-            };
+            DialogInfoDto dto = new DialogInfoDto(dialog.DialogId, UserPreviewDto.FromUser(interlocutor));
 
             return Ok(dto);
         }
@@ -108,14 +105,9 @@ namespace JustR.DesktopGateway.Controllers
                 .AddQueryParameter("firstUserId", firstUserId)
                 .AddQueryParameter("secondUserId", secondUserId);
 
-            // TODO : кажется там может null прилететь в ответ
             Dialog newDialog = await _dialogClient.PostAsync<Dialog>(request);
 
-            DialogInfoDto dto = new DialogInfoDto
-            {
-                DialogId = newDialog.DialogId,
-                Interlocutor = UserPreviewDto.FromUser(interlocutor)
-            };
+            DialogInfoDto dto = new DialogInfoDto(newDialog.DialogId, UserPreviewDto.FromUser(interlocutor));
 
             return Ok(dto);
         }

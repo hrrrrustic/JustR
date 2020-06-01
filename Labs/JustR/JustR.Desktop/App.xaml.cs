@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows;
-using JustR.Desktop.Services.Abstractions;
-using JustR.Desktop.Services.Implementations;
-using JustR.Desktop.View;
-using Microsoft.Extensions.DependencyInjection;
+using System.Windows.Threading;
 
 namespace JustR.Desktop
 {
@@ -21,18 +14,19 @@ namespace JustR.Desktop
         public App()
         {
             DispatcherUnhandledException += Application_DispatcherUnhandledException;
-
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+
+            GatewayConfiguration.ApiGatewaySource = ConfigurationManager.ConnectionStrings["GatewayUrl"].ConnectionString;
         }
 
-        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        private void Application_DispatcherUnhandledException(Object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             e.Handled = true;
-            var exception = e.Exception;
+            Exception exception = e.Exception;
             HandleUnhandledException(exception);
         }
 
-        private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
+        private void CurrentDomainOnUnhandledException(Object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
         {
             HandleUnhandledException(unhandledExceptionEventArgs.ExceptionObject as Exception);
 
@@ -47,8 +41,11 @@ namespace JustR.Desktop
             string message = "Unhandled exception";
             try
             {
-                AssemblyName assemblyName = System.Reflection.Assembly.GetExecutingAssembly().GetName();
-                message = string.Format("Unhandled exception in {0} v{1}", assemblyName.Name, assemblyName.Version);
+                AssemblyName assemblyName = Assembly
+                    .GetExecutingAssembly()
+                    .GetName();
+
+                message = $"Unhandled exception in {assemblyName.Name} v{assemblyName.Version}";
             }
             catch (Exception exc)
             {

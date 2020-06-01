@@ -16,9 +16,8 @@ namespace JustR.DialogService
     [Route("api/[controller]")]
     public class DialogController : Controller
     {
-        // TODO : Убрать куда-нибудь хардкор урла
         private readonly IRestClient _messageClient =
-            new RestClient("http://localhost:5007/api/Message")
+            new RestClient(ServiceConfiguration.MessageServiceUrl)
                 .UseNewtonsoftJson();
 
         private readonly IDialogService _dialogService;
@@ -66,9 +65,8 @@ namespace JustR.DialogService
             return Ok(createdDialog);
         }
        
-        // TODO : Убрать текст в тело запроса
         [HttpPost("message")]
-        public async Task<ActionResult> SendMessage([FromQuery] Guid dialogId, Guid authorId, String text)
+        public async Task<ActionResult> SendMessage([FromQuery] Guid dialogId, Guid authorId, [FromBody] String text)
         {
             Dialog dialog = _dialogService.UpdateLastMessage(authorId, dialogId, text);
 
@@ -78,7 +76,7 @@ namespace JustR.DialogService
             IRestRequest request = new RestRequest()
                 .AddQueryParameter("userId", authorId)
                 .AddQueryParameter("dialogId", dialogId)
-                .AddQueryParameter("text", text);
+                .AddJsonBody(text);
 
             await _messageClient.PostAsync<Message>(request);
 

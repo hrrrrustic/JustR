@@ -4,11 +4,11 @@ namespace JustR.Core.Dto
 {
     public class UserProfileDto
     {
-        public String FirstName { get; set; }
-        public String LastName { get; set; }
-        public String UniqueTag { get; set; }
-        public Byte[] Avatar { get; set; }
-        public Guid UserId { get; set; }
+        public String FirstName { get; }
+        public String LastName { get; }
+        public String UniqueTag { get; }
+        public Byte[] Avatar { get; }
+        public Guid UserId { get; }
         
     }
 }

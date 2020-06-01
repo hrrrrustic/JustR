@@ -53,6 +53,7 @@ namespace JustR.DialogService
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             DbConfiguration.ConnectionString = Configuration.GetConnectionString("LocalDb");
+            ServiceConfiguration.MessageServiceUrl = Configuration.GetConnectionString("MessageServiceUrl");
 
             if (env.IsDevelopment())
             {
@@ -66,7 +67,7 @@ namespace JustR.DialogService
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/JustR.DialogService/swagger.json", "JustR.DialogService");
+                c.SwaggerEndpoint("/swagger/Dialogs/swagger.json", "Dialogs");
             });
         }
     }

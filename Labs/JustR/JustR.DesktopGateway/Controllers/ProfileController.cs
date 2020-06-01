@@ -17,7 +17,7 @@ namespace JustR.DesktopGateway.Controllers
     public class ProfileController : Controller
     {
         private readonly IRestClient _restClient =
-            new RestClient(ServiceConfigurations.ProfileServiceUri)
+            new RestClient(ServiceConfigurations.ProfileServiceUrl)
                 .UseNewtonsoftJson();
 
         #region HTTP GET

@@ -17,15 +17,15 @@ namespace JustR.DesktopGateway.Controllers
     public class MessageController : Controller
     {
         private readonly IRestClient _messageClient =
-            new RestClient(ServiceConfigurations.MessageServiceUri)
+            new RestClient(ServiceConfigurations.MessageServiceUrl)
                 .UseNewtonsoftJson();
 
         private readonly IRestClient _profileClient =
-            new RestClient(ServiceConfigurations.ProfileServiceUri)
+            new RestClient(ServiceConfigurations.ProfileServiceUrl)
                 .UseNewtonsoftJson();
 
         private readonly IRestClient _dialogClient =
-            new RestClient(ServiceConfigurations.DialogServiceUri)
+            new RestClient(ServiceConfigurations.DialogServiceUrl)
                 .UseNewtonsoftJson();
 
         #region HTTP GET
@@ -34,7 +34,6 @@ namespace JustR.DesktopGateway.Controllers
         public async Task<ActionResult<IReadOnlyList<MessageDto>>> GetMessages(Guid userId, Guid dialogId, Int32? offset, Int32 count)
         {
             IRestRequest request = new RestRequest("all")
-                .AddQueryParameter("userId", userId)
                 .AddQueryParameter("dialogId", dialogId)
                 .AddQueryParameter("offset", offset ?? 0)
                 .AddQueryParameter("count", count);
@@ -60,12 +59,12 @@ namespace JustR.DesktopGateway.Controllers
         #region HTTP POST
 
         [HttpPost]
-        public async Task<ActionResult<MessageDto>> SendMessage([FromQuery] Guid dialogId, Guid authorId, String text)
+        public async Task<ActionResult<MessageDto>> SendMessage([FromQuery] Guid dialogId, Guid authorId, [FromBody] String text)
         {
             IRestRequest request = new RestRequest("message")
                 .AddQueryParameter("dialogId", dialogId)
                 .AddQueryParameter("authorId", authorId)
-                .AddQueryParameter("text", text);
+                .AddJsonBody(text);
 
             await _dialogClient.PostAsync<OkResult>(request);
 

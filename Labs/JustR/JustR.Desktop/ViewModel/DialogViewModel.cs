@@ -23,22 +23,13 @@ namespace JustR.Desktop.ViewModel
 
                 if (CurrentDialog.DialogId == Guid.Empty)
                 {
-                    var info = await _dialogService.CreateDialogAsync(new DialogPreviewDto
-                    {
-                        InterlocutorPreview = CurrentDialog.Interlocutor,
-                        LastMessageTime = DateTime.MinValue
-                    });
+                    DialogInfoDto info = await _dialogService
+                        .CreateDialogAsync(DialogPreviewDto.NewDialog(CurrentDialog.Interlocutor));
 
                     CurrentDialog.DialogId = info.DialogId;
                 }
 
-                MessageDto message = new MessageDto
-                {
-                    DialogId = CurrentDialog.DialogId,
-                    SendDate = DateTime.Now,
-                    MessageText = arg,
-                    Sender = UserPreviewDto.FromUser(UserInfo.CurrentUser)
-                };
+                MessageDto message = MessageDto.NewMessage(CurrentDialog.DialogId, arg, UserInfo.CurrentUser);
 
                 await _messageService
                     .SendMessage(message)

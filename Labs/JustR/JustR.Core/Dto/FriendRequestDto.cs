@@ -6,10 +6,16 @@ namespace JustR.Core.Dto
 {
     public class FriendRequestDto
     {
-        public Guid FirstUserId { get; set; }
-        public Guid SecondUserId { get; set; }
-        public RelationshipState State { get; set; }
+        public Guid FirstUserId { get; }
+        public Guid SecondUserId { get; }
+        public RelationshipState State { get; }
 
+        private FriendRequestDto(Guid firstUserId, Guid secondUserId, RelationshipState state)
+        {
+            FirstUserId = firstUserId;
+            SecondUserId = secondUserId;
+            State = state;
+        }
         public Relationship ToRelationship()
         {
             Relationship relationship = new Relationship
@@ -24,34 +30,20 @@ namespace JustR.Core.Dto
 
         public static FriendRequestDto FromRelationship(Relationship relationship)
         {
-            FriendRequestDto dto = new FriendRequestDto
-            {
-                FirstUserId = relationship.FirstUserId,
-                SecondUserId = relationship.SecondUserId,
-                State = relationship.State
-            };
+            FriendRequestDto dto =
+                new FriendRequestDto(relationship.FirstUserId, relationship.SecondUserId, relationship.State);
 
             return dto;
         }
 
         public static FriendRequestDto OutputFriendRequest(Guid firstUserId, Guid secondUserId)
         {
-            return new FriendRequestDto
-            {
-                FirstUserId = firstUserId,
-                SecondUserId = secondUserId,
-                State = RelationshipState.OutputFriendRequest
-            };
+            return new FriendRequestDto(firstUserId, secondUserId, RelationshipState.OutputFriendRequest);
         }
 
         public static FriendRequestDto InputFriendRequest(Guid firstUserId, Guid secondUserId)
         {
-            return new FriendRequestDto
-            {
-                FirstUserId = firstUserId,
-                SecondUserId = secondUserId,
-                State = RelationshipState.InputFriendRequest
-            };
+            return new FriendRequestDto(firstUserId, secondUserId, RelationshipState.InputFriendRequest);
         }
     }
 }
