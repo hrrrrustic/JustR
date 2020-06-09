@@ -13,6 +13,10 @@ namespace JustR.Core.Dto
         private DialogPreviewDto(UserPreviewDto preview) : this(Guid.Empty, DateTime.MinValue, null, preview)
         {
         }
+        public static DialogPreviewDto NewDialog(UserPreviewDto preview)
+        {
+            return new DialogPreviewDto(preview);
+        }
         private DialogPreviewDto(Guid dialogId, DateTime lastMessageTime, String lastMessageText, UserPreviewDto interlocutorPreview)
         {
             DialogId = dialogId;
@@ -28,9 +32,6 @@ namespace JustR.Core.Dto
             return dto;
         }
 
-        public static DialogPreviewDto NewDialog(UserPreviewDto preview)
-        {
-            return new DialogPreviewDto(preview);
-        }
+       
     }
 }

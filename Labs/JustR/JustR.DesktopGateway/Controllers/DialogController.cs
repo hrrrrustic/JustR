@@ -41,6 +41,7 @@ namespace JustR.DesktopGateway.Controllers
         [HttpGet("all")]
         public async Task<ActionResult<IReadOnlyList<DialogPreviewDto>>> GetDialogs([FromQuery] Guid userId, Int32? offset, Int32 count)
         {
+           
             IRestRequest request = new RestRequest("preview")
                 .AddQueryParameter("userId", userId)
                 .AddQueryParameter("count", count)
