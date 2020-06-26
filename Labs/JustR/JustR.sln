@@ -15,11 +15,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.MessageService", "Jus
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.DialogService", "JustR.DialogService\JustR.DialogService.csproj", "{47591A1C-9D58-4B52-9587-D5F793C050CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.ProfileService", "JustR.ProfileService\JustR.ProfileService.csproj", "{F18C3A3B-4D36-4FB4-8295-CAE665205795}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.ProfileService", "JustR.ProfileService\JustR.ProfileService\JustR.ProfileService.csproj", "{F18C3A3B-4D36-4FB4-8295-CAE665205795}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.NotificationService", "JustR.NotificationService\JustR.NotificationService.csproj", "{D78F5F48-E8A8-4F51-97E5-4D9684A4E551}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustR.IdentityService", "JustR.IdentityService\JustR.IdentityService.csproj", "{7E405B29-BD73-4CC5-BCEE-7800A7C35A87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.IdentityService", "JustR.IdentityService\JustR.IdentityService.csproj", "{7E405B29-BD73-4CC5-BCEE-7800A7C35A87}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JustR.ProfileService", "JustR.ProfileService", "{F0DE63AC-2447-4202-BC46-5B036475DD50}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JustR.MessageService", "JustR.MessageService", "{21630740-DF9B-4C4A-B742-9DE77A3CCCAF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JustR.FriendService", "JustR.FriendService", "{0651F4E6-6994-49BB-AC1C-8FD9A98C6933}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JustR.DialogService", "JustR.DialogService", "{E81527A5-A710-43E8-A7E8-7C671802B7B9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JustR.DesktopGateway", "JustR.DesktopGateway", "{90FDC249-648B-4D8A-B50C-FA14850D19FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +76,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ABE7A279-775B-48D3-ADB6-A84F77AABB1C} = {90FDC249-648B-4D8A-B50C-FA14850D19FF}
+		{8FE0A1E7-DCA1-4650-8182-6BE3E3158AF9} = {0651F4E6-6994-49BB-AC1C-8FD9A98C6933}
+		{0C5068BF-49D9-41AA-9E46-9D0EE42D9276} = {21630740-DF9B-4C4A-B742-9DE77A3CCCAF}
+		{47591A1C-9D58-4B52-9587-D5F793C050CA} = {E81527A5-A710-43E8-A7E8-7C671802B7B9}
+		{F18C3A3B-4D36-4FB4-8295-CAE665205795} = {F0DE63AC-2447-4202-BC46-5B036475DD50}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AEAC6123-50BF-4599-B6DA-0E16D14BC001}
