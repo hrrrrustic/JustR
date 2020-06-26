@@ -64,7 +64,7 @@ namespace JustR.NotificationService
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<NotificationHub>("NotificationHub");
+                endpoints.MapHub<NotificationHub>("/Notifications");
                 endpoints.MapControllers();
             });
 

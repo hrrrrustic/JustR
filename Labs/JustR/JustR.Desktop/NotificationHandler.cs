@@ -29,7 +29,7 @@ namespace JustR.Desktop
         public async Task StartHandling(Guid id)
         {
             _connection = new HubConnectionBuilder()
-                .WithUrl("http://localhost:5010/TestHub?userid=" + id)
+                .WithUrl("http://localhost:5010/Notifications?userid=" + id)
                 .AddJsonProtocol(options => options.PayloadSerializerOptions.PropertyNamingPolicy = null)
                 .Build();
 
