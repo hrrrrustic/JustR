@@ -14,19 +14,23 @@ namespace JustR.NotificationService.Hubs
         {
             var context = Context.GetHttpContext();
             String id = context.Request.Query["userId"].FirstOrDefault();
-            var userId = Guid.Parse(id);
+
+            // TODO : Какой-то человеческий эксепшн кидать
+            if (id is null || !Guid.TryParse(id, out Guid userId))
+                throw new Exception();
 
             _connectionManager.AddConnection(userId, Context.ConnectionId);
 
             return Task.CompletedTask;
         }
-
         public override Task OnDisconnectedAsync(Exception exception)
         {
             var context = Context.GetHttpContext();
             String id = context.Request.Query["userId"].FirstOrDefault();
-            var userId = Guid.Parse(id);
-            
+            // TODO : Тут что-то не так, но я пока не нашел как это адекватно делать
+            if (id is null || !Guid.TryParse(id, out Guid userId))
+                throw new Exception();
+
             _connectionManager.RemoveConnection(userId, Context.ConnectionId);
             return Task.CompletedTask;
         }
