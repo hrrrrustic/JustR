@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -21,16 +22,14 @@ namespace JustR.Desktop.ViewModel
             SearchCommand = new ActionCommand<String>(async arg =>
             {
                 Users.Clear();
-                await _searchService
-                    .FindUsersByTagAsync(arg)
-                    .ContinueWith(task =>
-                    {
-                        if (task.Result is null)
-                            return;
+                IReadOnlyList<UserPreviewDto> users = await _searchService
+                    .FindUsersByTagAsync(arg);
 
-                        foreach (UserPreviewDto user in task.Result)
-                            Users.Add(user);
-                    }, TaskScheduler.FromCurrentSynchronizationContext());
+                if (users is null)
+                    return;
+
+                foreach (UserPreviewDto user in users)
+                    Users.Add(user);
             });
 
             SendFriendRequest = new ActionCommand<Guid>(async arg =>

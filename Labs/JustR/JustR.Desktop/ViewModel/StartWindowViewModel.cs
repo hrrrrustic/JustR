@@ -3,11 +3,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using JustR.Core.Dto;
+using JustR.Core.Entity;
 using JustR.Desktop.Commands;
 using JustR.Desktop.Model;
 using JustR.Desktop.Services.Abstractions;
 using JustR.Desktop.Services.Implementations;
 using JustR.Desktop.View;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace JustR.Desktop.ViewModel
 {
@@ -32,18 +34,22 @@ namespace JustR.Desktop.ViewModel
                 return;
             }
 
+            //TODO : Написать какой-нибудь статик билдер
+            UserInfo.CurrentUser = new User();
             UserInfo.CurrentUser.FirstName = profile.FirstName;
             UserInfo.CurrentUser.LastName = profile.LastName;
             UserInfo.CurrentUser.Avatar = profile.Avatar;
             UserInfo.CurrentUser.UserId = profile.UserId;
             UserInfo.CurrentUser.UniqueTag = profile.UniqueTag;
 
+            var id = UserInfo.CurrentUser.UserId.ToString();
+            
             MainWindow start = new MainWindow();
             start.Show();
 
             Application.Current?.MainWindow?.Close();
         }
-        
+
         public String Login
         {
             get => _authenticationModel.Login;

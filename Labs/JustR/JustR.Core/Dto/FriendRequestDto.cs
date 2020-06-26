@@ -6,9 +6,9 @@ namespace JustR.Core.Dto
 {
     public class FriendRequestDto
     {
-        public Guid FirstUserId { get; }
-        public Guid SecondUserId { get; }
-        public RelationshipState State { get; }
+        public Guid FirstUserId { get; set; }
+        public Guid SecondUserId { get; set; }
+        public RelationshipState State { get; set; }
 
         private FriendRequestDto(Guid firstUserId, Guid secondUserId, RelationshipState state)
         {
@@ -16,6 +16,7 @@ namespace JustR.Core.Dto
             SecondUserId = secondUserId;
             State = state;
         }
+        public FriendRequestDto(){}
         public Relationship ToRelationship()
         {
             Relationship relationship = new Relationship

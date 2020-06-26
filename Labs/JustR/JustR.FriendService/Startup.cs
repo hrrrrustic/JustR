@@ -60,14 +60,13 @@ namespace JustR.FriendService
             }
 
             app.UseRouting();
-
             app.UseSwagger();
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/JustR.FriendService/swagger.json", "JustR.FriendService");
+                c.SwaggerEndpoint("/swagger/Friends/swagger.json", "Friends");
             });
         }
     }

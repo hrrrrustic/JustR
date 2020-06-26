@@ -5,14 +5,19 @@ namespace JustR.Core.Dto
 {
     public class DialogPreviewDto
     {
-        public Guid DialogId { get; }
-        public DateTime LastMessageTime { get; }
-        public String LastMessageText { get; }
-        public UserPreviewDto InterlocutorPreview { get; }
+        public Guid DialogId { get; set; }
+        public DateTime LastMessageTime { get; set; }
+        public String LastMessageText { get; set; }
+        public UserPreviewDto InterlocutorPreview { get; set; }
 
         private DialogPreviewDto(UserPreviewDto preview) : this(Guid.Empty, DateTime.MinValue, null, preview)
         {
         }
+
+        public DialogPreviewDto()
+        {
+        }
+
         public static DialogPreviewDto NewDialog(UserPreviewDto preview)
         {
             return new DialogPreviewDto(preview);

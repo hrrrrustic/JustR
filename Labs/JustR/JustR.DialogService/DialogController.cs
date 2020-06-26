@@ -76,6 +76,7 @@ namespace JustR.DialogService
             IRestRequest request = new RestRequest()
                 .AddQueryParameter("userId", authorId)
                 .AddQueryParameter("dialogId", dialogId)
+                .AddQueryParameter("receiverId", dialog.GetInterlocutorId(authorId))
                 .AddJsonBody(text);
 
             await _messageClient.PostAsync<Message>(request);

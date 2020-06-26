@@ -51,6 +51,8 @@ namespace JustR.DesktopGateway
             }
 
             app.UseRouting();
+            app.UseHttpsRedirection();
+
             app.UseSwagger();
             app.ConfigureExceptionHandler();
 

@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using JustR.Core.Entity;
+using JustR.Core.Extensions;
 using JustR.MessageService.Service;
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
+using RestSharp.Serializers.NewtonsoftJson;
 
 namespace JustR.MessageService
 {
@@ -13,6 +17,7 @@ namespace JustR.MessageService
     {
         private readonly IMessageService _messageService;
 
+        private readonly IRestClient _notificationClient = new RestClient(ServiceConfiguration.NotificationServiceUrl).UseNewtonsoftJson();
         public MessageController(IMessageService messageService)
         {
             _messageService = messageService;
@@ -33,12 +38,19 @@ namespace JustR.MessageService
         #region HTTP POST
 
         [HttpPost]
-        public ActionResult<Message> SendMessage([FromQuery] Guid userId, Guid dialogId, [FromBody] String text)
+        public async Task<ActionResult<Message>> SendMessage([FromQuery] Guid userId, Guid dialogId, Guid receiverId, [FromBody] String text)
         {
             if (String.IsNullOrWhiteSpace(text))
                 return BadRequest();
-            
+
             Message sentMessage = _messageService.SendMessage(userId, dialogId, text);
+                
+            var request = new RestRequest("message")
+                .AddQueryParameter("firstReceiverId", receiverId)
+                .AddQueryParameter("secondReceiverId", userId)
+                .AddJsonBody(sentMessage);
+            
+            await _notificationClient.PostAsync<Object>(request);
 
             return Ok(sentMessage);
         }

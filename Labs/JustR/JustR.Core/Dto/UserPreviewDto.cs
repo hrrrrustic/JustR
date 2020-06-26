@@ -13,13 +13,14 @@ namespace JustR.Core.Dto
             UniqueTag = uniqueTag;
             Avatar = avatar;
         }
+        public UserPreviewDto()
+        {}
+        public Guid UserId { get; set; }
+        public String FirstName { get; set; }
 
-        public Guid UserId { get; }
-        public String FirstName { get; }
-
-        public String LastName { get; }
-        public String UniqueTag { get; }
-        public Byte[] Avatar { get; }
+        public String LastName { get; set; }
+        public String UniqueTag { get; set; }
+        public Byte[] Avatar { get; set; }
 
         public static UserPreviewDto FromUser(User user)
         {

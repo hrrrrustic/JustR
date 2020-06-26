@@ -20,7 +20,7 @@ namespace JustR.FriendService.Repository
         public Relationship CreateFriendRequest(Relationship request)
         {
             var res = _context.Relationships.Find(request.FirstUserId, request.SecondUserId);
-            if (res is not null)
+            if (res is null)
             {
                 request.State = RelationshipState.Friend;
                 return UpdateFriendRequest(request);

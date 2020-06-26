@@ -25,31 +25,29 @@ namespace JustR.Desktop.ViewModel
             {
                 FriendRequestDto dto = FriendRequestDto.InputFriendRequest(UserInfo.CurrentUser.UserId, arg);
 
+                // TODO : Проверять чего там вообще произошло на сервере
                 await _friendService
-                    .DeleteFriend(dto)
-                    .ContinueWith(task =>
-                    {
-                        UserPreviewDto friend = Friends.Single(k => k.UserId == arg);
+                    .DeleteFriend(dto);
 
-                        if (friend is null)
-                            return;
+                UserPreviewDto friend = Friends.Single(k => k.UserId == arg);
 
-                        Friends.Remove(friend);
-                    }, TaskScheduler.FromCurrentSynchronizationContext());
+                if (friend is null)
+                    return;
+
+                Friends.Remove(friend);
             });
+
 
             GetFriendsCommand = new ActionCommand(async arg =>
             {
-                await _friendService
-                    .GetFriendsAsync(UserInfo.CurrentUser.UserId)
-                    .ContinueWith(task =>
-                    {
-                        if (task.Result is null)
-                            return;
+                IReadOnlyList<UserPreviewDto> friends = await _friendService
+                    .GetFriendsAsync(UserInfo.CurrentUser.UserId);
 
-                        foreach (UserPreviewDto friend in task.Result)
-                            Friends.Add(friend);
-                    }, TaskScheduler.FromCurrentSynchronizationContext());
+                if (friends is null)
+                    return;
+
+                foreach (UserPreviewDto friend in friends)
+                    Friends.Add(friend);
             });
         }
         public ObservableCollection<UserPreviewDto> Friends { get; } = new ObservableCollection<UserPreviewDto>();

@@ -64,9 +64,9 @@ namespace JustR.DesktopGateway.Controllers
             IRestRequest request = new RestRequest("login")
                 .AddQueryParameter("userTag", userTag);
 
-            UserPreviewDto response = await _restClient.GetAsync<UserPreviewDto>(request);
-
-            return Ok(response);
+            User response = await _restClient.GetAsync<User>(request);
+            var result = UserPreviewDto.FromUser(response);
+            return Ok(result);
         }
 
         #endregion

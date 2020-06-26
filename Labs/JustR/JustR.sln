@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.ProfileService", "Jus
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.NotificationService", "JustR.NotificationService\JustR.NotificationService.csproj", "{D78F5F48-E8A8-4F51-97E5-4D9684A4E551}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService", "IdentityService\IdentityService.csproj", "{1AA396BC-0E10-4FC5-9D44-35AFCEC3A15F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustR.IdentityService", "JustR.IdentityService\JustR.IdentityService.csproj", "{7E405B29-BD73-4CC5-BCEE-7800A7C35A87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +59,10 @@ Global
 		{D78F5F48-E8A8-4F51-97E5-4D9684A4E551}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D78F5F48-E8A8-4F51-97E5-4D9684A4E551}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D78F5F48-E8A8-4F51-97E5-4D9684A4E551}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1AA396BC-0E10-4FC5-9D44-35AFCEC3A15F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1AA396BC-0E10-4FC5-9D44-35AFCEC3A15F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1AA396BC-0E10-4FC5-9D44-35AFCEC3A15F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1AA396BC-0E10-4FC5-9D44-35AFCEC3A15F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E405B29-BD73-4CC5-BCEE-7800A7C35A87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E405B29-BD73-4CC5-BCEE-7800A7C35A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E405B29-BD73-4CC5-BCEE-7800A7C35A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E405B29-BD73-4CC5-BCEE-7800A7C35A87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

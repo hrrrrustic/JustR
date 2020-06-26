@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using JustR.Core.Dto;
+using JustR.Core.Entity;
 using JustR.Desktop.Commands;
+using JustR.Desktop.Model;
 using JustR.Desktop.Services.Abstractions;
 using JustR.Desktop.Services.Implementations;
 using JustR.Desktop.View;
@@ -16,25 +22,41 @@ namespace JustR.Desktop.ViewModel
         private readonly IDialogService _dialogService = new DialogService();
 
         private readonly IProfileService _profileService = new ProfileService();
+
+        private readonly NotificationHandler _handler = NotificationHandler.Instance.Value;
+
         public UserDialogsViewModel()
         {
             GetDialogsCommand = new ActionCommand<Guid>(async arg =>
             {
-                await _dialogService
-                    .GetDialogsPreviewAsync(arg)
-                    .ContinueWith(task =>
-                    {
-                        if(task.Result is null)
-                            return;
+                IReadOnlyList<DialogPreviewDto> dialogs = await _dialogService
+                    .GetDialogsPreviewAsync(arg);
 
-                        foreach (DialogPreviewDto dialog in task.Result)
-                            DialogsPreview.Add(dialog);
-                    }, TaskScheduler.FromCurrentSynchronizationContext());
+                if (dialogs is null)
+                    return;
+
+                foreach (DialogPreviewDto dialog in dialogs)
+                    DialogsPreview.Add(DialogModel.FromDto(dialog));
             });
+
+            _handler.NewMessageReceive += ReceiveNewMessage;
         }
 
-        public ObservableCollection<DialogPreviewDto> DialogsPreview { get; } = new ObservableCollection<DialogPreviewDto>();
+        public ObservableCollection<DialogModel> DialogsPreview { get; } = new ObservableCollection<DialogModel>();
 
+        public async Task ReceiveNewMessage(Message newMessage)
+        {
+            var dialog = DialogsPreview.SingleOrDefault(k => k.DialogId == newMessage.DialogId);
+            
+            // TODO : Надо сделать добавление нового диалога
+            if(dialog is null)
+                return;
+
+            await Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                dialog.UpdateLastMessage(newMessage.MessageText, newMessage.SendDate);
+            });
+        }
         public ICommand OpenDialogByDialogId => new ActionCommand<Guid>(arg =>
         {
             Page page = new DialogPage();

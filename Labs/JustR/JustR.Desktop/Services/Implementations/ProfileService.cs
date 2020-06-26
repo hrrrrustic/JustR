@@ -11,12 +11,8 @@ namespace JustR.Desktop.Services.Implementations
 {
     public class ProfileService : IProfileService
     {
-        private readonly RestClient _restClient = new RestClient(GatewayConfiguration.ApiGatewaySource);
+        private readonly IRestClient _restClient = new RestClient(GatewayConfiguration.ApiGatewaySource).UseNewtonsoftJson();
 
-        public ProfileService()
-        {
-            _restClient.UseNewtonsoftJson();
-        }
         public async Task<UserPreviewDto> GetProfilePreviewAsync(Guid userId)
         {
             IRestRequest request = new RestRequest("Profile/preview")

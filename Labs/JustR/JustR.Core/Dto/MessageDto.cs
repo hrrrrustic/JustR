@@ -5,10 +5,12 @@ namespace JustR.Core.Dto
 {
     public class MessageDto
     {
-        public Guid DialogId { get; }
-        public UserPreviewDto Sender { get; }
-        public String MessageText { get; }
-        public DateTime SendDate { get; }
+        public Guid DialogId { get; set; }
+        public UserPreviewDto Sender { get; set; }
+        public String MessageText { get; set; }
+        public DateTime SendDate { get; set; }
+
+        public MessageDto(){}
 
         private MessageDto(Guid dialogId, String messageText, DateTime sendDate, UserPreviewDto preview)
         {

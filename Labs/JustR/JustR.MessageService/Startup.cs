@@ -54,6 +54,7 @@ namespace JustR.MessageService
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             DbConfiguration.ConnectionString = Configuration.GetConnectionString("LocalDb");
+            ServiceConfiguration.NotificationServiceUrl = Configuration.GetConnectionString("NotificationServiceUrl");
 
             if (env.IsDevelopment())
             {
@@ -68,7 +69,7 @@ namespace JustR.MessageService
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/JustR.MessageService/swagger.json", "JustR.MessageService");
+                c.SwaggerEndpoint("/swagger/Messages/swagger.json", "Messages");
             });
         }
     }

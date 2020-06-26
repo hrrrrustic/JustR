@@ -63,6 +63,7 @@ namespace JustR.ProfileService
 
             app.UseRouting();
             app.UseSwagger();
+            app.UseHttpsRedirection();
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
 
