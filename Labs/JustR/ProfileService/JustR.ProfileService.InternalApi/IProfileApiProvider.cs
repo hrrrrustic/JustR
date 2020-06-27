@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using JustR.Core.Entity;
 
 namespace JustR.ProfileService.InternalApi
 {
     public interface IProfileApiProvider
     {
-        User GetUserProfile(Guid userId);
-        User GetUserPreview(Guid userId);
-        IReadOnlyList<User> GetUsersPreview(IEnumerable<Guid> usersId);
-        IReadOnlyList<User> SearchUser(String query);
-        User UpdateUserProfile(User user);
+        Task<User> GetUserProfile(Guid userId);
+        Task<User> GetUserPreview(Guid userId);
+        Task<IReadOnlyList<User>> GetUsersPreview(IEnumerable<Guid> usersId);
+        Task<IReadOnlyList<User>> SearchUser(String query);
+        Task<User> UpdateUserProfile(User user);
 
         // TODO : Выпилить после реализации аутент. и автор.
-        User SimpleLogIn(String userTag);
+        Task<User> SimpleLogIn(String userTag);
     }
 }

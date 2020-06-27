@@ -1,19 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using JustR.Core.Entity;
+using JustR.Core.Extensions;
+using RestSharp;
+using RestSharp.Serializers.NewtonsoftJson;
 
 namespace JustR.MessageService.InternalApi
 {
     public class HttpMessageApiProvider : IMessageApiProvider
     {
-        public IReadOnlyList<Message> GetMessages(Guid dialogId, Int32 offset, Int32 count)
+        private readonly IRestClient _restClient;
+
+        public HttpMessageApiProvider(String baseUrl)
         {
-            throw new NotImplementedException();
+            _restClient = new RestClient(baseUrl).UseNewtonsoftJson();
         }
 
-        public Message SendMessage(Guid userId, Guid dialogId, Guid receiverId, String text)
+        public async Task<IReadOnlyList<Message>> GetMessages(Guid dialogId, Int32 offset, Int32 count)
         {
-            throw new NotImplementedException();
+            IRestRequest request = new RestRequest("all")
+                .AddQueryParameter("dialogId", dialogId)
+                .AddQueryParameter("offset", offset)
+                .AddQueryParameter("count", count);
+
+            IReadOnlyList<Message> messages = await _restClient.GetAsync<IReadOnlyList<Message>>(request);
+
+            return messages;
+        }
+
+        public async Task<Message> SendMessage(Guid userId, Guid dialogId, Guid receiverId, String text)
+        {
+            IRestRequest request = new RestRequest()
+                .AddQueryParameter("userId", userId)
+                .AddQueryParameter("dialogId", dialogId)
+                .AddQueryParameter("receiverId", receiverId)
+                .AddJsonBody(text);
+
+            Message message = await _restClient.PostAsync<Message>(request);
+
+            return message;
         }
     }
 }

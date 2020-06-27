@@ -5,9 +5,8 @@ using JustR.Core.Dto;
 using JustR.Core.Extensions;
 using JustR.Core.Entity;
 using JustR.DialogService.Service;
+using JustR.MessageService.InternalApi;
 using Microsoft.AspNetCore.Mvc;
-using RestSharp;
-using RestSharp.Serializers.NewtonsoftJson;
 
 namespace JustR.DialogService
 {
@@ -16,10 +15,7 @@ namespace JustR.DialogService
     [Route("api/[controller]")]
     public class DialogController : Controller
     {
-        private readonly IRestClient _messageClient =
-            new RestClient(ServiceConfiguration.MessageServiceUrl)
-                .UseNewtonsoftJson();
-
+        private readonly IMessageApiProvider _messageApiProvider = new HttpMessageApiProvider(ServiceConfiguration.MessageServiceUrl);
         private readonly IDialogService _dialogService;
          
         public DialogController(IDialogService dialogService)
@@ -75,13 +71,7 @@ namespace JustR.DialogService
             if (dialog is null)
                 return BadRequest();
 
-            IRestRequest request = new RestRequest()
-                .AddQueryParameter("userId", authorId)
-                .AddQueryParameter("dialogId", dialogId)
-                .AddQueryParameter("receiverId", dialog.GetInterlocutorId(authorId))
-                .AddJsonBody(text);
-
-            await _messageClient.PostAsync<Message>(request);
+            await _messageApiProvider.SendMessage(authorId, dialogId, dialog.GetInterlocutorId(authorId), text);
 
             return Ok();
         }

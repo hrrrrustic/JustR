@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using JustR.Core.Dto;
 using JustR.Core.Extensions;
 using JustR.Core.Entity;
+using JustR.ProfileService.InternalApi;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
@@ -16,19 +17,14 @@ namespace JustR.DesktopGateway.Controllers
     [Route("api/[controller]")]
     public class ProfileController : Controller
     {
-        private readonly IRestClient _restClient =
-            new RestClient(ServiceConfigurations.ProfileServiceUrl)
-                .UseNewtonsoftJson();
-
+        private readonly IProfileApiProvider _profileApiProvider = new HttpProfileApiProvider(ServiceConfigurations.ProfileServiceUrl);
         #region HTTP GET
 
         [HttpGet]
         public async Task<ActionResult<UserProfileDto>> GetUserProfile([FromQuery] Guid userId)
         {
-            IRestRequest request = new RestRequest("userId")
-                .AddQueryParameter("userId", userId);
+            User user = await _profileApiProvider.GetUserPreview(userId);
 
-            User user = await _restClient.GetAsync<User>(request);
             UserPreviewDto preview = UserPreviewDto.FromUser(user);
 
             return Ok(preview);
@@ -37,12 +33,9 @@ namespace JustR.DesktopGateway.Controllers
         [HttpGet("search")]
         public async Task<ActionResult<IReadOnlyList<UserPreviewDto>>> SearchUser([FromQuery] String query)
         {
-            IRestRequest request = new RestRequest("search")
-                .AddQueryParameter("query", query);
+            IReadOnlyList<User> users = await _profileApiProvider.SearchUser(query);
 
-            List<User> response = await _restClient.GetAsync<List<User>>(request);
-
-            IReadOnlyList<UserPreviewDto> res = response.Select(UserPreviewDto.FromUser).ToList();
+            IReadOnlyList<UserPreviewDto> res = users.Select(UserPreviewDto.FromUser).ToList();
 
             return Ok(res);
         }
@@ -50,22 +43,20 @@ namespace JustR.DesktopGateway.Controllers
         [HttpGet("preview")]
         public async Task<ActionResult<UserPreviewDto>> GetUserPreview([FromQuery] Guid userId)
         {
-            IRestRequest request = new RestRequest("preview")
-                .AddQueryParameter("userId", userId);
+            User user = await _profileApiProvider.GetUserPreview(userId);
 
-            UserPreviewDto userPreview = await _restClient.GetAsync<UserPreviewDto>(request);
+            var preview = UserPreviewDto.FromUser(user);
 
-            return Ok(userPreview);
+            return Ok(preview); 
         }
 
         [HttpGet("login")]
         public async Task<ActionResult<UserPreviewDto>> SimpleAuth([FromQuery] String userTag)
         {
-            IRestRequest request = new RestRequest("login")
-                .AddQueryParameter("userTag", userTag);
+            User user = await _profileApiProvider.SimpleLogIn(userTag);
 
-            User response = await _restClient.GetAsync<User>(request);
-            var result = UserPreviewDto.FromUser(response);
+            var result = UserPreviewDto.FromUser(user);
+
             return Ok(result);
         }
 
@@ -76,10 +67,7 @@ namespace JustR.DesktopGateway.Controllers
         [HttpPut]
         public async Task<ActionResult<User>> UpdateUserProfile([FromBody] User newUserProfile)
         {
-            IRestRequest request = new RestRequest()
-                .AddJsonBody(newUserProfile);
-
-            User updatedProfile = await _restClient.PutAsync<User>(request);
+            User updatedProfile = await _profileApiProvider.UpdateUserProfile(newUserProfile);
 
             if (updatedProfile is null)
                 return BadRequest();

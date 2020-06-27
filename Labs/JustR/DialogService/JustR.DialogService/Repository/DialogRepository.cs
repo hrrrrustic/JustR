@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using JustR.Core.Entity;
-using SqlKata.Compilers;
 
 namespace JustR.DialogService.Repository
 {

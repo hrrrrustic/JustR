@@ -14,14 +14,16 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="RestSharp" Version="106.11.4" />
-    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="106.11.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DialogService\JustR.DialogService.InternalApi\JustR.DialogService.InternalApi.csproj" />
+    <ProjectReference Include="..\..\FriendService\JustR.FriendService.InternalApi\JustR.FriendService.InternalApi.csproj" />
     <ProjectReference Include="..\..\JustR.Core\JustR.Core.csproj" />
+    <ProjectReference Include="..\..\MessageService\JustR.MessageService.InternalApi\JustR.MessageService.InternalApi.csproj" />
+    <ProjectReference Include="..\..\ProfileService\JustR.ProfileService.InternalApi\JustR.ProfileService.InternalApi.csproj" />
   </ItemGroup>
 
 </Project>

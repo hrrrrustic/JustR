@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using SqlKata.Compilers;
 using Microsoft.Extensions.Configuration;
 
 namespace JustR.DialogService
@@ -26,7 +25,6 @@ namespace JustR.DialogService
         {
             services.AddControllers();
 
-            services.AddScoped<Compiler, SqlServerCompiler>();
             services.AddScoped<IDialogRepository, DialogRepository>();
             services.AddScoped<IDialogService, Service.DialogService>();
 

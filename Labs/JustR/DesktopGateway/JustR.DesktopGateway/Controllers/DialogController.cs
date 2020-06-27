@@ -6,6 +6,8 @@ using JustR.Core.Dto;
 using JustR.Core.Entity;
 using Microsoft.AspNetCore.Mvc;
 using JustR.Core.Extensions;
+using JustR.DialogService.InternalApi;
+using JustR.ProfileService.InternalApi;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
 
@@ -16,24 +18,16 @@ namespace JustR.DesktopGateway.Controllers
     [Route("api/[controller]")]
     public class DialogController : Controller
     {
-        private readonly IRestClient _dialogClient =
-            new RestClient(ServiceConfigurations.DialogServiceUrl)
-                .UseNewtonsoftJson();
+        private readonly IDialogApiProvider _dialogApiProvider = new HttpDialogApiProvider(ServiceConfigurations.DialogServiceUrl);
 
-        private readonly IRestClient _profileClient =
-            new RestClient(ServiceConfigurations.ProfileServiceUrl)
-                .UseNewtonsoftJson();
+        private readonly IProfileApiProvider _profileApiProvider = new HttpProfileApiProvider(ServiceConfigurations.ProfileServiceUrl);
 
         #region HTTP GET
 
         [HttpGet("id")]
-        public async Task<ActionResult<Guid>> GetDialogId([FromQuery] Guid firstUserId, Guid secondUserid)
+        public async Task<ActionResult<Guid>> GetDialogId([FromQuery] Guid firstUserId, Guid secondUserId)
         {
-            IRestRequest request = new RestRequest("id")
-                .AddQueryParameter("firstUserId", firstUserId)
-                .AddQueryParameter("secondUserId", secondUserid);
-
-            Guid id = await _dialogClient.GetAsync<Guid>(request);
+            Guid id = await _dialogApiProvider.GetDialogId(firstUserId, secondUserId);
 
             return Ok(id);
         }
@@ -41,23 +35,13 @@ namespace JustR.DesktopGateway.Controllers
         [HttpGet("all")]
         public async Task<ActionResult<IReadOnlyList<DialogPreviewDto>>> GetDialogs([FromQuery] Guid userId, Int32? offset, Int32 count)
         {
-           
-            IRestRequest request = new RestRequest("preview")
-                .AddQueryParameter("userId", userId)
-                .AddQueryParameter("count", count)
-                .AddQueryParameter("offset", offset ?? 0);
+            IReadOnlyList<Dialog> dialogs = await _dialogApiProvider.GetDialogsPreview(userId, offset ?? 0, count);
 
-            IReadOnlyList<Dialog> dialogs = await _dialogClient.GetAsync<List<Dialog>>(request);
             if (dialogs is null)
                 return BadRequest();
 
-            request = new RestRequest("previews");
-
-            foreach (Dialog dialog in dialogs)
-                request.AddQueryParameter("usersId", dialog.GetInterlocutorId(userId));
-
-            IReadOnlyList<User> users = await _profileClient.GetAsync<List<User>>(request);
-
+            IReadOnlyList<User> users = await _profileApiProvider.GetUsersPreview(dialogs.Select(k => k.GetInterlocutorId(userId)));
+            
             IReadOnlyList<DialogPreviewDto> previews = dialogs
                 .Zip(users, DialogPreviewDto.FromDialogAndUser)
                 .ToList();
@@ -68,18 +52,12 @@ namespace JustR.DesktopGateway.Controllers
         [HttpGet]
         public async Task<ActionResult<DialogInfoDto>> GetDialog([FromQuery] Guid dialogId, Guid userId)
         {
-            IRestRequest request = new RestRequest()
-                .AddQueryParameter("dialogId", dialogId);
-
-            Dialog dialog = await _dialogClient.GetAsync<Dialog>(request);
+            Dialog dialog = await _dialogApiProvider.GetDialog(dialogId);
 
             if (dialog is null)
                 return BadRequest();
 
-            request = new RestRequest("preview")
-                .AddQueryParameter("userId", dialog.GetInterlocutorId(userId));
-
-            User interlocutor = await _profileClient.GetAsync<User>(request);
+            User interlocutor = await _profileApiProvider.GetUserProfile(userId);
 
             DialogInfoDto dto = new DialogInfoDto(dialog.DialogId, UserPreviewDto.FromUser(interlocutor));
 
@@ -93,20 +71,12 @@ namespace JustR.DesktopGateway.Controllers
         [HttpPost]
         public async Task<ActionResult<DialogInfoDto>> CreateDialog([FromQuery] Guid firstUserId, Guid secondUserId)
         {
-
-            IRestRequest request = new RestRequest("preview")
-                .AddQueryParameter("userId", firstUserId);
-
-            User interlocutor = await _profileClient.GetAsync<User>(request);
+            User interlocutor = await _profileApiProvider.GetUserPreview(firstUserId);
 
             if (interlocutor is null)
                 return BadRequest();
 
-            request = new RestRequest()
-                .AddQueryParameter("firstUserId", firstUserId)
-                .AddQueryParameter("secondUserId", secondUserId);
-
-            Dialog newDialog = await _dialogClient.PostAsync<Dialog>(request);
+            Dialog newDialog = await _dialogApiProvider.CreateDialog(firstUserId, secondUserId);
 
             DialogInfoDto dto = new DialogInfoDto(newDialog.DialogId, UserPreviewDto.FromUser(interlocutor));
 

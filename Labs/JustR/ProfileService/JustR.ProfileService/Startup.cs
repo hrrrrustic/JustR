@@ -11,7 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using SqlKata.Compilers;
 
 namespace JustR.ProfileService
 {
@@ -27,7 +26,6 @@ namespace JustR.ProfileService
         {
             services.AddControllers();
 
-            services.AddScoped<Compiler, SqlServerCompiler>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
             services.AddScoped<IProfileService, Service.ProfileService>();
 

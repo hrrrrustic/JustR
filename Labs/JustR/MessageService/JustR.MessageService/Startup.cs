@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using SqlKata.Compilers;
 
 namespace JustR.MessageService
 {
@@ -26,7 +25,6 @@ namespace JustR.MessageService
         {
             services.AddControllers();
 
-            services.AddScoped<Compiler, SqlServerCompiler>();
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IMessageService, Service.MessageService>();
 

@@ -2,19 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using JustR.Core.Entity;
-using SqlKata.Compilers;
 
 namespace JustR.MessageService.Repository
 {
     public class MessageRepository : IMessageRepository
     {
-        private readonly Compiler _sqlCompiler;
 
         private readonly MessageDbContext _context;
 
-        public MessageRepository(Compiler sqlCompiler, MessageDbContext context)
+        public MessageRepository(MessageDbContext context)
         {
-            _sqlCompiler = sqlCompiler;
             _context = context;
         }
 

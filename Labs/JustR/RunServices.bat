@@ -15,5 +15,5 @@ start JustR.MessageService.exe
 cd D:\VSProjects\VeeamProjects\MyProject\Labs\JustR\FriendService\JustR.FriendService\bin\Debug\netcoreapp3.1
 start JustR.FriendService.exe
 
-cd D:\VSProjects\VeeamProjects\MyProject\Labs\JustR\NotificationService\JustR.NotificationService\bin\Debug\netcoreapp3.1
+cd D:\VSProjects\VeeamProjects\MyProject\Labs\JustR\JustR.NotificationService\bin\Debug\netcoreapp3.1
 start JustR.NotificationService.exe
