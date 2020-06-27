@@ -3,33 +3,43 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.DesktopGateway", "JustR.DesktopGateway\JustR.DesktopGateway.csproj", "{ABE7A279-775B-48D3-ADB6-A84F77AABB1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.DesktopGateway", "DesktopGateway\JustR.DesktopGateway\JustR.DesktopGateway.csproj", "{ABE7A279-775B-48D3-ADB6-A84F77AABB1C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.Core", "JustR.Core\JustR.Core.csproj", "{54124DCC-7130-4509-AEE8-48ED4BF7E0DB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.Desktop", "JustR.Desktop\JustR.Desktop.csproj", "{1B32B048-C80A-44B3-9747-76A60B595268}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.FriendService", "JustR.FriendService\JustR.FriendService.csproj", "{8FE0A1E7-DCA1-4650-8182-6BE3E3158AF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.FriendService", "FriendService\JustR.FriendService\JustR.FriendService.csproj", "{8FE0A1E7-DCA1-4650-8182-6BE3E3158AF9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.MessageService", "JustR.MessageService\JustR.MessageService.csproj", "{0C5068BF-49D9-41AA-9E46-9D0EE42D9276}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.MessageService", "MessageService\JustR.MessageService\JustR.MessageService.csproj", "{0C5068BF-49D9-41AA-9E46-9D0EE42D9276}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.DialogService", "JustR.DialogService\JustR.DialogService.csproj", "{47591A1C-9D58-4B52-9587-D5F793C050CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.DialogService", "DialogService\JustR.DialogService\JustR.DialogService.csproj", "{47591A1C-9D58-4B52-9587-D5F793C050CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.ProfileService", "JustR.ProfileService\JustR.ProfileService\JustR.ProfileService.csproj", "{F18C3A3B-4D36-4FB4-8295-CAE665205795}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.ProfileService", "ProfileService\JustR.ProfileService\JustR.ProfileService.csproj", "{F18C3A3B-4D36-4FB4-8295-CAE665205795}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.NotificationService", "JustR.NotificationService\JustR.NotificationService.csproj", "{D78F5F48-E8A8-4F51-97E5-4D9684A4E551}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.IdentityService", "JustR.IdentityService\JustR.IdentityService.csproj", "{7E405B29-BD73-4CC5-BCEE-7800A7C35A87}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JustR.ProfileService", "JustR.ProfileService", "{F0DE63AC-2447-4202-BC46-5B036475DD50}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProfileService", "ProfileService", "{94ADEC90-DE91-4443-AF77-F8D921FF4539}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JustR.MessageService", "JustR.MessageService", "{21630740-DF9B-4C4A-B742-9DE77A3CCCAF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessageService", "MessageService", "{A1C7AA7B-C683-4BC7-8005-F665FD73FA7E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JustR.FriendService", "JustR.FriendService", "{0651F4E6-6994-49BB-AC1C-8FD9A98C6933}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FriendService", "FriendService", "{5B273441-B69A-40AD-8F6E-BD8F71331DF0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JustR.DialogService", "JustR.DialogService", "{E81527A5-A710-43E8-A7E8-7C671802B7B9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DialogService", "DialogService", "{53E999E1-6C88-4195-9470-55E4CE1A1838}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JustR.DesktopGateway", "JustR.DesktopGateway", "{90FDC249-648B-4D8A-B50C-FA14850D19FF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesktopGateway", "DesktopGateway", "{B584BECE-25E8-42AD-88BC-6C9A35DC3BCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustR.ProfileService.InternalApi", "ProfileService\JustR.ProfileService.InternalApi\JustR.ProfileService.InternalApi.csproj", "{957639E2-5E2C-49B7-A433-CE0BA6FEEF7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustR.MessageService.InternalApi", "MessageService\JustR.MessageService.InternalApi\JustR.MessageService.InternalApi.csproj", "{25E2DDC2-E510-4FDE-A55B-1A64B590144C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustR.FriendService.InternalApi", "FriendService\JustR.FriendService.InternalApi\JustR.FriendService.InternalApi.csproj", "{7FA164D4-2F09-46DB-A986-2FB449948DF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustR.DialogService.InternalApi", "DialogService\JustR.DialogService.InternalApi\JustR.DialogService.InternalApi.csproj", "{56218C80-84AF-48A1-9198-E2F3860B1CD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustR.DesktopGateway.PublicApi", "DesktopGateway\JustR.DesktopGateway.PublicApi\JustR.DesktopGateway.PublicApi.csproj", "{3C5A567B-9332-4491-A609-7F87084CAC3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,16 +83,41 @@ Global
 		{7E405B29-BD73-4CC5-BCEE-7800A7C35A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E405B29-BD73-4CC5-BCEE-7800A7C35A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E405B29-BD73-4CC5-BCEE-7800A7C35A87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{957639E2-5E2C-49B7-A433-CE0BA6FEEF7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{957639E2-5E2C-49B7-A433-CE0BA6FEEF7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{957639E2-5E2C-49B7-A433-CE0BA6FEEF7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{957639E2-5E2C-49B7-A433-CE0BA6FEEF7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25E2DDC2-E510-4FDE-A55B-1A64B590144C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25E2DDC2-E510-4FDE-A55B-1A64B590144C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25E2DDC2-E510-4FDE-A55B-1A64B590144C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25E2DDC2-E510-4FDE-A55B-1A64B590144C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FA164D4-2F09-46DB-A986-2FB449948DF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FA164D4-2F09-46DB-A986-2FB449948DF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FA164D4-2F09-46DB-A986-2FB449948DF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FA164D4-2F09-46DB-A986-2FB449948DF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56218C80-84AF-48A1-9198-E2F3860B1CD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56218C80-84AF-48A1-9198-E2F3860B1CD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56218C80-84AF-48A1-9198-E2F3860B1CD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56218C80-84AF-48A1-9198-E2F3860B1CD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C5A567B-9332-4491-A609-7F87084CAC3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C5A567B-9332-4491-A609-7F87084CAC3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C5A567B-9332-4491-A609-7F87084CAC3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C5A567B-9332-4491-A609-7F87084CAC3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{ABE7A279-775B-48D3-ADB6-A84F77AABB1C} = {90FDC249-648B-4D8A-B50C-FA14850D19FF}
-		{8FE0A1E7-DCA1-4650-8182-6BE3E3158AF9} = {0651F4E6-6994-49BB-AC1C-8FD9A98C6933}
-		{0C5068BF-49D9-41AA-9E46-9D0EE42D9276} = {21630740-DF9B-4C4A-B742-9DE77A3CCCAF}
-		{47591A1C-9D58-4B52-9587-D5F793C050CA} = {E81527A5-A710-43E8-A7E8-7C671802B7B9}
-		{F18C3A3B-4D36-4FB4-8295-CAE665205795} = {F0DE63AC-2447-4202-BC46-5B036475DD50}
+		{ABE7A279-775B-48D3-ADB6-A84F77AABB1C} = {B584BECE-25E8-42AD-88BC-6C9A35DC3BCD}
+		{8FE0A1E7-DCA1-4650-8182-6BE3E3158AF9} = {5B273441-B69A-40AD-8F6E-BD8F71331DF0}
+		{0C5068BF-49D9-41AA-9E46-9D0EE42D9276} = {A1C7AA7B-C683-4BC7-8005-F665FD73FA7E}
+		{47591A1C-9D58-4B52-9587-D5F793C050CA} = {53E999E1-6C88-4195-9470-55E4CE1A1838}
+		{F18C3A3B-4D36-4FB4-8295-CAE665205795} = {94ADEC90-DE91-4443-AF77-F8D921FF4539}
+		{957639E2-5E2C-49B7-A433-CE0BA6FEEF7B} = {94ADEC90-DE91-4443-AF77-F8D921FF4539}
+		{25E2DDC2-E510-4FDE-A55B-1A64B590144C} = {A1C7AA7B-C683-4BC7-8005-F665FD73FA7E}
+		{7FA164D4-2F09-46DB-A986-2FB449948DF8} = {5B273441-B69A-40AD-8F6E-BD8F71331DF0}
+		{56218C80-84AF-48A1-9198-E2F3860B1CD7} = {53E999E1-6C88-4195-9470-55E4CE1A1838}
+		{3C5A567B-9332-4491-A609-7F87084CAC3B} = {B584BECE-25E8-42AD-88BC-6C9A35DC3BCD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AEAC6123-50BF-4599-B6DA-0E16D14BC001}

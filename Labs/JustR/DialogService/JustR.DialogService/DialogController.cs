@@ -38,6 +38,7 @@ namespace JustR.DialogService
         }
 
         [HttpGet("preview")]
+        //TODO : Торчит дто
         public ActionResult<IReadOnlyList<DialogPreviewDto>> GetDialogsPreview([FromQuery] Guid userId, Int32 count, Int32 offset)
         {
             IReadOnlyList<Dialog> dialogs = _dialogService.GetDialogsPreview(userId, offset, count);
@@ -46,6 +47,7 @@ namespace JustR.DialogService
         }
 
         [HttpGet]
+        //TODO : Торчит дто x2
         public ActionResult<DialogInfoDto> GetDialog([FromQuery] Guid dialogId)
         {
             Dialog dialog = _dialogService.GetDialog(dialogId);

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>630b8aa2-acd8-43ef-ab30-b43ada17b1ba</UserSecretsId>
+    <UserSecretsId>0b757738-72d1-4468-978f-a9d926965251</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JustR.Core\JustR.Core.csproj" />
+    <ProjectReference Include="..\..\JustR.Core\JustR.Core.csproj" />
   </ItemGroup>
 
 </Project>
