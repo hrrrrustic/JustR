@@ -11,6 +11,7 @@ using RestSharp.Serializers.NewtonsoftJson;
 namespace JustR.Desktop.Services.Implementations
 {
     //TODO : Пофиксить названия в плане суффиксов Async и тд
+    //TODO : Пофиксить в целом названия на слоях. Сейчас там 50 оттенков синонимов
     public class ProfileService : IProfileService
     {
         private readonly IDesktopGatewayApiProvider _desktopGatewayApiProvider =
