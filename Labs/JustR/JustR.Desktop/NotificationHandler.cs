@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
-using JustR.Core.Dto;
 using JustR.Core.Entity;
 using JustR.Desktop.Annotations;
 using Microsoft.AspNetCore.SignalR.Client;

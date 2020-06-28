@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using JustR.Core.Dto;
 using JustR.Core.Entity;
 using JustR.Desktop.View;
 

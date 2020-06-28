@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Sources;
-using JustR.Core.Dto;
+using JustR.ClientRelatedShare.Dto;
 using JustR.Desktop.Services.Abstractions;
 using JustR.Core.Extensions;
 using Microsoft.AspNetCore.SignalR.Client;

@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\DialogService\JustR.DialogService.InternalApi\JustR.DialogService.InternalApi.csproj" />
     <ProjectReference Include="..\..\FriendService\JustR.FriendService.InternalApi\JustR.FriendService.InternalApi.csproj" />
+    <ProjectReference Include="..\..\JustR.ClientRelatedShare\JustR.ClientRelatedShare.csproj" />
     <ProjectReference Include="..\..\JustR.Core\JustR.Core.csproj" />
     <ProjectReference Include="..\..\MessageService\JustR.MessageService.InternalApi\JustR.MessageService.InternalApi.csproj" />
     <ProjectReference Include="..\..\ProfileService\JustR.ProfileService.InternalApi\JustR.ProfileService.InternalApi.csproj" />

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JustR.Core.Dto
+namespace JustR.ClientRelatedShare.Dto
 {
     public class ChangeProfileDto
     {

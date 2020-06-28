@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using JustR.Core.Dto;
+using JustR.ClientRelatedShare.Dto;
 using JustR.Core.Entity;
 using JustR.Core.Extensions;
 using JustR.DialogService.InternalApi;

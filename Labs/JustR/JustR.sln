@@ -31,15 +31,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DialogService", "DialogServ
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesktopGateway", "DesktopGateway", "{B584BECE-25E8-42AD-88BC-6C9A35DC3BCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustR.ProfileService.InternalApi", "ProfileService\JustR.ProfileService.InternalApi\JustR.ProfileService.InternalApi.csproj", "{957639E2-5E2C-49B7-A433-CE0BA6FEEF7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.ProfileService.InternalApi", "ProfileService\JustR.ProfileService.InternalApi\JustR.ProfileService.InternalApi.csproj", "{957639E2-5E2C-49B7-A433-CE0BA6FEEF7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustR.MessageService.InternalApi", "MessageService\JustR.MessageService.InternalApi\JustR.MessageService.InternalApi.csproj", "{25E2DDC2-E510-4FDE-A55B-1A64B590144C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.MessageService.InternalApi", "MessageService\JustR.MessageService.InternalApi\JustR.MessageService.InternalApi.csproj", "{25E2DDC2-E510-4FDE-A55B-1A64B590144C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustR.FriendService.InternalApi", "FriendService\JustR.FriendService.InternalApi\JustR.FriendService.InternalApi.csproj", "{7FA164D4-2F09-46DB-A986-2FB449948DF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.FriendService.InternalApi", "FriendService\JustR.FriendService.InternalApi\JustR.FriendService.InternalApi.csproj", "{7FA164D4-2F09-46DB-A986-2FB449948DF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustR.DialogService.InternalApi", "DialogService\JustR.DialogService.InternalApi\JustR.DialogService.InternalApi.csproj", "{56218C80-84AF-48A1-9198-E2F3860B1CD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.DialogService.InternalApi", "DialogService\JustR.DialogService.InternalApi\JustR.DialogService.InternalApi.csproj", "{56218C80-84AF-48A1-9198-E2F3860B1CD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustR.DesktopGateway.PublicApi", "DesktopGateway\JustR.DesktopGateway.PublicApi\JustR.DesktopGateway.PublicApi.csproj", "{3C5A567B-9332-4491-A609-7F87084CAC3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustR.DesktopGateway.PublicApi", "DesktopGateway\JustR.DesktopGateway.PublicApi\JustR.DesktopGateway.PublicApi.csproj", "{3C5A567B-9332-4491-A609-7F87084CAC3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustR.ClientRelatedShare", "JustR.ClientRelatedShare\JustR.ClientRelatedShare.csproj", "{077C6730-9E82-4324-9F14-8C57FDCCB358}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,6 +105,10 @@ Global
 		{3C5A567B-9332-4491-A609-7F87084CAC3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C5A567B-9332-4491-A609-7F87084CAC3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C5A567B-9332-4491-A609-7F87084CAC3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{077C6730-9E82-4324-9F14-8C57FDCCB358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{077C6730-9E82-4324-9F14-8C57FDCCB358}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{077C6730-9E82-4324-9F14-8C57FDCCB358}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{077C6730-9E82-4324-9F14-8C57FDCCB358}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

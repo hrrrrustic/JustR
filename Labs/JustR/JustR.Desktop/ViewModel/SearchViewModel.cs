@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using JustR.Core.Dto;
+using JustR.ClientRelatedShare.Dto;
 using JustR.Desktop.Commands;
 using JustR.Desktop.Services.Abstractions;
 using JustR.Desktop.Services.Implementations;

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using JustR.Core.Dto;
 using JustR.Core.Extensions;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;

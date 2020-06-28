@@ -14,7 +14,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using JustR.Core.Dto;
 using JustR.Desktop.Model;
 using JustR.Desktop.View;
 

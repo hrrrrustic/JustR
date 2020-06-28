@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using JustR.Core.Dto;
+using JustR.ClientRelatedShare.Dto;
 using JustR.Core.Entity;
 using JustR.Desktop.Commands;
 using JustR.Desktop.Model;

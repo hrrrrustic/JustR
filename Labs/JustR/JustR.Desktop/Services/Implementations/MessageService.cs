@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using JustR.Core.Dto;
+using JustR.ClientRelatedShare.Dto;
 using JustR.Core.Extensions;
 using JustR.Desktop.Services.Abstractions;
 using RestSharp;

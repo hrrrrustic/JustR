@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using JustR.Core.Dto;
+using JustR.ClientRelatedShare.Dto;
 using JustR.Core.Entity;
 using JustR.Desktop.Annotations;
 using JustR.Models.Entity;

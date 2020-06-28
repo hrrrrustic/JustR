@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using JustR.Core.Dto;
+using JustR.ClientRelatedShare.Dto;
 using JustR.Desktop.Annotations;
 
 namespace JustR.Desktop.Model

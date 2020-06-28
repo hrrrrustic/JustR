@@ -44,12 +44,13 @@ namespace JustR.MessageService
                 return BadRequest();
 
             Message sentMessage = _messageService.SendMessage(userId, dialogId, text);
-                
+            // TODO : Сделать у сервиса уведомлений тоже интернал апишку
             var request = new RestRequest("message")
                 .AddQueryParameter("firstReceiverId", receiverId)
                 .AddQueryParameter("secondReceiverId", userId)
                 .AddJsonBody(sentMessage);
             
+            // TODO : Object?
             await _notificationClient.PostAsync<Object>(request);
 
             return Ok(sentMessage);

@@ -1,7 +1,7 @@
 ﻿using System;
 using JustR.Core.Entity;
 
-namespace JustR.Core.Dto
+namespace JustR.ClientRelatedShare.Dto
 {
     public class UserPreviewDto
     {

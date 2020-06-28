@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using JustR.Core.Dto;
 using JustR.Core.Entity;
 using JustR.Core.Extensions;
 using RestSharp;

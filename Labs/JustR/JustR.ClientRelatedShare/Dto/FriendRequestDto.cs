@@ -2,7 +2,7 @@
 using JustR.Core.Enum;
 using JustR.Models.Entity;
 
-namespace JustR.Core.Dto
+namespace JustR.ClientRelatedShare.Dto
 {
     public class FriendRequestDto
     {

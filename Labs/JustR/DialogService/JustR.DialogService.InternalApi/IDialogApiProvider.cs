@@ -1,5 +1,4 @@
-﻿using JustR.Core.Dto;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using JustR.Core.Entity;

@@ -1,7 +1,7 @@
-﻿using System;
-using JustR.Core.Entity;
+﻿using JustR.Core.Entity;
+using System;
 
-namespace JustR.Core.Dto
+namespace JustR.ClientRelatedShare.Dto
 {
     public class DialogPreviewDto
     {

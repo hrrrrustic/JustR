@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using JustR.Core.Dto;
+using JustR.ClientRelatedShare.Dto;
 
 namespace JustR.Desktop.Controls
 {

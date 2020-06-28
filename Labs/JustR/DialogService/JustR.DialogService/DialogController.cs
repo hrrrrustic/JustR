@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using JustR.Core.Dto;
 using JustR.Core.Extensions;
 using JustR.Core.Entity;
 using JustR.DialogService.Service;
 using JustR.MessageService.InternalApi;
 using Microsoft.AspNetCore.Mvc;
+using JustR.ClientRelatedShare.Dto;
 
 namespace JustR.DialogService
 {
