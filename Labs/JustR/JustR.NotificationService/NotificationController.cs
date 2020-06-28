@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using JustR.ClientRelatedShare;
 using JustR.Core.Entity;
 using JustR.NotificationService.Hubs;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +13,10 @@ namespace JustR.NotificationService
     [Consumes("application/json")]
     public class NotificationController : Controller
     {
-        private readonly IHubContext<NotificationHub> _context;
+        private readonly IHubContext<NotificationHub, INotificationClient> _context;
 
         private readonly ConnectionManager _connectionManager = new ConnectionManager();
-        public NotificationController(IHubContext<NotificationHub> context)
+        public NotificationController(IHubContext<NotificationHub, INotificationClient> context)
         {
             _context = context;
         }
@@ -32,7 +33,7 @@ namespace JustR.NotificationService
                 await _context
                     .Clients
                     .Client(connection)
-                    .SendAsync("ReceiveNewMessage", newMessage);
+                    .ReceiveNewMessage(newMessage);
             }
 
             return Ok();

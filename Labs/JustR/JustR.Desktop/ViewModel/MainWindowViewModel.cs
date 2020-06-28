@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using JustR.Core.Entity;
+using JustR.Desktop.Notifications;
 using JustR.Desktop.View;
 
 namespace JustR.Desktop.ViewModel

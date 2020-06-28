@@ -11,6 +11,7 @@ using JustR.ClientRelatedShare.Dto;
 using JustR.Core.Entity;
 using JustR.Desktop.Commands;
 using JustR.Desktop.Model;
+using JustR.Desktop.Notifications;
 using JustR.Desktop.Services.Abstractions;
 using JustR.Desktop.Services.Implementations;
 using JustR.Desktop.View;

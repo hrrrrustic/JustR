@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
+using JustR.ClientRelatedShare;
 using JustR.Core.Entity;
-using JustR.Desktop.Annotations;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace JustR.Desktop
+namespace JustR.Desktop.Notifications
 {
-    public class NotificationHandler
+    public class NotificationHandler : INotificationClient
     {
         public delegate Task NewMessageHandler(Message newMessage);
 
@@ -22,7 +20,6 @@ namespace JustR.Desktop
 
         private NotificationHandler()
         {
-
         }
 
         public async Task StartHandling(Guid id)
@@ -34,9 +31,8 @@ namespace JustR.Desktop
 
             _connection.Closed += Reconnect;
 
-            _connection.On<Message>("ReceiveNewMessage",
-                (newMessage) => NewMessageReceive?.Invoke(newMessage));
-            
+            _connection.On<Message>(nameof(ReceiveNewMessage), ReceiveNewMessage);
+
             await _connection.StartAsync();
         }
 
@@ -47,6 +43,14 @@ namespace JustR.Desktop
                 return;
 
             await _connection.StartAsync();
+        }
+
+        public async Task ReceiveNewMessage(Message message)
+        {
+            if(NewMessageReceive is null)
+                return;
+
+            await NewMessageReceive.Invoke(message);
         }
     }
 }

@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\JustR.ClientRelatedShare\JustR.ClientRelatedShare.csproj" />
     <ProjectReference Include="..\JustR.Core\JustR.Core.csproj" />
   </ItemGroup>
 
