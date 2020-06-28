@@ -18,7 +18,7 @@ namespace JustR.ProfileService.InternalApi
         }
         public async Task<User> GetUserProfile(Guid userId)
         {
-            IRestRequest request = new RestRequest("userId")
+            IRestRequest request = new RestRequest()
                 .AddQueryParameter("userId", userId);
 
             User user = await _restClient.GetAsync<User>(request);
@@ -38,7 +38,14 @@ namespace JustR.ProfileService.InternalApi
 
         public async Task<IReadOnlyList<User>> GetUsersPreview(IEnumerable<Guid> usersId)
         {
-            throw new NotImplementedException();
+            IRestRequest request = new RestRequest("previews");
+
+            foreach (Guid id in usersId)
+                request.AddQueryParameter("usersId", id);
+
+            IReadOnlyList<User> users = await _restClient.GetAsync<List<User>>(request);
+
+            return users;
         }
 
         public async Task<IReadOnlyList<User>> SearchUser(String query)

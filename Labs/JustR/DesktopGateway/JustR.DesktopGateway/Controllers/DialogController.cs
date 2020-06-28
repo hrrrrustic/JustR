@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using JustR.Core.Entity;
 using Microsoft.AspNetCore.Mvc;
 using JustR.Core.Extensions;
 using JustR.DialogService.InternalApi;
@@ -10,6 +9,7 @@ using JustR.ProfileService.InternalApi;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
 using JustR.ClientRelatedShare.Dto;
+using JustR.Core.Entity;
 
 namespace JustR.DesktopGateway.Controllers
 {
@@ -35,7 +35,7 @@ namespace JustR.DesktopGateway.Controllers
         [HttpGet("all")]
         public async Task<ActionResult<IReadOnlyList<DialogPreviewDto>>> GetDialogs([FromQuery] Guid userId, Int32? offset, Int32 count)
         {
-            IReadOnlyList<Dialog> dialogs = await _dialogApiProvider.GetDialogsPreview(userId, offset ?? 0, count);
+            IReadOnlyList<Dialog> dialogs = await _dialogApiProvider.GetDialogsPreview(userId, count, offset ?? 0);
 
             if (dialogs is null)
                 return BadRequest();
@@ -57,7 +57,7 @@ namespace JustR.DesktopGateway.Controllers
             if (dialog is null)
                 return BadRequest();
 
-            User interlocutor = await _profileApiProvider.GetUserProfile(userId);
+            User interlocutor = await _profileApiProvider.GetUserProfile(dialog.GetInterlocutorId(userId));
 
             DialogInfoDto dto = new DialogInfoDto(dialog.DialogId, UserPreviewDto.FromUser(interlocutor));
 
