@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using JustR.ClientRelatedShare.Dto;
 
-namespace JustR.DesktopGateway.PublicApi.EntityProvider
+namespace JustR.DesktopGateway.PublicApi.EntityProvider.Abstractions
 {
     public interface IFriendApiProvider
     {
         Task<IReadOnlyList<UserPreviewDto>> GetUserFriends(Guid userId);
         Task<FriendRequestDto> CreateFriendRequest(FriendRequestDto dto);
         Task<FriendRequestDto> CreateFriendResponse(FriendRequestDto dto);
-        void DeleteFriend(Guid userId, Guid secondUserId);
+        Task DeleteFriend(Guid userId, Guid secondUserId);
     }
 }

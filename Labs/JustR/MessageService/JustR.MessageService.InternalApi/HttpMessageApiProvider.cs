@@ -19,7 +19,7 @@ namespace JustR.MessageService.InternalApi
 
         public async Task<IReadOnlyList<Message>> GetMessages(Guid dialogId, Int32 offset, Int32 count)
         {
-            IRestRequest request = new RestRequest("all")
+            IRestRequest request = new RestRequest(MessageServiceHttpEndpoints.GetMessages)
                 .AddQueryParameter("dialogId", dialogId)
                 .AddQueryParameter("offset", offset)
                 .AddQueryParameter("count", count);
@@ -31,7 +31,7 @@ namespace JustR.MessageService.InternalApi
 
         public async Task<Message> SendMessage(Guid userId, Guid dialogId, Guid receiverId, String text)
         {
-            IRestRequest request = new RestRequest()
+            IRestRequest request = new RestRequest(MessageServiceHttpEndpoints.SendMessage)
                 .AddQueryParameter("userId", userId)
                 .AddQueryParameter("dialogId", dialogId)
                 .AddQueryParameter("receiverId", receiverId)

@@ -19,7 +19,7 @@ namespace JustR.FriendService.InternalApi
 
         public async Task<IReadOnlyList<Guid>> GetUserFriends(Guid userId)
         {
-            IRestRequest request = new RestRequest()
+            IRestRequest request = new RestRequest(FriendSerivceHttpEndpoints.GetUserFriends)
                 .AddQueryParameter("userId", userId);
 
             IReadOnlyList<Guid> friendsId = await _restClient.GetAsync<List<Guid>>(request);
@@ -29,7 +29,7 @@ namespace JustR.FriendService.InternalApi
 
         public async Task<Relationship> CreateFriendRequest(Relationship relationship)
         {
-            IRestRequest request = new RestRequest()
+            IRestRequest request = new RestRequest(FriendSerivceHttpEndpoints.CreateFriendRequest)
                 .AddJsonBody(relationship);
 
             relationship = await _restClient.PostAsync<Relationship>(request);
@@ -39,7 +39,7 @@ namespace JustR.FriendService.InternalApi
 
         public async Task<Relationship> CreateFriendResponse(Relationship relationship)
         {
-            IRestRequest request = new RestRequest()
+            IRestRequest request = new RestRequest(FriendSerivceHttpEndpoints.CreateFriendResponse)
                 .AddJsonBody(relationship);
 
             relationship = await _restClient.PutAsync<Relationship>(request);
@@ -47,6 +47,7 @@ namespace JustR.FriendService.InternalApi
             return relationship;
         }
 
+        //TODO : Надо заимплементить
         public void DeleteFriend(Relationship relationship)
         {
             throw new NotImplementedException();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using JustR.Core.Entity;
+using JustR.ProfileService.InternalApi;
 using JustR.ProfileService.Service;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,7 @@ namespace JustR.ProfileService
 
         #region HTTP GET
 
-        [HttpGet]
+        [HttpGet(ProfileServiceHttpEndpoints.GetUserProfile)]
         public ActionResult<User> GetUserProfile([FromQuery] Guid userId)
         {
             User userProfile = _profileService.GetUserProfile(userId);
@@ -29,7 +30,7 @@ namespace JustR.ProfileService
             return Ok(userProfile);
         }
 
-        [HttpGet("previews")]
+        [HttpGet(ProfileServiceHttpEndpoints.GetUsersPreview)]
         
         public ActionResult<IReadOnlyList<User>> GetUsersPreview([FromQuery] List<Guid> usersId)
         {
@@ -40,7 +41,7 @@ namespace JustR.ProfileService
             return Ok(usersProfile);
         }
 
-        [HttpGet("search")]
+        [HttpGet(ProfileServiceHttpEndpoints.SearchUser)]
         public ActionResult<IReadOnlyList<User>> SearchUser([FromQuery] String query)
         {
             if (query is null)
@@ -51,7 +52,7 @@ namespace JustR.ProfileService
             return Ok(foundUsers);
         }
 
-        [HttpGet("preview")]
+        [HttpGet(ProfileServiceHttpEndpoints.GetUserPreview)]
         public ActionResult<User> GetUserPreview([FromQuery] Guid userId)
         {
             User userPreview = _profileService.GetUserPreview(userId);
@@ -59,7 +60,7 @@ namespace JustR.ProfileService
             return Ok(userPreview);
         }
 
-        [HttpGet("login")]
+        [HttpGet(ProfileServiceHttpEndpoints.SimpleLogin)]
         public ActionResult<User> SimpleLogIn([FromQuery] String userTag)
         {
             User loggedUser = _profileService.FakeLogIn(userTag);
@@ -71,7 +72,7 @@ namespace JustR.ProfileService
 
         #region HTTP PUT
 
-        [HttpPut]
+        [HttpPut(ProfileServiceHttpEndpoints.UpdateUserProfile)]
         public ActionResult<User> UpdateUserProfile([FromBody] User user)
         {
             User updatedUserProfile = _profileService.UpdateUserProfile(user);

@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using JustR.Core.Extensions;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
+using static JustR.ProfileService.InternalApi.ProfileServiceHttpEndpoints;
 
 namespace JustR.ProfileService.InternalApi
 {
     public class HttpProfileApiProvider : IProfileApiProvider
     {
+        public const String Root = "Login";
         private readonly IRestClient _restClient;
 
         public HttpProfileApiProvider(String baseUrl)
@@ -18,7 +20,7 @@ namespace JustR.ProfileService.InternalApi
         }
         public async Task<User> GetUserProfile(Guid userId)
         {
-            IRestRequest request = new RestRequest()
+            IRestRequest request = new RestRequest(ProfileServiceHttpEndpoints.GetUserProfile)
                 .AddQueryParameter("userId", userId);
 
             User user = await _restClient.GetAsync<User>(request);
@@ -28,7 +30,7 @@ namespace JustR.ProfileService.InternalApi
 
         public async Task<User> GetUserPreview(Guid userId)
         {
-            IRestRequest request = new RestRequest("preview")
+            IRestRequest request = new RestRequest(ProfileServiceHttpEndpoints.GetUserPreview)
                 .AddQueryParameter("userId", userId);
 
             User userPreview = await _restClient.GetAsync<User>(request);
@@ -38,7 +40,7 @@ namespace JustR.ProfileService.InternalApi
 
         public async Task<IReadOnlyList<User>> GetUsersPreview(IEnumerable<Guid> usersId)
         {
-            IRestRequest request = new RestRequest("previews");
+            IRestRequest request = new RestRequest(ProfileServiceHttpEndpoints.GetUsersPreview);
 
             foreach (Guid id in usersId)
                 request.AddQueryParameter("usersId", id);
@@ -50,7 +52,7 @@ namespace JustR.ProfileService.InternalApi
 
         public async Task<IReadOnlyList<User>> SearchUser(String query)
         {
-            IRestRequest request = new RestRequest("search")
+            IRestRequest request = new RestRequest(ProfileServiceHttpEndpoints.SearchUser)
                 .AddQueryParameter("query", query);
 
             List<User> response = await _restClient.GetAsync<List<User>>(request);
@@ -70,7 +72,7 @@ namespace JustR.ProfileService.InternalApi
 
         public async Task<User> SimpleLogIn(String userTag)
         {
-            IRestRequest request = new RestRequest("login")
+            IRestRequest request = new RestRequest(SimpleLogin)
                 .AddQueryParameter("userTag", userTag);
 
             User response = await _restClient.GetAsync<User>(request);

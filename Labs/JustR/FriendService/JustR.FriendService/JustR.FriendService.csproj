@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\JustR.Core\JustR.Core.csproj" />
+    <ProjectReference Include="..\JustR.FriendService.InternalApi\JustR.FriendService.InternalApi.csproj" />
   </ItemGroup>
 
 </Project>

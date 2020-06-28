@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using JustR.FriendService.InternalApi;
 using JustR.FriendService.Service;
 using JustR.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 
 namespace JustR.FriendService
 {
@@ -19,7 +21,7 @@ namespace JustR.FriendService
 
         #region HTTP GET
 
-        [HttpGet]
+        [HttpGet(FriendSerivceHttpEndpoints.GetUserFriends)]
         public ActionResult<IReadOnlyList<Guid>> GetUserFriends([FromQuery] Guid userId)
         {
             IReadOnlyList<Guid> usersId = _friendService.GetFriends(userId);
@@ -31,7 +33,7 @@ namespace JustR.FriendService
 
         #region HTTP POST
 
-        [HttpPost]
+        [HttpPost(FriendSerivceHttpEndpoints.CreateFriendRequest)]
         public ActionResult<Relationship> CreateFriendRequest([FromBody] Relationship relationship)
         {
 
@@ -44,7 +46,7 @@ namespace JustR.FriendService
 
         #region HTTP POST
 
-        [HttpPut]
+        [HttpPut(FriendSerivceHttpEndpoints.CreateFriendResponse)]
         public ActionResult<Relationship> CreateFriendResponse([FromBody] Relationship relationship)
         {
             if (relationship is null)
@@ -56,7 +58,7 @@ namespace JustR.FriendService
 
         #region HTTP DELETE
 
-        [HttpDelete]
+        [HttpDelete(FriendSerivceHttpEndpoints.DeleteFriend)]
         public ActionResult DeleteFriend([FromBody] Relationship relationship)
         {
             _friendService.DeleteFriend(relationship);

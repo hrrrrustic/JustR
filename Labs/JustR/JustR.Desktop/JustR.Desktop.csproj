@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DesktopGateway\JustR.DesktopGateway.PublicApi\JustR.DesktopGateway.PublicApi.csproj" />
     <ProjectReference Include="..\JustR.ClientRelatedShare\JustR.ClientRelatedShare.csproj" />
     <ProjectReference Include="..\JustR.Core\JustR.Core.csproj" />
   </ItemGroup>

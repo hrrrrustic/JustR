@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\JustR.Core\JustR.Core.csproj" />
     <ProjectReference Include="..\..\MessageService\JustR.MessageService.InternalApi\JustR.MessageService.InternalApi.csproj" />
+    <ProjectReference Include="..\JustR.DialogService.InternalApi\JustR.DialogService.InternalApi.csproj" />
   </ItemGroup>
 
 </Project>

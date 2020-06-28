@@ -1,12 +1,13 @@
 ﻿using JustR.DesktopGateway.PublicApi.EntityProvider;
+using JustR.DesktopGateway.PublicApi.EntityProvider.Abstractions;
 
 namespace JustR.DesktopGateway.PublicApi
 {
-    public interface IDesktopGatewayApiProvider : IDialogApiProvider, IFriendApiProvider, IProfileApiProvider, IMessageApiProvider
+    public interface IDesktopGatewayApiProvider
     {
-        IDialogApiProvider DialogEntityProvider { get; }
-        IMessageApiProvider MessageEntityProvider { get; }
-        IProfileApiProvider ProfileEntityProvider { get; }
-        IFriendApiProvider FriendEntityProvider { get; }
+        IDialogApiProvider DialogEntityApiProvider { get; }
+        IMessageApiProvider MessageEntityApiProvider { get; }
+        IProfileApiProvider ProfileEntityApiProvider { get; }
+        IFriendApiProvider FriendEntityApiProvider { get; }
     }
 }

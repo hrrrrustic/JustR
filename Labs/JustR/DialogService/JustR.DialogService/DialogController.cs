@@ -6,6 +6,7 @@ using JustR.Core.Entity;
 using JustR.DialogService.Service;
 using JustR.MessageService.InternalApi;
 using Microsoft.AspNetCore.Mvc;
+using JustR.DialogService.InternalApi;
 
 namespace JustR.DialogService
 {
@@ -24,7 +25,7 @@ namespace JustR.DialogService
 
         #region HTTP GET
 
-        [HttpGet("id")]
+        [HttpGet(DialogServiceHttpEndpoints.GetDialogId)]
         public ActionResult<Guid> GetDialogId([FromQuery] Guid firstUserId, Guid secondUserId)
         {
             Guid id = _dialogService.GetDialogId(firstUserId, secondUserId);
@@ -32,7 +33,7 @@ namespace JustR.DialogService
             return Ok(id);
         }
 
-        [HttpGet("preview")]
+        [HttpGet(DialogServiceHttpEndpoints.GetDialogsPreview)]
         public ActionResult<IReadOnlyList<Dialog>> GetDialogsPreview([FromQuery] Guid userId, Int32 count, Int32 offset)
         {
             IReadOnlyList<Dialog> dialogs = _dialogService.GetDialogsPreview(userId, offset, count);
@@ -40,7 +41,7 @@ namespace JustR.DialogService
             return Ok(dialogs);
         }
 
-        [HttpGet]
+        [HttpGet(DialogServiceHttpEndpoints.GetDialog)]
         public ActionResult<Dialog> GetDialog([FromQuery] Guid dialogId)
         {
             Dialog dialog = _dialogService.GetDialog(dialogId);
@@ -52,7 +53,7 @@ namespace JustR.DialogService
 
         #region HTTP POST
 
-        [HttpPost]
+        [HttpPost(DialogServiceHttpEndpoints.CreateDialog)]
         public ActionResult<Dialog> CreateDialog([FromQuery] Guid firstUserId, Guid secondUserId)
         {
             Dialog createdDialog = _dialogService.CreateDialog(firstUserId, secondUserId);
@@ -60,7 +61,7 @@ namespace JustR.DialogService
             return Ok(createdDialog);
         }
        
-        [HttpPost("message")]
+        [HttpPost(DialogServiceHttpEndpoints.SendMessage)]
         public async Task<ActionResult> SendMessage([FromQuery] Guid dialogId, Guid authorId, [FromBody] String text)
         {
             Dialog dialog = _dialogService.UpdateLastMessage(authorId, dialogId, text);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using JustR.Core.Entity;
 using JustR.Core.Extensions;
+using JustR.MessageService.InternalApi;
 using JustR.MessageService.Service;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
@@ -25,7 +26,7 @@ namespace JustR.MessageService
 
         #region HTTP GET
 
-        [HttpGet("all")]
+        [HttpGet(MessageServiceHttpEndpoints.GetMessages)]
         public ActionResult<IReadOnlyList<Message>> GetMessages([FromQuery] Guid dialogId, Int32 offset, Int32 count)
         {
             IReadOnlyList<Message> messages = _messageService.GetMessages(dialogId, offset, count);
@@ -37,7 +38,7 @@ namespace JustR.MessageService
 
         #region HTTP POST
 
-        [HttpPost]
+        [HttpPost(MessageServiceHttpEndpoints.SendMessage)]
         public async Task<ActionResult<Message>> SendMessage([FromQuery] Guid userId, Guid dialogId, Guid receiverId, [FromBody] String text)
         {
             if (String.IsNullOrWhiteSpace(text))

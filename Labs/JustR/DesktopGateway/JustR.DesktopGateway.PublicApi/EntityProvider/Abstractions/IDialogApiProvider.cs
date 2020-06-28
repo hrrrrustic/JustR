@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using JustR.ClientRelatedShare.Dto;
 
-namespace JustR.DesktopGateway.PublicApi.EntityProvider
+namespace JustR.DesktopGateway.PublicApi.EntityProvider.Abstractions
 {
     public interface IDialogApiProvider
     {

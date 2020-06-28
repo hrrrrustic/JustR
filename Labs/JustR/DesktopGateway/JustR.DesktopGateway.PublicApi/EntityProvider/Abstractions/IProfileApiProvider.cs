@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using JustR.ClientRelatedShare.Dto;
+using JustR.Core.Entity;
 
-namespace JustR.DesktopGateway.PublicApi.EntityProvider
+namespace JustR.DesktopGateway.PublicApi.EntityProvider.Abstractions
 {
     public interface IProfileApiProvider
     {
@@ -11,5 +12,6 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider
         Task<IReadOnlyList<UserPreviewDto>> SearchUser(String query);
         Task<UserPreviewDto> GetUserPreview(Guid userId);
         Task<UserPreviewDto> SimpleAuth(String userTag);
+        Task<User> UpdateUserProfile(User newUserProfile);
     }
 }
