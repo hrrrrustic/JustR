@@ -43,12 +43,12 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
             return response;
         }
 
-        public async Task<UserPreviewDto> SimpleAuth(String userTag)
+        public async Task<User> SimpleAuth(String userTag)
         {
             IRestRequest request = new RestRequest(DesktopGatewayHttpEndpoints.ProfileEndpoints.SimpleAuth)
                 .AddQueryParameter("userTag", userTag);
 
-            UserPreviewDto profile = await _restClient.GetAsync<UserPreviewDto>(request);
+            User profile = await _restClient.GetAsync<User>(request);
 
             return profile;
         }

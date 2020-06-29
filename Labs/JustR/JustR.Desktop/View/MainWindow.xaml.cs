@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using JustR.Desktop.Services.Abstractions;
 
 namespace JustR.Desktop.View
 {

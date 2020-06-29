@@ -9,9 +9,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DialogPage">
-    <Page.DataContext>
-        <viewModels:DialogViewModel></viewModels:DialogViewModel>
-    </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>

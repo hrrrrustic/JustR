@@ -32,7 +32,7 @@ namespace JustR.Desktop.Services.Implementations
             return await _desktopGatewayApiProvider.ProfileEntityApiProvider.UpdateUserProfile(user);
         }
 
-        public async Task<UserPreviewDto> SimpleLogin(String userTag)
+        public async Task<User> SimpleLogin(String userTag)
         {
             return await _desktopGatewayApiProvider.ProfileEntityApiProvider.SimpleAuth(userTag);
         }

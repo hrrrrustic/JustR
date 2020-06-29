@@ -12,11 +12,9 @@ namespace JustR.Desktop.ViewModel
 {
     public class ProfileViewModel : BaseViewModel
     {
-        private readonly IProfileService _profileService = new ProfileService();
-
         private const String Filters = "Image files (*.jpg, *.jpeg, *.jpe, *.png) | *.jpg; *.jpeg; *.jpe; *.png";
 
-        public ProfileViewModel()
+        public ProfileViewModel(IProfileService profileService)
         {
             ChangeAvatarCommand = new ActionCommand(async arg =>
             {
@@ -41,7 +39,7 @@ namespace JustR.Desktop.ViewModel
                     UserId = UserInfo.CurrentUser.UserId
                 };
 
-                User updatedUser = await _profileService.UpdateProfile(user);
+                User updatedUser = await profileService.UpdateProfile(user);
 
                 Avatar = updatedUser.Avatar;
             });

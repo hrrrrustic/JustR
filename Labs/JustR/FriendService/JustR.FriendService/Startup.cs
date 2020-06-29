@@ -28,7 +28,7 @@ namespace JustR.FriendService
             services.AddScoped<IFriendRepository, FriendRepository>();
             services.AddScoped<IFriendService, Service.FriendService>();
 
-            services.AddDbContext<FriendDbContext>(options => options.UseSqlServer(DbConfiguration.ConnectionString));
+            services.AddDbContext<FriendDbContext>(options => options.UseSqlServer(ServiceConfigurations.DbConnectionString));
 
             services.AddSwaggerGen(c =>
             {
@@ -50,7 +50,7 @@ namespace JustR.FriendService
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            DbConfiguration.ConnectionString = Configuration.GetConnectionString("LocalDb");
+            ServiceConfigurations.DbConnectionString = Configuration.GetConnectionString("LocalDb");
 
             if (env.IsDevelopment())
             {

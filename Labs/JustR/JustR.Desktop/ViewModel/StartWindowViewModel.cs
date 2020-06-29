@@ -15,18 +15,19 @@ namespace JustR.Desktop.ViewModel
 {
     public class StartWindowViewModel : BaseViewModel
     {
-        private readonly IProfileService _profileService = new ProfileService();
+        private readonly IProfileService _profileService;
         private readonly AuthenticationModel _authenticationModel = new AuthenticationModel();
 
         public ICommand LoginCommand => new ActionCommand(async arg => await Authenticate());
 
-        public StartWindowViewModel()
+        public StartWindowViewModel(IProfileService profileService)
         {
+            _profileService = profileService;
             Login = "@s4xack";
         }
         public async Task Authenticate()
         {
-            UserPreviewDto profile = await _profileService.SimpleLogin(Login);
+            User profile = await _profileService.SimpleLogin(Login);
 
             if (profile is null)
             {
@@ -34,16 +35,8 @@ namespace JustR.Desktop.ViewModel
                 return;
             }
 
-            //TODO : Написать какой-нибудь статик билдер
-            UserInfo.CurrentUser = new User();
-            UserInfo.CurrentUser.FirstName = profile.FirstName;
-            UserInfo.CurrentUser.LastName = profile.LastName;
-            UserInfo.CurrentUser.Avatar = profile.Avatar;
-            UserInfo.CurrentUser.UserId = profile.UserId;
-            UserInfo.CurrentUser.UniqueTag = profile.UniqueTag;
+            UserInfo.CurrentUser = profile;
 
-            var id = UserInfo.CurrentUser.UserId.ToString();
-            
             MainWindow start = new MainWindow();
             start.Show();
 

@@ -2,8 +2,9 @@
 
 namespace JustR.MessageService
 {
-    public static class ServiceConfiguration
+    public static class ServiceConfigurations
     {
         public static String NotificationServiceUrl { get; set; }
+        public static String DbConnectionString { get; set; }
     }
 }

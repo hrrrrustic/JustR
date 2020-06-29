@@ -9,6 +9,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using JustR.Desktop.Services.Abstractions;
+using JustR.Desktop.ViewModel;
 
 namespace JustR.Desktop.View
 {
@@ -17,8 +19,9 @@ namespace JustR.Desktop.View
     /// </summary>
     public partial class StartWindow : Window
     {
-        public StartWindow()
+        public StartWindow(StartWindowViewModel viewModel)
         {
+            DataContext = viewModel;
             InitializeComponent();
         }
     }

@@ -8,5 +8,6 @@ namespace JustR.DesktopGateway
         public static String DialogServiceUrl { get; set; }
         public static String MessageServiceUrl { get; set; }
         public static String FriendServiceUrl { get; set; }
+        public static String DbConnectionString { get; set; }
     }
 }       

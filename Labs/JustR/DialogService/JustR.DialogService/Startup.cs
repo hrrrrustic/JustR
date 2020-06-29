@@ -28,7 +28,7 @@ namespace JustR.DialogService
             services.AddScoped<IDialogRepository, DialogRepository>();
             services.AddScoped<IDialogService, Service.DialogService>();
 
-            services.AddDbContext<DialogDbContext>(options => options.UseSqlServer(DbConfiguration.ConnectionString));
+            services.AddDbContext<DialogDbContext>(options => options.UseSqlServer(ServiceConfiguration.DbConnectionString));
 
             services.AddSwaggerGen(c =>
             {
@@ -50,7 +50,7 @@ namespace JustR.DialogService
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            DbConfiguration.ConnectionString = Configuration.GetConnectionString("LocalDb");
+            ServiceConfiguration.DbConnectionString = Configuration.GetConnectionString("LocalDb");
             ServiceConfiguration.MessageServiceUrl = Configuration.GetConnectionString("MessageServiceUrl");
 
             if (env.IsDevelopment())

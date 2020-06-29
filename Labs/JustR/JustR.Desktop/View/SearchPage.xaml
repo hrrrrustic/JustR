@@ -9,10 +9,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SearchPage">
-    <Page.DataContext>
-        <viewModels:SearchViewModel></viewModels:SearchViewModel>
-    </Page.DataContext>  
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>

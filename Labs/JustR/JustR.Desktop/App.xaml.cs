@@ -3,6 +3,11 @@ using System.Configuration;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
+using JustR.Desktop.Services.Abstractions;
+using JustR.Desktop.Services.Implementations;
+using JustR.Desktop.View;
+using JustR.Desktop.ViewModel;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace JustR.Desktop
 {
@@ -11,12 +16,44 @@ namespace JustR.Desktop
     /// </summary>
     public partial class App : Application
     {
+        private void ConfigureServices(ServiceCollection services)
+        {
+            services.AddScoped<IProfileService, ProfileService>();
+            services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IDialogService, DialogService>();
+            services.AddScoped<ISearchService, SearchService>();
+            services.AddScoped<IFriendService, FriendService>();
+
+            services.AddScoped<DialogViewModel>();
+            services.AddScoped<StartWindowViewModel>();
+            services.AddScoped<UserDialogsViewModel>();
+            services.AddScoped<ProfileViewModel>();
+            services.AddScoped<UserFriendsViewModel>();
+            services.AddScoped<SearchViewModel>();
+
+            services.AddScoped<StartWindow>();
+            services.AddScoped<DialogPage>();
+            services.AddScoped<SearchPage>();
+            services.AddScoped<UserFriendsPage>();
+            services.AddScoped<UserDialogsPage>();
+            services.AddScoped<SettingsPage>();
+            services.AddScoped<ProfilePage>();
+        }
         public App()
         {
             DispatcherUnhandledException += Application_DispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
             GatewayConfiguration.ApiGatewaySource = ConfigurationManager.ConnectionStrings["GatewayUrl"].ConnectionString;
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            ServiceCollection services = new ServiceCollection();
+            ConfigureServices(services);
+            PageNavigator.RegisterServiceProvider(services.BuildServiceProvider());
+
+            base.OnStartup(e);
         }
 
         private void Application_DispatcherUnhandledException(Object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -55,6 +92,11 @@ namespace JustR.Desktop
             {
                 MessageBox.Show(message + ": " + exception.Message);
             }
+        }
+
+        private void OnStartup(object sender, StartupEventArgs e)
+        {
+            new StartWindow(new StartWindowViewModel(new ProfileService())).Show();
         }
     }
 }

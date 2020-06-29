@@ -12,6 +12,6 @@ namespace JustR.Desktop.Services.Abstractions
         Task<UserPreviewDto> GetProfilePreviewAsync(Guid userId);
         Task<UserProfileDto> GetProfileAsync(Guid userId);
         Task<User> UpdateProfile(User user);
-        [ItemCanBeNull] Task<UserPreviewDto> SimpleLogin(String userTag);
+        [ItemCanBeNull] Task<User> SimpleLogin(String userTag);
     }
 }

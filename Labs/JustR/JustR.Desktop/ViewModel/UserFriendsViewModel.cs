@@ -17,16 +17,13 @@ namespace JustR.Desktop.ViewModel
 {
     public class UserFriendsViewModel : BaseViewModel
     {
-        private readonly IFriendService _friendService = new FriendService();
-
-        public UserFriendsViewModel()
+        public UserFriendsViewModel(IFriendService friendService)
         {
             DeleteFriendCommand = new ActionCommand<Guid>(async arg =>
             {
                 FriendRequestDto dto = FriendRequestDto.InputFriendRequest(UserInfo.CurrentUser.UserId, arg);
 
-                // TODO : Проверять чего там вообще произошло на сервере
-                await _friendService
+                await friendService
                     .DeleteFriend(dto);
 
                 UserPreviewDto friend = Friends.Single(k => k.UserId == arg);
@@ -40,7 +37,7 @@ namespace JustR.Desktop.ViewModel
 
             GetFriendsCommand = new ActionCommand(async arg =>
             {
-                IReadOnlyList<UserPreviewDto> friends = await _friendService
+                IReadOnlyList<UserPreviewDto> friends = await friendService
                     .GetFriendsAsync(UserInfo.CurrentUser.UserId);
 
                 if (friends is null)
@@ -55,7 +52,7 @@ namespace JustR.Desktop.ViewModel
         public ICommand GetFriendsCommand { get; }
         public ICommand OpedDialogCommand { get; } = new ActionCommand<Guid>(arg =>
         {
-            var page = new UserDialogsPage();
+            var page = new UserDialogsPage(new UserDialogsViewModel(new DialogService(), new ProfileService()));
             page
                 .GetViewModel<UserDialogsViewModel>()
                 .OpenDialogByInterlocutorId

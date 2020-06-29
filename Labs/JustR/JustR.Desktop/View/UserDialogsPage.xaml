@@ -11,9 +11,6 @@
       Loaded="UserDialogsPage_OnLoaded"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="UserDialogsPage">
-    <Page.DataContext>
-        <viewModels:UserDialogsViewModel></viewModels:UserDialogsViewModel>
-    </Page.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" MinWidth="375"></ColumnDefinition>

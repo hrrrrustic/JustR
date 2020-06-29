@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using JustR.Desktop.ViewModel;
 
 namespace JustR.Desktop.View
 {
@@ -18,8 +19,9 @@ namespace JustR.Desktop.View
     /// </summary>
     public partial class SearchPage : Page
     {
-        public SearchPage()
+        public SearchPage(SearchViewModel viewModel)
         {
+            DataContext = viewModel;
             InitializeComponent();
         }
     }

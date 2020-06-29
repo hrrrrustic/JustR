@@ -19,8 +19,9 @@ namespace JustR.Desktop.View
     /// </summary>
     public partial class UserFriendsPage : Page
     {
-        public UserFriendsPage()
+        public UserFriendsPage(UserFriendsViewModel viewModel)
         {
+            DataContext = viewModel;
             InitializeComponent();
         }
 

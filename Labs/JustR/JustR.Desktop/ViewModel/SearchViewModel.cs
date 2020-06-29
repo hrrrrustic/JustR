@@ -13,16 +13,12 @@ namespace JustR.Desktop.ViewModel
 {
     public class SearchViewModel : BaseViewModel
     {
-        private readonly ISearchService _searchService = new SearchService();
-
-        private readonly IFriendService _friendService = new FriendService();
-
-        public SearchViewModel()
+        public SearchViewModel(ISearchService searchService, IFriendService friendService)
         {
             SearchCommand = new ActionCommand<String>(async arg =>
             {
                 Users.Clear();
-                IReadOnlyList<UserPreviewDto> users = await _searchService
+                IReadOnlyList<UserPreviewDto> users = await searchService
                     .FindUsersByTagAsync(arg);
 
                 if (users is null)
@@ -35,14 +31,14 @@ namespace JustR.Desktop.ViewModel
             SendFriendRequest = new ActionCommand<Guid>(async arg =>
             {
                 FriendRequestDto dto = FriendRequestDto.OutputFriendRequest(UserInfo.CurrentUser.UserId, arg);
-                await _friendService.CreateFriendRequestAsync(dto);
+                await friendService.CreateFriendRequestAsync(dto);
             });
         }
 
         public ICommand SendFriendRequest { get; }
         public ICommand OpedDialogCommand { get; } = new ActionCommand<Guid>(arg =>
         {
-            var page = new UserDialogsPage();
+            var page = new UserDialogsPage(new UserDialogsViewModel(new DialogService(), new ProfileService()));
             
            page
                 .GetViewModel<UserDialogsViewModel>()

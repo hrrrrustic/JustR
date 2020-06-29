@@ -12,7 +12,7 @@ namespace JustR.MessageService
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(DbConfiguration.ConnectionString);
+            optionsBuilder.UseSqlServer(ServiceConfigurations.DbConnectionString);
         }
     }
 }

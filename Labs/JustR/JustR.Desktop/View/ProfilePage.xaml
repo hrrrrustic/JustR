@@ -8,9 +8,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProfilePage">
-    <Page.DataContext>
-        <viewModel:ProfileViewModel></viewModel:ProfileViewModel>
-    </Page.DataContext>
     <Grid>
         <StackPanel>
             <Image Source="{Binding Avatar}" Width="125" Height="125"></Image>

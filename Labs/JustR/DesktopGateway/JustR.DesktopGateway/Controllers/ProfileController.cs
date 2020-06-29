@@ -52,13 +52,11 @@ namespace JustR.DesktopGateway.Controllers
         }
 
         [HttpGet(DesktopGatewayHttpEndpoints.ProfileEndpoints.SimpleAuth)]
-        public async Task<ActionResult<UserPreviewDto>> SimpleAuth([FromQuery] String userTag)
+        public async Task<ActionResult<User>> SimpleAuth([FromQuery] String userTag)
         {
             User user = await _profileApiProvider.SimpleLogIn(userTag);
 
-            var result = UserPreviewDto.FromUser(user);
-
-            return Ok(result);
+            return Ok(user);
         }
 
         #endregion

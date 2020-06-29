@@ -18,7 +18,7 @@ namespace JustR.MessageService
     {
         private readonly IMessageService _messageService;
 
-        private readonly IRestClient _notificationClient = new RestClient(ServiceConfiguration.NotificationServiceUrl).UseNewtonsoftJson();
+        private readonly IRestClient _notificationClient = new RestClient(ServiceConfigurations.NotificationServiceUrl).UseNewtonsoftJson();
         public MessageController(IMessageService messageService)
         {
             _messageService = messageService;

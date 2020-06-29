@@ -29,7 +29,7 @@ namespace JustR.ProfileService
             services.AddScoped<IProfileRepository, ProfileRepository>();
             services.AddScoped<IProfileService, Service.ProfileService>();
 
-            services.AddDbContext<ProfileDbContext>(options => options.UseSqlServer(DbConfiguration.ConnectionString));
+            services.AddDbContext<ProfileDbContext>(options => options.UseSqlServer(ServiceConfigurations.DbConnectionString));
 
             services.AddSwaggerGen(c =>
             {
@@ -52,7 +52,7 @@ namespace JustR.ProfileService
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            DbConfiguration.ConnectionString = Configuration.GetConnectionString("LocalDb");
+            ServiceConfigurations.DbConnectionString = Configuration.GetConnectionString("LocalDb");
 
             if (env.IsDevelopment())
             {

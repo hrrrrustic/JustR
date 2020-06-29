@@ -28,7 +28,7 @@ namespace JustR.MessageService
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IMessageService, Service.MessageService>();
 
-            services.AddDbContext<MessageDbContext>(options => options.UseSqlServer(DbConfiguration.ConnectionString));
+            services.AddDbContext<MessageDbContext>(options => options.UseSqlServer(ServiceConfigurations.DbConnectionString));
 
             services.AddSwaggerGen(c =>
             {
@@ -51,8 +51,8 @@ namespace JustR.MessageService
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            DbConfiguration.ConnectionString = Configuration.GetConnectionString("LocalDb");
-            ServiceConfiguration.NotificationServiceUrl = Configuration.GetConnectionString("NotificationServiceUrl");
+            ServiceConfigurations.DbConnectionString = Configuration.GetConnectionString("LocalDb");
+            ServiceConfigurations.NotificationServiceUrl = Configuration.GetConnectionString("NotificationServiceUrl");
 
             if (env.IsDevelopment())
             {

@@ -6,6 +6,7 @@ using JustR.Core.Entity;
 
 namespace JustR.ProfileService.InternalApi
 {
+    // TODO : Подцепить эти интерфейсы на контроллеры как-нибудь. (сейчас мешаются ActionResult<T>'ы)
     public interface IProfileApiProvider
     {
         Task<User> GetUserProfile(Guid userId);

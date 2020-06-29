@@ -20,8 +20,9 @@ namespace JustR.Desktop.View
     /// </summary>
     public partial class UserDialogsPage : Page
     {
-        public UserDialogsPage()
+        public UserDialogsPage(UserDialogsViewModel viewModel)
         {
+            DataContext = viewModel;
             InitializeComponent();
         }
 

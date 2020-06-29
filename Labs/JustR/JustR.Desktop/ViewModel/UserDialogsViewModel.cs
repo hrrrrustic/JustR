@@ -20,14 +20,16 @@ namespace JustR.Desktop.ViewModel
 {
     public class UserDialogsViewModel : BaseViewModel
     {
-        private readonly IDialogService _dialogService = new DialogService();
+        private readonly IDialogService _dialogService;
 
-        private readonly IProfileService _profileService = new ProfileService();
+        private readonly IProfileService _profileService;
 
         private readonly NotificationHandler _handler = NotificationHandler.Instance.Value;
 
-        public UserDialogsViewModel()
+        public UserDialogsViewModel(IDialogService dialogService, IProfileService profileService)
         {
+            _profileService = profileService;
+            _dialogService = dialogService;
             GetDialogsCommand = new ActionCommand<Guid>(async arg =>
             {
                 IReadOnlyList<DialogPreviewDto> dialogs = await _dialogService
@@ -60,7 +62,7 @@ namespace JustR.Desktop.ViewModel
         }
         public ICommand OpenDialogByDialogId => new ActionCommand<Guid>(arg =>
         {
-            Page page = new DialogPage();
+            Page page = new DialogPage(new DialogViewModel(new DialogService(), new MessageService()));
             DialogViewModel viewModel = page.GetViewModel<DialogViewModel>();
 
             viewModel.CurrentDialog = new DialogInfoDto();
@@ -71,7 +73,7 @@ namespace JustR.Desktop.ViewModel
         });
         public ICommand OpenDialogByInterlocutorId => new ActionCommand<Guid>(async arg =>
         {
-            Page page = new DialogPage();
+            Page page = new DialogPage(new DialogViewModel(new DialogService(), new MessageService()));
 
             DialogViewModel viewModel = page.GetViewModel<DialogViewModel>();
             viewModel.CurrentDialog = new DialogInfoDto();

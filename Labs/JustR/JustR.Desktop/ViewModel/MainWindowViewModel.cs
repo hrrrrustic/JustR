@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using JustR.Core.Entity;
 using JustR.Desktop.Notifications;
+using JustR.Desktop.Services.Implementations;
 using JustR.Desktop.View;
 
 namespace JustR.Desktop.ViewModel
@@ -31,7 +32,7 @@ namespace JustR.Desktop.ViewModel
             await Task.Run(() => MessageBox.Show("Новое сообщение : " + newMessage.MessageText));
         }
 
-        private Page _currentPage = new UserDialogsPage();
+        private Page _currentPage = new UserDialogsPage(new UserDialogsViewModel(new DialogService(), new ProfileService()));
 
         public Page CurrentPage
         {
