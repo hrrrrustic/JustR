@@ -19,7 +19,8 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
         }
         public async Task<IReadOnlyList<MessageDto>> GetMessages(Guid userId, Guid dialogId, Int32? offset, Int32 count)
         {
-            var request = new RestRequest("Message");
+            //TODO : Названия аргументов надо бы как-то засинкать с контроллерами
+            var request = new RestRequest(DesktopGatewayHttpEndpoints.MessageEndpoints.GetMessages);
             request
                 .AddQueryParameter("userId", userId)
                 .AddQueryParameter("dialogId", dialogId)
@@ -33,7 +34,7 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
 
         public async Task<MessageDto> SendMessage(Guid dialogId, Guid authorId, String text)
         {
-            IRestRequest request = new RestRequest("Message")
+            IRestRequest request = new RestRequest(DesktopGatewayHttpEndpoints.MessageEndpoints.SendMessage)
                 .AddQueryParameter("dialogId", dialogId)
                 .AddQueryParameter("authorId", authorId)
                 .AddJsonBody(text);

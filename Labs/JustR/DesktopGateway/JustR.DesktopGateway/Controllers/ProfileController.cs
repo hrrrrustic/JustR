@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using JustR.ClientRelatedShare.Dto;
 using JustR.Core.Extensions;
 using JustR.Core.Entity;
+using JustR.DesktopGateway.PublicApi;
 using JustR.ProfileService.InternalApi;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
@@ -14,13 +15,13 @@ namespace JustR.DesktopGateway.Controllers
 {
     [Consumes("application/json")]
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/" + DesktopGatewayHttpEndpoints.ProfileEndpoints.ControllerEndpoint)]
     public class ProfileController : Controller
     {
         private readonly IProfileApiProvider _profileApiProvider = new HttpProfileApiProvider(ServiceConfigurations.ProfileServiceUrl);
         #region HTTP GET
 
-        [HttpGet]
+        [HttpGet(DesktopGatewayHttpEndpoints.ProfileEndpoints.GetUserProfile)]
         public async Task<ActionResult<UserProfileDto>> GetUserProfile([FromQuery] Guid userId)
         {
             User user = await _profileApiProvider.GetUserPreview(userId);
@@ -30,7 +31,7 @@ namespace JustR.DesktopGateway.Controllers
             return Ok(preview);
         }
 
-        [HttpGet("search")]
+        [HttpGet(DesktopGatewayHttpEndpoints.ProfileEndpoints.SearchUser)]
         public async Task<ActionResult<IReadOnlyList<UserPreviewDto>>> SearchUser([FromQuery] String query)
         {
             IReadOnlyList<User> users = await _profileApiProvider.SearchUser(query);
@@ -40,7 +41,7 @@ namespace JustR.DesktopGateway.Controllers
             return Ok(res);
         }
 
-        [HttpGet("preview")]
+        [HttpGet(DesktopGatewayHttpEndpoints.ProfileEndpoints.GetUserPreview)]
         public async Task<ActionResult<UserPreviewDto>> GetUserPreview([FromQuery] Guid userId)
         {
             User user = await _profileApiProvider.GetUserPreview(userId);
@@ -50,7 +51,7 @@ namespace JustR.DesktopGateway.Controllers
             return Ok(preview); 
         }
 
-        [HttpGet("login")]
+        [HttpGet(DesktopGatewayHttpEndpoints.ProfileEndpoints.SimpleAuth)]
         public async Task<ActionResult<UserPreviewDto>> SimpleAuth([FromQuery] String userTag)
         {
             User user = await _profileApiProvider.SimpleLogIn(userTag);
@@ -64,7 +65,7 @@ namespace JustR.DesktopGateway.Controllers
 
         #region HTTP PUT
 
-        [HttpPut]
+        [HttpPut(DesktopGatewayHttpEndpoints.ProfileEndpoints.UpdateUserProfile)]
         public async Task<ActionResult<User>> UpdateUserProfile([FromBody] User newUserProfile)
         {
             User updatedProfile = await _profileApiProvider.UpdateUserProfile(newUserProfile);

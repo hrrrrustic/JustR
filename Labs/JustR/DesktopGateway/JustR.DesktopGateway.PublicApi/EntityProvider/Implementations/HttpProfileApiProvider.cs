@@ -25,7 +25,7 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
 
         public async Task<IReadOnlyList<UserPreviewDto>> SearchUser(String query)
         {
-            IRestRequest request = new RestRequest("Profile/search")
+            IRestRequest request = new RestRequest(DesktopGatewayHttpEndpoints.ProfileEndpoints.SearchUser)
                 .AddQueryParameter("query", query);
 
             IReadOnlyList<UserPreviewDto> response = await _restClient.GetAsync<List<UserPreviewDto>>(request);
@@ -35,7 +35,7 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
 
         public async Task<UserPreviewDto> GetUserPreview(Guid userId)
         {
-            IRestRequest request = new RestRequest("Profile/preview")
+            IRestRequest request = new RestRequest(DesktopGatewayHttpEndpoints.ProfileEndpoints.GetUserPreview)
                 .AddQueryParameter("userId", userId);
 
             UserPreviewDto response = await _restClient.GetAsync<UserPreviewDto>(request);
@@ -45,7 +45,7 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
 
         public async Task<UserPreviewDto> SimpleAuth(String userTag)
         {
-            IRestRequest request = new RestRequest("Profile/login")
+            IRestRequest request = new RestRequest(DesktopGatewayHttpEndpoints.ProfileEndpoints.SimpleAuth)
                 .AddQueryParameter("userTag", userTag);
 
             UserPreviewDto profile = await _restClient.GetAsync<UserPreviewDto>(request);
@@ -55,7 +55,7 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
 
         public async Task<User> UpdateUserProfile(User newUserProfile)
         {
-            IRestRequest request = new RestRequest("Profile")
+            IRestRequest request = new RestRequest(DesktopGatewayHttpEndpoints.ProfileEndpoints.UpdateUserProfile)
                 .AddJsonBody(newUserProfile);
 
             User response = await _restClient.PutAsync<User>(request);

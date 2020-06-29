@@ -17,10 +17,11 @@ namespace JustR.DesktopGateway.PublicApi
 
         public HttpDesktopGatewayApiProvider(String baseUrl)
         {
-            FriendEntityApiProvider = new HttpFriendApiProvider(baseUrl);
-            ProfileEntityApiProvider = new HttpProfileApiProvider(baseUrl);
-            MessageEntityApiProvider = new HttpMessageApiProvider(baseUrl);
-            DialogEntityApiProvider = new HttpDialogApiProvider(baseUrl);
+            //TODO : Выглядит не очень обнадеживающе
+            FriendEntityApiProvider = new HttpFriendApiProvider(baseUrl + "/" + DesktopGatewayHttpEndpoints.FriendEndpoints.ControllerEndpoint);
+            ProfileEntityApiProvider = new HttpProfileApiProvider(baseUrl + "/" + DesktopGatewayHttpEndpoints.ProfileEndpoints.ControllerEndpoint);
+            MessageEntityApiProvider = new HttpMessageApiProvider(baseUrl + "/" + DesktopGatewayHttpEndpoints.MessageEndpoints.ControllerEndpoint);
+            DialogEntityApiProvider = new HttpDialogApiProvider(baseUrl + "/" + DesktopGatewayHttpEndpoints.DialogEndpoints.ControllerEndpoint);
         }
     }
 }

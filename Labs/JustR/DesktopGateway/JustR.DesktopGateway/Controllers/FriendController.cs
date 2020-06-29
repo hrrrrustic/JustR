@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using JustR.ClientRelatedShare.Dto;
 using JustR.Core.Entity;
+using JustR.DesktopGateway.PublicApi;
 using JustR.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
@@ -14,14 +15,14 @@ namespace JustR.DesktopGateway.Controllers
 {
     [Consumes("application/json")]
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/" + DesktopGatewayHttpEndpoints.FriendEndpoints.ControllerEndpoint)]
     public class FriendController : Controller
     {
         private readonly IFriendApiProvider _friendApiProvider = new HttpFriendApiProvider(ServiceConfigurations.FriendServiceUrl);
         private readonly IProfileApiProvider _profileApiProvider = new HttpProfileApiProvider(ServiceConfigurations.ProfileServiceUrl);
         #region HTTP GET
 
-        [HttpGet]
+        [HttpGet(DesktopGatewayHttpEndpoints.FriendEndpoints.GetUserFriends)]
         public async Task<ActionResult<IReadOnlyList<UserPreviewDto>>> GetUserFriends([FromQuery] Guid userId)
         {
             IReadOnlyList<Guid> friendsId = await _friendApiProvider.GetUserFriends(userId);
@@ -42,7 +43,7 @@ namespace JustR.DesktopGateway.Controllers
 
         #region HTTP POST
 
-        [HttpPost]
+        [HttpPost(DesktopGatewayHttpEndpoints.FriendEndpoints.CreateFriendRequest)]
         public async Task<ActionResult<FriendRequestDto>> CreateFriendRequest([FromBody] FriendRequestDto dto)
         {
             Relationship relationship = await _friendApiProvider.CreateFriendRequest(dto.ToRelationship());
@@ -56,7 +57,7 @@ namespace JustR.DesktopGateway.Controllers
 
         #region HTTP PUT
 
-        [HttpPut]
+        [HttpPut(DesktopGatewayHttpEndpoints.FriendEndpoints.CreateFriendResponse)]
         public async Task<ActionResult<FriendRequestDto>> CreateFriendResponse(FriendRequestDto dto)
         {
             Relationship relationship = await _friendApiProvider.CreateFriendResponse(dto.ToRelationship());
@@ -70,7 +71,7 @@ namespace JustR.DesktopGateway.Controllers
 
         #region HTTP DELETE
 
-        [HttpDelete]
+        [HttpDelete(DesktopGatewayHttpEndpoints.FriendEndpoints.DeleteFriend)]
         public ActionResult DeleteFriend(Guid userId, Guid secondUserId)
         {
             throw new NotImplementedException();

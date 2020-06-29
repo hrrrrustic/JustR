@@ -25,6 +25,7 @@
     <ProjectReference Include="..\..\JustR.Core\JustR.Core.csproj" />
     <ProjectReference Include="..\..\MessageService\JustR.MessageService.InternalApi\JustR.MessageService.InternalApi.csproj" />
     <ProjectReference Include="..\..\ProfileService\JustR.ProfileService.InternalApi\JustR.ProfileService.InternalApi.csproj" />
+    <ProjectReference Include="..\JustR.DesktopGateway.PublicApi\JustR.DesktopGateway.PublicApi.csproj" />
   </ItemGroup>
 
 </Project>

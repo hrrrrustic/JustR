@@ -7,7 +7,6 @@ using Microsoft.Extensions.Primitives;
 
 namespace JustR.NotificationService.Hubs
 {
-    // TODO : Есть типизированный хаб, там должно быть не так больно с вызовом методов
     public class NotificationHub : Hub<INotificationClient>
     {
         private readonly ConnectionManager _connectionManager = new ConnectionManager();

@@ -20,7 +20,7 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
 
         public async Task<IReadOnlyList<UserPreviewDto>> GetUserFriends(Guid userId)
         {
-            IRestRequest request = new RestRequest("Friend")
+            IRestRequest request = new RestRequest(DesktopGatewayHttpEndpoints.FriendEndpoints.GetUserFriends)
                 .AddQueryParameter("userId", userId);
 
             IReadOnlyList<UserPreviewDto> friends = await _restClient.GetAsync<List<UserPreviewDto>>(request);
@@ -30,7 +30,7 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
 
         public async Task<FriendRequestDto> CreateFriendRequest(FriendRequestDto dto)
         {
-            var request = new RestRequest("Friend")
+            var request = new RestRequest(DesktopGatewayHttpEndpoints.FriendEndpoints.CreateFriendRequest)
                 .AddJsonBody(dto);
 
             // TODO : Явно нужно что-то ловить и использовать

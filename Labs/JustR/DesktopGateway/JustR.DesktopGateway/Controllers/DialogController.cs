@@ -10,12 +10,13 @@ using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
 using JustR.ClientRelatedShare.Dto;
 using JustR.Core.Entity;
+using JustR.DesktopGateway.PublicApi;
 
 namespace JustR.DesktopGateway.Controllers
 {
     [Consumes("application/json")]
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/" + DesktopGatewayHttpEndpoints.DialogEndpoints.ControllerEndpoint)]
     public class DialogController : Controller
     {
         private readonly IDialogApiProvider _dialogApiProvider = new HttpDialogApiProvider(ServiceConfigurations.DialogServiceUrl);
@@ -24,7 +25,7 @@ namespace JustR.DesktopGateway.Controllers
 
         #region HTTP GET
 
-        [HttpGet("id")]
+        [HttpGet(DesktopGatewayHttpEndpoints.DialogEndpoints.GetDialogId)]
         public async Task<ActionResult<Guid>> GetDialogId([FromQuery] Guid firstUserId, Guid secondUserId)
         {
             Guid id = await _dialogApiProvider.GetDialogId(firstUserId, secondUserId);
@@ -32,7 +33,7 @@ namespace JustR.DesktopGateway.Controllers
             return Ok(id);
         }
 
-        [HttpGet("all")]
+        [HttpGet(DesktopGatewayHttpEndpoints.DialogEndpoints.GetDialogs)]
         public async Task<ActionResult<IReadOnlyList<DialogPreviewDto>>> GetDialogs([FromQuery] Guid userId, Int32? offset, Int32 count)
         {
             IReadOnlyList<Dialog> dialogs = await _dialogApiProvider.GetDialogsPreview(userId, count, offset ?? 0);
@@ -49,7 +50,7 @@ namespace JustR.DesktopGateway.Controllers
             return Ok(previews);
         }
         
-        [HttpGet]
+        [HttpGet(DesktopGatewayHttpEndpoints.DialogEndpoints.GetDialog)]
         public async Task<ActionResult<DialogInfoDto>> GetDialog([FromQuery] Guid dialogId, Guid userId)
         {
             Dialog dialog = await _dialogApiProvider.GetDialog(dialogId);
@@ -68,7 +69,7 @@ namespace JustR.DesktopGateway.Controllers
 
         #region HTTP POST
 
-        [HttpPost]
+        [HttpPost(DesktopGatewayHttpEndpoints.DialogEndpoints.CreateDialog)]
         public async Task<ActionResult<DialogInfoDto>> CreateDialog([FromQuery] Guid firstUserId, Guid secondUserId)
         {
             User interlocutor = await _profileApiProvider.GetUserPreview(firstUserId);

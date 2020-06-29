@@ -19,7 +19,7 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
         }
         public async Task<Guid> GetDialogId(Guid firstUserId, Guid secondUserId)
         {
-            IRestRequest request = new RestRequest("Dialog/id")
+            IRestRequest request = new RestRequest(DesktopGatewayHttpEndpoints.DialogEndpoints.GetDialogId)
                 .AddQueryParameter("firstUserId", firstUserId)
                 .AddQueryParameter("secondUserId", secondUserId);
 
@@ -30,7 +30,7 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
 
         public async Task<IReadOnlyList<DialogPreviewDto>> GetDialogs(Guid userId, Int32? offset, Int32 count)
         {
-            IRestRequest request = new RestRequest("Dialog/all")
+            IRestRequest request = new RestRequest(DesktopGatewayHttpEndpoints.DialogEndpoints.GetDialogs)
                 .AddQueryParameter("userId", userId)
                 .AddQueryParameter("offset", 0)
                 .AddQueryParameter("count", 15);
@@ -42,7 +42,7 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
 
         public async Task<DialogInfoDto> GetDialog(Guid dialogId, Guid userId)
         {
-            IRestRequest request = new RestRequest("Dialog")
+            IRestRequest request = new RestRequest(DesktopGatewayHttpEndpoints.DialogEndpoints.GetDialog)
                 .AddQueryParameter("dialogId", dialogId)
                 .AddQueryParameter("userId", userId);
 
@@ -53,7 +53,7 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
 
         public async Task<DialogInfoDto> CreateDialog(Guid firstUserId, Guid secondUserId)
         {
-            IRestRequest request = new RestRequest("Dialog")
+            IRestRequest request = new RestRequest(DesktopGatewayHttpEndpoints.DialogEndpoints.CreateDialog)
                 .AddQueryParameter("firstUserId", firstUserId)
                 .AddQueryParameter("secondUserId", secondUserId);
 

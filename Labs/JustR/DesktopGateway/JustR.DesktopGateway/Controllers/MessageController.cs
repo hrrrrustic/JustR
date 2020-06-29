@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using JustR.ClientRelatedShare.Dto;
 using JustR.Core.Entity;
 using JustR.Core.Extensions;
+using JustR.DesktopGateway.PublicApi;
 using JustR.DialogService.InternalApi;
 using JustR.MessageService.InternalApi;
 using JustR.ProfileService.InternalApi;
@@ -16,7 +17,7 @@ namespace JustR.DesktopGateway.Controllers
 {
     [Consumes("application/json")]
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/" + DesktopGatewayHttpEndpoints.MessageEndpoints.ControllerEndpoint)]
     public class MessageController : Controller
     {
         private readonly IMessageApiProvider _messageApiProvider = new HttpMessageApiProvider(ServiceConfigurations.MessageServiceUrl);
@@ -25,7 +26,7 @@ namespace JustR.DesktopGateway.Controllers
 
         #region HTTP GET
 
-        [HttpGet]
+        [HttpGet(DesktopGatewayHttpEndpoints.MessageEndpoints.GetMessages)]
         public async Task<ActionResult<IReadOnlyList<MessageDto>>> GetMessages(Guid userId, Guid dialogId, Int32? offset, Int32 count)
         {
             IReadOnlyList<Message> messages = await _messageApiProvider.GetMessages(dialogId, offset ?? 0, count);
@@ -43,7 +44,7 @@ namespace JustR.DesktopGateway.Controllers
 
         #region HTTP POST
 
-        [HttpPost]
+        [HttpPost(DesktopGatewayHttpEndpoints.MessageEndpoints.SendMessage)]
         public async Task<ActionResult<MessageDto>> SendMessage([FromQuery] Guid dialogId, Guid authorId, [FromBody] String text)
         {
             await _dialogApiProvider.SendMessage(dialogId, authorId, text);
