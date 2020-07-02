@@ -43,7 +43,7 @@ namespace JustR.FriendService.InternalApi
 
         public async Task<Relationship> CreateFriendResponse(Relationship relationship)
         {
-            String query = (FriendSerivceHttpEndpoints.CreateFriendResponse);
+            String query = FriendSerivceHttpEndpoints.CreateFriendResponse;
 
             var response = await _client.PutAsJsonAsync(query, relationship);
 
@@ -52,10 +52,13 @@ namespace JustR.FriendService.InternalApi
             return relationship;
         }
 
-        //TODO : Надо заимплементить
-        public void DeleteFriend(Relationship relationship)
+        //TODO : Надо заимплементить. Update : Проверить, что работает
+        public async Task DeleteFriend(Guid firstUserId, Guid secondUserId)
         {
-            throw new NotImplementedException();
+            String query = QueryHelpers.AddQueryString(FriendSerivceHttpEndpoints.DeleteFriend, "firstUserId", firstUserId.ToString());
+            query = QueryHelpers.AddQueryString(query, "secondUserId", secondUserId.ToString());
+
+            await _client.DeleteAsync(query);
         }
     }
 }

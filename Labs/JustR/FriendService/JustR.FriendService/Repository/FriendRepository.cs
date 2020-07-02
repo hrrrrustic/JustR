@@ -19,7 +19,7 @@ namespace JustR.FriendService.Repository
         public Relationship CreateFriendRequest(Relationship request)
         {
             var res = _context.Relationships.Find(request.FirstUserId, request.SecondUserId);
-            if (res is null)
+            if (!(res is null))
             {
                 request.State = RelationshipState.Friend;
                 return UpdateFriendRequest(request);
@@ -60,13 +60,16 @@ namespace JustR.FriendService.Repository
             return relation;
         }
 
-        public void DeleteFriend(Relationship request)
+        public void DeleteFriend(Guid firstUserId, Guid secondUserId)
         {
-            // ReSharper disable once SimilarAnonymousTypeNearby
-            Relationship directRequest = _context.Relationships.Find(new {request.FirstUserId, request.SecondUserId});
+            Relationship directRequest = _context.Relationships.Find(firstUserId, secondUserId);
+
+            if(directRequest is null || directRequest.State != RelationshipState.Friend)
+                return;
+            
             directRequest.State = RelationshipState.InputFriendRequest;
 
-            Relationship reverseRequest = _context.Relationships.Find(new {request.SecondUserId, request.FirstUserId});
+            Relationship reverseRequest = _context.Relationships.Find(secondUserId, firstUserId);
             reverseRequest.State = RelationshipState.OutputFriendRequest;
 
             _context.SaveChanges();

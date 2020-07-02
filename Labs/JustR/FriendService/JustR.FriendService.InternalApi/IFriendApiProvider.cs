@@ -11,6 +11,6 @@ namespace JustR.FriendService.InternalApi
         Task<Relationship> CreateFriendRequest(Relationship relationship);
         // TODO : Кажется, я даже не использую это
         Task<Relationship> CreateFriendResponse(Relationship relationship);
-        void DeleteFriend(Relationship relationship);
+        Task DeleteFriend(Guid firstUserId, Guid secondUserId);
     }
 }

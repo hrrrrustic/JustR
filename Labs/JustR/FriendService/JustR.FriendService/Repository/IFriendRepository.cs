@@ -9,6 +9,6 @@ namespace JustR.FriendService.Repository
         Relationship CreateFriendRequest(Relationship request);
         IReadOnlyList<Guid> ReadUserFriends(Guid userId);
         Relationship UpdateFriendRequest(Relationship request);
-        void DeleteFriend(Relationship request);
+        void DeleteFriend(Guid firstUserId, Guid secondUserId);
     }
 }

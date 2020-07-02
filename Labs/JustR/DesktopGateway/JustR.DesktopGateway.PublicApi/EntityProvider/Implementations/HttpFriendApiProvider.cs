@@ -44,9 +44,13 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
             throw new NotImplementedException();
         }
 
-        public Task DeleteFriend(Guid userId, Guid secondUserId)
+        public async Task DeleteFriend(Guid userId, Guid secondUserId)
         {
-            throw new NotImplementedException();
+            IRestRequest request = new RestRequest(DesktopGatewayHttpEndpoints.FriendEndpoints.DeleteFriend)
+                .AddQueryParameter("userId", userId)
+                .AddQueryParameter("secondUserId", secondUserId);
+
+            await _restClient.DeleteAsync<Object>(request);
         }
     }
 }

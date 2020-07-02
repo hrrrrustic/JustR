@@ -59,9 +59,9 @@ namespace JustR.FriendService
         #region HTTP DELETE
 
         [HttpDelete(FriendSerivceHttpEndpoints.DeleteFriend)]
-        public ActionResult DeleteFriend([FromBody] Relationship relationship)
+        public ActionResult DeleteFriend([FromQuery] Guid firstUserId, Guid secondUserId)
         {
-            _friendService.DeleteFriend(relationship);
+            _friendService.DeleteFriend(firstUserId, secondUserId);
 
             return Ok();
         }

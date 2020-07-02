@@ -29,9 +29,9 @@ namespace JustR.FriendService.Service
             return _friendRepository.UpdateFriendRequest(request);
         }
 
-        public void DeleteFriend(Relationship relationship)
+        public void DeleteFriend(Guid firstUserId, Guid secondUserId)
         {
-            _friendRepository.DeleteFriend(relationship);
+            _friendRepository.DeleteFriend(firstUserId, secondUserId);
         }
     }
 }

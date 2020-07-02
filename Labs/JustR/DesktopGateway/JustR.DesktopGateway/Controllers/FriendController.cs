@@ -78,7 +78,7 @@ namespace JustR.DesktopGateway.Controllers
         #region HTTP DELETE
 
         [HttpDelete(DesktopGatewayHttpEndpoints.FriendEndpoints.DeleteFriend)]
-        public ActionResult DeleteFriend(Guid userId, Guid secondUserId)
+        public async Task<ActionResult> DeleteFriend(Guid userId, Guid secondUserId)
         {
             throw new NotImplementedException();
         }
