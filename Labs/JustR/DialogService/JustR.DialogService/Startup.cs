@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using JustR.DialogService.Repository;
 using JustR.DialogService.Service;
+using JustR.MessageService.InternalApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.Configuration;
+using Steeltoe.Common.Http.Discovery;
+using Steeltoe.Discovery.Client;
 
 namespace JustR.DialogService
 {
@@ -24,11 +28,19 @@ namespace JustR.DialogService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDiscoveryClient(Configuration);
 
             services.AddScoped<IDialogRepository, DialogRepository>();
             services.AddScoped<IDialogService, Service.DialogService>();
 
             services.AddDbContext<DialogDbContext>(options => options.UseSqlServer(ServiceConfiguration.DbConnectionString));
+
+            services.AddHttpClient("MessageService", k =>
+                {
+                    k.BaseAddress = new Uri("http://MessageService/api/Message/");
+                })
+                .AddHttpMessageHandler<DiscoveryHttpMessageHandler>()
+                .AddTypedClient<IMessageApiProvider, HttpMessageApiProvider>();
 
             services.AddSwaggerGen(c =>
             {
@@ -51,7 +63,6 @@ namespace JustR.DialogService
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             ServiceConfiguration.DbConnectionString = Configuration.GetConnectionString("LocalDb");
-            ServiceConfiguration.MessageServiceUrl = Configuration.GetConnectionString("MessageServiceUrl");
 
             if (env.IsDevelopment())
             {
@@ -60,7 +71,7 @@ namespace JustR.DialogService
 
             app.UseRouting();
             app.UseSwagger();
-
+            app.UseDiscoveryClient();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
 
             app.UseSwaggerUI(c =>

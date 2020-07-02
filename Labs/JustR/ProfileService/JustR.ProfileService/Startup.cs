@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Steeltoe.Discovery.Client;
 
 namespace JustR.ProfileService
 {
@@ -25,6 +26,7 @@ namespace JustR.ProfileService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDiscoveryClient(Configuration);
 
             services.AddScoped<IProfileRepository, ProfileRepository>();
             services.AddScoped<IProfileService, Service.ProfileService>();
@@ -62,6 +64,7 @@ namespace JustR.ProfileService
             app.UseRouting();
             app.UseSwagger();
             app.UseHttpsRedirection();
+            app.UseDiscoveryClient();
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
 

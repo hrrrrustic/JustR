@@ -1,82 +1,89 @@
 ﻿using JustR.Core.Entity;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using JustR.Core.Extensions;
-using RestSharp;
-using RestSharp.Serializers.NewtonsoftJson;
-using static JustR.ProfileService.InternalApi.ProfileServiceHttpEndpoints;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace JustR.ProfileService.InternalApi
 {
     public class HttpProfileApiProvider : IProfileApiProvider
     {
-        public const String Root = "Login";
-        private readonly IRestClient _restClient;
+        private readonly HttpClient _client;
 
-        public HttpProfileApiProvider(String baseUrl)
+        public HttpProfileApiProvider(HttpClient client)
         {
-            _restClient = new RestClient(baseUrl).UseNewtonsoftJson();
+            _client = client;
         }
         public async Task<User> GetUserProfile(Guid userId)
         {
-            IRestRequest request = new RestRequest(ProfileServiceHttpEndpoints.GetUserProfile)
-                .AddQueryParameter("userId", userId);
+            String query = QueryHelpers.AddQueryString(ProfileServiceHttpEndpoints.GetUserProfile, "userId", userId.ToString());
 
-            User user = await _restClient.GetAsync<User>(request);
+            var response = await _client.GetAsync(query);
+
+            User user = await response.Content.ReadAsAsync<User>();
 
             return user;
         }
 
         public async Task<User> GetUserPreview(Guid userId)
         {
-            IRestRequest request = new RestRequest(ProfileServiceHttpEndpoints.GetUserPreview)
-                .AddQueryParameter("userId", userId);
+            String query = QueryHelpers.AddQueryString(ProfileServiceHttpEndpoints.GetUserPreview, "userId", userId.ToString());
 
-            User userPreview = await _restClient.GetAsync<User>(request);
+            var response = await _client.GetAsync(query);
+
+            User userPreview = await response.Content.ReadAsAsync<User>();
 
             return userPreview;
         }
 
         public async Task<IReadOnlyList<User>> GetUsersPreview(IEnumerable<Guid> usersId)
         {
-            IRestRequest request = new RestRequest(ProfileServiceHttpEndpoints.GetUsersPreview);
+            String query = ProfileServiceHttpEndpoints.GetUsersPreview;
 
-            foreach (Guid id in usersId)
-                request.AddQueryParameter("usersId", id);
+            foreach (Guid guid in usersId)
+                query = QueryHelpers.AddQueryString(query, "usersId", guid.ToString());
 
-            IReadOnlyList<User> users = await _restClient.GetAsync<List<User>>(request);
+            var response = await _client.GetAsync(query);
+
+            IReadOnlyList<User> users = await response.Content.ReadAsAsync<List<User>>();
 
             return users;
         }
 
-        public async Task<IReadOnlyList<User>> SearchUser(String query)
+        public async Task<IReadOnlyList<User>> SearchUser(String searchQuery)
         {
-            IRestRequest request = new RestRequest(ProfileServiceHttpEndpoints.SearchUser)
-                .AddQueryParameter("query", query);
+            String query = QueryHelpers.AddQueryString(ProfileServiceHttpEndpoints.SearchUser, "query", searchQuery);
+            
+            var response = await _client.GetAsync(query);
 
-            List<User> response = await _restClient.GetAsync<List<User>>(request);
+            List<User> users = await response.Content.ReadAsAsync<List<User>>();
 
-            return response;
+            return users;
         }
 
         public async Task<User> UpdateUserProfile(User user)
         {
-            IRestRequest request = new RestRequest()
-                .AddJsonBody(user);
+            var response = await _client.PutAsJsonAsync(ProfileServiceHttpEndpoints.UpdateUserProfile, user);
 
-            User updatedProfile = await _restClient.PutAsync<User>(request);
+            User updatedProfile = await response.Content.ReadAsAsync<User>();
 
             return updatedProfile;
         }
 
         public async Task<User> SimpleLogIn(String userTag)
         {
-            IRestRequest request = new RestRequest(SimpleLogin)
-                .AddQueryParameter("userTag", userTag);
+            String query = QueryHelpers.AddQueryString(ProfileServiceHttpEndpoints.SimpleLogin, "userTag", userTag);
 
-            User response = await _restClient.GetAsync<User>(request);
-            return response;
+            var response = await _client.GetAsync(query);
+
+            User user = await response.Content.ReadAsAsync<User>();
+
+            return user;
         }
     }
 }

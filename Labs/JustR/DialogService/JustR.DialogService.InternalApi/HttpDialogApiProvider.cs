@@ -1,75 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using JustR.Core.Entity;
 using JustR.Core.Extensions;
-using RestSharp;
-using RestSharp.Serializers.NewtonsoftJson;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace JustR.DialogService.InternalApi
 {
     public class HttpDialogApiProvider : IDialogApiProvider
     {
-        private readonly IRestClient _restClient;
+        private readonly HttpClient _client;
 
-        public HttpDialogApiProvider(String baseUrl)
+        public HttpDialogApiProvider(HttpClient client)
         {
-            _restClient = new RestClient(baseUrl).UseNewtonsoftJson();
+            _client = client;
         }
-
         public async Task<Guid> GetDialogId(Guid firstUserId, Guid secondUserId)
         {
-            IRestRequest request = new RestRequest(DialogServiceHttpEndpoints.GetDialogId)
-                .AddQueryParameter("firstUserId", firstUserId)
-                .AddQueryParameter("secondUserId", secondUserId);
+            String query = QueryHelpers.AddQueryString(DialogServiceHttpEndpoints.GetDialogId, "firstUserId", firstUserId.ToString());
+            query = QueryHelpers.AddQueryString(query, "secondUserId", secondUserId.ToString());
 
-            Guid id = await _restClient.GetAsync<Guid>(request);
+            var response = await _client.GetAsync(query);
+
+            Guid id = await response.Content.ReadAsAsync<Guid>();
 
             return id;
         }
 
         public async Task<IReadOnlyList<Dialog>> GetDialogsPreview(Guid userId, Int32 count, Int32 offset)
         {
-            IRestRequest request = new RestRequest(DialogServiceHttpEndpoints.GetDialogsPreview)
-                .AddQueryParameter("userId", userId)
-                .AddQueryParameter("count", count)
-                .AddQueryParameter("offset", offset);
 
-            IReadOnlyList<Dialog> dialogs = await _restClient.GetAsync<List<Dialog>>(request);
+            String query = QueryHelpers.AddQueryString(DialogServiceHttpEndpoints.GetDialogsPreview, "userId", userId.ToString());
+            query = QueryHelpers.AddQueryString(query, "count", count.ToString());
+            query = QueryHelpers.AddQueryString(query, "offset", offset.ToString());
+
+            var response = await _client.GetAsync(query);
+
+            IReadOnlyList<Dialog> dialogs = await response.Content.ReadAsAsync<List<Dialog>>();
 
             return dialogs;
         }
 
         public async Task<Dialog> GetDialog(Guid dialogId)
         {
-            IRestRequest request = new RestRequest(DialogServiceHttpEndpoints.GetDialog)
-                .AddQueryParameter("dialogId", dialogId);
+            String query = QueryHelpers.AddQueryString(DialogServiceHttpEndpoints.GetDialog, "dialogId", dialogId.ToString());
 
-            Dialog dialog = await _restClient.GetAsync<Dialog>(request);
+            var response = await _client.GetAsync(query);
+
+            Dialog dialog = await response.Content.ReadAsAsync<Dialog>();
 
             return dialog;
         }
 
         public async Task<Dialog> CreateDialog(Guid firstUserId, Guid secondUserId)
         {
-            IRestRequest request = new RestRequest(DialogServiceHttpEndpoints.CreateDialog)
-                .AddQueryParameter("firstUserId", firstUserId)
-                .AddQueryParameter("secondUserId", secondUserId);
+            String query = QueryHelpers.AddQueryString(DialogServiceHttpEndpoints.CreateDialog, "firstUserId", firstUserId.ToString());
+            query = QueryHelpers.AddQueryString(query, "secondUserId", secondUserId.ToString());
 
-            Dialog newDialog = await _restClient.PostAsync<Dialog>(request);
+            var response = await _client.GetAsync(query);
+
+            Dialog newDialog = await response.Content.ReadAsAsync<Dialog>();
 
             return newDialog;
         }
 
         public async Task SendMessage(Guid dialogId, Guid authorId, String text)
         {
-            IRestRequest request = new RestRequest(DialogServiceHttpEndpoints.SendMessage)
-                .AddQueryParameter("dialogId", dialogId)
-                .AddQueryParameter("authorId", authorId)
-                .AddJsonBody(text);
+            String query = QueryHelpers.AddQueryString(DialogServiceHttpEndpoints.SendMessage, "dialogId", dialogId.ToString());
+            query = QueryHelpers.AddQueryString(query, "authorId", authorId.ToString());
 
             // TODO : Хендлить ответ нормально
-            await _restClient.PostAsync<Object>(request);
+            var response = await _client.PostAsJsonAsync(query, text);
         }
     }
 }

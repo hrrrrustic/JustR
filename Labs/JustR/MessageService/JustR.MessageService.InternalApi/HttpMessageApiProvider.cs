@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using JustR.Core.Entity;
 using JustR.Core.Extensions;
+using Microsoft.AspNetCore.WebUtilities;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
 
@@ -10,34 +12,34 @@ namespace JustR.MessageService.InternalApi
 {
     public class HttpMessageApiProvider : IMessageApiProvider
     {
-        private readonly IRestClient _restClient;
+        private readonly HttpClient _client;
 
-        public HttpMessageApiProvider(String baseUrl)
+        public HttpMessageApiProvider(HttpClient client)
         {
-            _restClient = new RestClient(baseUrl).UseNewtonsoftJson();
+            _client = client;
         }
-
         public async Task<IReadOnlyList<Message>> GetMessages(Guid dialogId, Int32 offset, Int32 count)
         {
-            IRestRequest request = new RestRequest(MessageServiceHttpEndpoints.GetMessages)
-                .AddQueryParameter("dialogId", dialogId)
-                .AddQueryParameter("offset", offset)
-                .AddQueryParameter("count", count);
+            String query = QueryHelpers.AddQueryString(MessageServiceHttpEndpoints.GetMessages, "dialogId", dialogId.ToString());
+            query = QueryHelpers.AddQueryString(query, "offset", offset.ToString());
+            query = QueryHelpers.AddQueryString(query, "count", count.ToString());
 
-            IReadOnlyList<Message> messages = await _restClient.GetAsync<IReadOnlyList<Message>>(request);
+            var response = await _client.GetAsync(query);
+
+            IReadOnlyList<Message> messages = await response.Content.ReadAsAsync<List<Message>>();
 
             return messages;
         }
 
         public async Task<Message> SendMessage(Guid userId, Guid dialogId, Guid receiverId, String text)
         {
-            IRestRequest request = new RestRequest(MessageServiceHttpEndpoints.SendMessage)
-                .AddQueryParameter("userId", userId)
-                .AddQueryParameter("dialogId", dialogId)
-                .AddQueryParameter("receiverId", receiverId)
-                .AddJsonBody(text);
+            String query = QueryHelpers.AddQueryString(MessageServiceHttpEndpoints.SendMessage, "userId", userId.ToString());
+            query = QueryHelpers.AddQueryString(query, "dialogId", dialogId.ToString());
+            query = QueryHelpers.AddQueryString(query, "receiverId", receiverId.ToString());
 
-            Message message = await _restClient.PostAsync<Message>(request);
+            var response = await _client.PostAsJsonAsync(query, text);
+
+            Message message = await response.Content.ReadAsAsync<Message>();
 
             return message;
         }

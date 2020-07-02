@@ -26,7 +26,10 @@ namespace JustR.ProfileService
         public ActionResult<User> GetUserProfile([FromQuery] Guid userId)
         {
             User userProfile = _profileService.GetUserProfile(userId);
-            
+
+            if (userProfile is null)
+                userProfile = new User {FirstName = "TEST"};
+
             return Ok(userProfile);
         }
 

@@ -125,12 +125,12 @@ namespace JustR.Desktop.Annotations
     /// <param name="formatParameterName">
     /// Specifies which parameter of an annotated method should be treated as the format string
     /// </param>
-    public StringFormatMethodAttribute([NotNull] string formatParameterName)
+    public StringFormatMethodAttribute([NotNull] String formatParameterName)
     {
       FormatParameterName = formatParameterName;
     }
 
-    [NotNull] public string FormatParameterName { get; }
+    [NotNull] public String FormatParameterName { get; }
   }
 
   /// <summary>
@@ -165,12 +165,12 @@ namespace JustR.Desktop.Annotations
     AllowMultiple = true)]
   public sealed class ValueProviderAttribute : Attribute
   {
-    public ValueProviderAttribute([NotNull] string name)
+    public ValueProviderAttribute([NotNull] String name)
     {
       Name = name;
     }
 
-    [NotNull] public string Name { get; }
+    [NotNull] public String Name { get; }
   }
 
   /// <summary>
@@ -229,12 +229,12 @@ namespace JustR.Desktop.Annotations
   public sealed class NotifyPropertyChangedInvocatorAttribute : Attribute
   {
     public NotifyPropertyChangedInvocatorAttribute() { }
-    public NotifyPropertyChangedInvocatorAttribute([NotNull] string parameterName)
+    public NotifyPropertyChangedInvocatorAttribute([NotNull] String parameterName)
     {
       ParameterName = parameterName;
     }
 
-    [CanBeNull] public string ParameterName { get; }
+    [CanBeNull] public String ParameterName { get; }
   }
 
   /// <summary>
@@ -284,18 +284,18 @@ namespace JustR.Desktop.Annotations
   [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
   public sealed class ContractAnnotationAttribute : Attribute
   {
-    public ContractAnnotationAttribute([NotNull] string contract)
+    public ContractAnnotationAttribute([NotNull] String contract)
       : this(contract, false) { }
 
-    public ContractAnnotationAttribute([NotNull] string contract, bool forceFullStates)
+    public ContractAnnotationAttribute([NotNull] String contract, Boolean forceFullStates)
     {
       Contract = contract;
       ForceFullStates = forceFullStates;
     }
 
-    [NotNull] public string Contract { get; }
+    [NotNull] public String Contract { get; }
 
-    public bool ForceFullStates { get; }
+    public Boolean ForceFullStates { get; }
   }
 
   /// <summary>
@@ -312,12 +312,12 @@ namespace JustR.Desktop.Annotations
   {
     public LocalizationRequiredAttribute() : this(true) { }
 
-    public LocalizationRequiredAttribute(bool required)
+    public LocalizationRequiredAttribute(Boolean required)
     {
       Required = required;
     }
 
-    public bool Required { get; }
+    public Boolean Required { get; }
   }
 
   /// <summary>
@@ -468,12 +468,12 @@ namespace JustR.Desktop.Annotations
   {
     public PublicAPIAttribute() { }
 
-    public PublicAPIAttribute([NotNull] string comment)
+    public PublicAPIAttribute([NotNull] String comment)
     {
       Comment = comment;
     }
 
-    [CanBeNull] public string Comment { get; }
+    [CanBeNull] public String Comment { get; }
   }
 
   /// <summary>
@@ -514,12 +514,12 @@ namespace JustR.Desktop.Annotations
   {
     public MustUseReturnValueAttribute() { }
 
-    public MustUseReturnValueAttribute([NotNull] string justification)
+    public MustUseReturnValueAttribute([NotNull] String justification)
     {
       Justification = justification;
     }
 
-    [CanBeNull] public string Justification { get; }
+    [CanBeNull] public String Justification { get; }
   }
 
   /// <summary>
@@ -551,12 +551,12 @@ namespace JustR.Desktop.Annotations
   {
     public PathReferenceAttribute() { }
 
-    public PathReferenceAttribute([NotNull, PathReference] string basePath)
+    public PathReferenceAttribute([NotNull, PathReference] String basePath)
     {
       BasePath = basePath;
     }
 
-    [CanBeNull] public string BasePath { get; }
+    [CanBeNull] public String BasePath { get; }
   }
 
   /// <summary>
@@ -620,7 +620,7 @@ namespace JustR.Desktop.Annotations
     /// Allows specifying a macro that will be executed for a <see cref="SourceTemplateAttribute">source template</see>
     /// parameter when the template is expanded.
     /// </summary>
-    [CanBeNull] public string Expression { get; set; }
+    [CanBeNull] public String Expression { get; set; }
 
     /// <summary>
     /// Allows specifying which occurrence of the target parameter becomes editable when the template is deployed.
@@ -630,79 +630,79 @@ namespace JustR.Desktop.Annotations
     /// other occurrences are changed synchronously. To specify the zero-based index of the editable occurrence,
     /// use values >= 0. To make the parameter non-editable when the template is expanded, use -1.
     /// </remarks>
-    public int Editable { get; set; }
+    public Int32 Editable { get; set; }
 
     /// <summary>
     /// Identifies the target parameter of a <see cref="SourceTemplateAttribute">source template</see> if the
     /// <see cref="MacroAttribute"/> is applied on a template method.
     /// </summary>
-    [CanBeNull] public string Target { get; set; }
+    [CanBeNull] public String Target { get; set; }
   }
 
   [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true)]
   public sealed class AspMvcAreaMasterLocationFormatAttribute : Attribute
   {
-    public AspMvcAreaMasterLocationFormatAttribute([NotNull] string format)
+    public AspMvcAreaMasterLocationFormatAttribute([NotNull] String format)
     {
       Format = format;
     }
 
-    [NotNull] public string Format { get; }
+    [NotNull] public String Format { get; }
   }
 
   [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true)]
   public sealed class AspMvcAreaPartialViewLocationFormatAttribute : Attribute
   {
-    public AspMvcAreaPartialViewLocationFormatAttribute([NotNull] string format)
+    public AspMvcAreaPartialViewLocationFormatAttribute([NotNull] String format)
     {
       Format = format;
     }
 
-    [NotNull] public string Format { get; }
+    [NotNull] public String Format { get; }
   }
 
   [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true)]
   public sealed class AspMvcAreaViewLocationFormatAttribute : Attribute
   {
-    public AspMvcAreaViewLocationFormatAttribute([NotNull] string format)
+    public AspMvcAreaViewLocationFormatAttribute([NotNull] String format)
     {
       Format = format;
     }
 
-    [NotNull] public string Format { get; }
+    [NotNull] public String Format { get; }
   }
 
   [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true)]
   public sealed class AspMvcMasterLocationFormatAttribute : Attribute
   {
-    public AspMvcMasterLocationFormatAttribute([NotNull] string format)
+    public AspMvcMasterLocationFormatAttribute([NotNull] String format)
     {
       Format = format;
     }
 
-    [NotNull] public string Format { get; }
+    [NotNull] public String Format { get; }
   }
 
   [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true)]
   public sealed class AspMvcPartialViewLocationFormatAttribute : Attribute
   {
-    public AspMvcPartialViewLocationFormatAttribute([NotNull] string format)
+    public AspMvcPartialViewLocationFormatAttribute([NotNull] String format)
     {
       Format = format;
     }
 
-    [NotNull] public string Format { get; }
+    [NotNull] public String Format { get; }
   }
 
   [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true)]
   public sealed class AspMvcViewLocationFormatAttribute : Attribute
   {
-    public AspMvcViewLocationFormatAttribute([NotNull] string format)
+    public AspMvcViewLocationFormatAttribute([NotNull] String format)
     {
       Format = format;
     }
 
-    [NotNull] public string Format { get; }
+    [NotNull] public String Format { get; }
   }
 
   /// <summary>
@@ -716,12 +716,12 @@ namespace JustR.Desktop.Annotations
   {
     public AspMvcActionAttribute() { }
 
-    public AspMvcActionAttribute([NotNull] string anonymousProperty)
+    public AspMvcActionAttribute([NotNull] String anonymousProperty)
     {
       AnonymousProperty = anonymousProperty;
     }
 
-    [CanBeNull] public string AnonymousProperty { get; }
+    [CanBeNull] public String AnonymousProperty { get; }
   }
 
   /// <summary>
@@ -734,12 +734,12 @@ namespace JustR.Desktop.Annotations
   {
     public AspMvcAreaAttribute() { }
 
-    public AspMvcAreaAttribute([NotNull] string anonymousProperty)
+    public AspMvcAreaAttribute([NotNull] String anonymousProperty)
     {
       AnonymousProperty = anonymousProperty;
     }
 
-    [CanBeNull] public string AnonymousProperty { get; }
+    [CanBeNull] public String AnonymousProperty { get; }
   }
 
   /// <summary>
@@ -753,12 +753,12 @@ namespace JustR.Desktop.Annotations
   {
     public AspMvcControllerAttribute() { }
 
-    public AspMvcControllerAttribute([NotNull] string anonymousProperty)
+    public AspMvcControllerAttribute([NotNull] String anonymousProperty)
     {
       AnonymousProperty = anonymousProperty;
     }
 
-    [CanBeNull] public string AnonymousProperty { get; }
+    [CanBeNull] public String AnonymousProperty { get; }
   }
 
   /// <summary>
@@ -856,23 +856,23 @@ namespace JustR.Desktop.Annotations
   {
     public HtmlElementAttributesAttribute() { }
 
-    public HtmlElementAttributesAttribute([NotNull] string name)
+    public HtmlElementAttributesAttribute([NotNull] String name)
     {
       Name = name;
     }
 
-    [CanBeNull] public string Name { get; }
+    [CanBeNull] public String Name { get; }
   }
 
   [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Field | AttributeTargets.Property)]
   public sealed class HtmlAttributeValueAttribute : Attribute
   {
-    public HtmlAttributeValueAttribute([NotNull] string name)
+    public HtmlAttributeValueAttribute([NotNull] String name)
     {
       Name = name;
     }
 
-    [NotNull] public string Name { get; }
+    [NotNull] public String Name { get; }
   }
 
   /// <summary>
@@ -1051,13 +1051,13 @@ namespace JustR.Desktop.Annotations
   [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
   public sealed class AspChildControlTypeAttribute : Attribute
   {
-    public AspChildControlTypeAttribute([NotNull] string tagName, [NotNull] Type controlType)
+    public AspChildControlTypeAttribute([NotNull] String tagName, [NotNull] Type controlType)
     {
       TagName = tagName;
       ControlType = controlType;
     }
 
-    [NotNull] public string TagName { get; }
+    [NotNull] public String TagName { get; }
 
     [NotNull] public Type ControlType { get; }
   }
@@ -1074,20 +1074,20 @@ namespace JustR.Desktop.Annotations
   [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
   public sealed class AspRequiredAttributeAttribute : Attribute
   {
-    public AspRequiredAttributeAttribute([NotNull] string attribute)
+    public AspRequiredAttributeAttribute([NotNull] String attribute)
     {
       Attribute = attribute;
     }
 
-    [NotNull] public string Attribute { get; }
+    [NotNull] public String Attribute { get; }
   }
 
   [AttributeUsage(AttributeTargets.Property)]
   public sealed class AspTypePropertyAttribute : Attribute
   {
-    public bool CreateConstructorReferences { get; }
+    public Boolean CreateConstructorReferences { get; }
 
-    public AspTypePropertyAttribute(bool createConstructorReferences)
+    public AspTypePropertyAttribute(Boolean createConstructorReferences)
     {
       CreateConstructorReferences = createConstructorReferences;
     }
@@ -1096,54 +1096,54 @@ namespace JustR.Desktop.Annotations
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   public sealed class RazorImportNamespaceAttribute : Attribute
   {
-    public RazorImportNamespaceAttribute([NotNull] string name)
+    public RazorImportNamespaceAttribute([NotNull] String name)
     {
       Name = name;
     }
 
-    [NotNull] public string Name { get; }
+    [NotNull] public String Name { get; }
   }
 
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   public sealed class RazorInjectionAttribute : Attribute
   {
-    public RazorInjectionAttribute([NotNull] string type, [NotNull] string fieldName)
+    public RazorInjectionAttribute([NotNull] String type, [NotNull] String fieldName)
     {
       Type = type;
       FieldName = fieldName;
     }
 
-    [NotNull] public string Type { get; }
+    [NotNull] public String Type { get; }
 
-    [NotNull] public string FieldName { get; }
+    [NotNull] public String FieldName { get; }
   }
 
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   public sealed class RazorDirectiveAttribute : Attribute
   {
-    public RazorDirectiveAttribute([NotNull] string directive)
+    public RazorDirectiveAttribute([NotNull] String directive)
     {
       Directive = directive;
     }
 
-    [NotNull] public string Directive { get; }
+    [NotNull] public String Directive { get; }
   }
 
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   public sealed class RazorPageBaseTypeAttribute : Attribute
   {
-      public RazorPageBaseTypeAttribute([NotNull] string baseType)
+      public RazorPageBaseTypeAttribute([NotNull] String baseType)
       {
         BaseType = baseType;
       }
-      public RazorPageBaseTypeAttribute([NotNull] string baseType, string pageName)
+      public RazorPageBaseTypeAttribute([NotNull] String baseType, String pageName)
       {
           BaseType = baseType;
           PageName = pageName;
       }
 
-      [NotNull] public string BaseType { get; }
-      [CanBeNull] public string PageName { get; }
+      [NotNull] public String BaseType { get; }
+      [CanBeNull] public String PageName { get; }
   }
 
   [AttributeUsage(AttributeTargets.Method)]

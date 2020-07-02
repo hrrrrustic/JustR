@@ -18,13 +18,19 @@ namespace JustR.DesktopGateway.Controllers
     [Route("api/" + DesktopGatewayHttpEndpoints.ProfileEndpoints.ControllerEndpoint)]
     public class ProfileController : Controller
     {
-        private readonly IProfileApiProvider _profileApiProvider = new HttpProfileApiProvider(ServiceConfigurations.ProfileServiceUrl);
+        private readonly IProfileApiProvider _profileApiProvider;
+
+        public ProfileController(IProfileApiProvider provider)
+        {
+            _profileApiProvider = provider;
+        }
+
         #region HTTP GET
 
         [HttpGet(DesktopGatewayHttpEndpoints.ProfileEndpoints.GetUserProfile)]
         public async Task<ActionResult<UserProfileDto>> GetUserProfile([FromQuery] Guid userId)
         {
-            User user = await _profileApiProvider.GetUserPreview(userId);
+            User user = await _profileApiProvider.GetUserProfile(userId);
 
             UserPreviewDto preview = UserPreviewDto.FromUser(user);
 
@@ -48,7 +54,7 @@ namespace JustR.DesktopGateway.Controllers
 
             var preview = UserPreviewDto.FromUser(user);
 
-            return Ok(preview); 
+            return Ok(preview);
         }
 
         [HttpGet(DesktopGatewayHttpEndpoints.ProfileEndpoints.SimpleAuth)]

@@ -18,8 +18,14 @@ namespace JustR.DesktopGateway.Controllers
     [Route("api/" + DesktopGatewayHttpEndpoints.FriendEndpoints.ControllerEndpoint)]
     public class FriendController : Controller
     {
-        private readonly IFriendApiProvider _friendApiProvider = new HttpFriendApiProvider(ServiceConfigurations.FriendServiceUrl);
-        private readonly IProfileApiProvider _profileApiProvider = new HttpProfileApiProvider(ServiceConfigurations.ProfileServiceUrl);
+        private readonly IFriendApiProvider _friendApiProvider;
+        private readonly IProfileApiProvider _profileApiProvider;
+
+        public FriendController(IProfileApiProvider profileApiProvider, IFriendApiProvider friendApiProvider)
+        {
+            _profileApiProvider = profileApiProvider;
+            _friendApiProvider = friendApiProvider;
+        }
         #region HTTP GET
 
         [HttpGet(DesktopGatewayHttpEndpoints.FriendEndpoints.GetUserFriends)]

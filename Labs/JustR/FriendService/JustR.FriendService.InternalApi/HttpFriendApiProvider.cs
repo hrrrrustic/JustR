@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using JustR.Core.Extensions;
 using JustR.Models.Entity;
+using Microsoft.AspNetCore.WebUtilities;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
 
@@ -10,39 +13,41 @@ namespace JustR.FriendService.InternalApi
 {
     public class HttpFriendApiProvider : IFriendApiProvider
     {
-        private readonly IRestClient _restClient;
+        private readonly HttpClient _client;
 
-        public HttpFriendApiProvider(String baseUrl)
+        public HttpFriendApiProvider(HttpClient client)
         {
-            _restClient = new RestClient(baseUrl).UseNewtonsoftJson();
+            _client = client;
         }
-
         public async Task<IReadOnlyList<Guid>> GetUserFriends(Guid userId)
         {
-            IRestRequest request = new RestRequest(FriendSerivceHttpEndpoints.GetUserFriends)
-                .AddQueryParameter("userId", userId);
+            String query = QueryHelpers.AddQueryString(FriendSerivceHttpEndpoints.GetUserFriends, "userId", userId.ToString());
 
-            IReadOnlyList<Guid> friendsId = await _restClient.GetAsync<List<Guid>>(request);
+            var response = await _client.GetAsync(query);
+
+            IReadOnlyList<Guid> friendsId = await response.Content.ReadAsAsync<List<Guid>>();
 
             return friendsId;
         }
 
         public async Task<Relationship> CreateFriendRequest(Relationship relationship)
         {
-            IRestRequest request = new RestRequest(FriendSerivceHttpEndpoints.CreateFriendRequest)
-                .AddJsonBody(relationship);
+            String query = FriendSerivceHttpEndpoints.CreateFriendRequest;
 
-            relationship = await _restClient.PostAsync<Relationship>(request);
+            var response = await _client.PostAsJsonAsync(query, relationship);
+
+            relationship = await response.Content.ReadAsAsync<Relationship>();
 
             return relationship;
         }
 
         public async Task<Relationship> CreateFriendResponse(Relationship relationship)
         {
-            IRestRequest request = new RestRequest(FriendSerivceHttpEndpoints.CreateFriendResponse)
-                .AddJsonBody(relationship);
+            String query = (FriendSerivceHttpEndpoints.CreateFriendResponse);
 
-            relationship = await _restClient.PutAsync<Relationship>(request);
+            var response = await _client.PutAsJsonAsync(query, relationship);
+
+            relationship = await response.Content.ReadAsAsync<Relationship>();
 
             return relationship;
         }

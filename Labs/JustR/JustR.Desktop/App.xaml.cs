@@ -24,6 +24,7 @@ namespace JustR.Desktop
             services.AddScoped<ISearchService, SearchService>();
             services.AddScoped<IFriendService, FriendService>();
 
+            //TODO : Нужен не скоуп. Сейчас при переоткрытии вкладки будут каждый раз дублироваться данные
             services.AddScoped<DialogViewModel>();
             services.AddScoped<StartWindowViewModel>();
             services.AddScoped<UserDialogsViewModel>();
@@ -75,7 +76,7 @@ namespace JustR.Desktop
 
         private void HandleUnhandledException(Exception exception)
         {
-            string message = "Unhandled exception";
+            String message = "Unhandled exception";
             try
             {
                 AssemblyName assemblyName = Assembly
@@ -94,7 +95,7 @@ namespace JustR.Desktop
             }
         }
 
-        private void OnStartup(object sender, StartupEventArgs e)
+        private void OnStartup(Object sender, StartupEventArgs e)
         {
             new StartWindow(new StartWindowViewModel(new ProfileService())).Show();
         }

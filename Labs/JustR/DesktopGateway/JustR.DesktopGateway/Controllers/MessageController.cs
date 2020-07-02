@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using JustR.ClientRelatedShare.Dto;
 using JustR.Core.Entity;
@@ -20,9 +21,16 @@ namespace JustR.DesktopGateway.Controllers
     [Route("api/" + DesktopGatewayHttpEndpoints.MessageEndpoints.ControllerEndpoint)]
     public class MessageController : Controller
     {
-        private readonly IMessageApiProvider _messageApiProvider = new HttpMessageApiProvider(ServiceConfigurations.MessageServiceUrl);
-        private readonly IProfileApiProvider _profileApiProvider = new HttpProfileApiProvider(ServiceConfigurations.ProfileServiceUrl);
-        private readonly IDialogApiProvider _dialogApiProvider = new HttpDialogApiProvider(ServiceConfigurations.DialogServiceUrl);
+        private readonly IMessageApiProvider _messageApiProvider;
+        private readonly IProfileApiProvider _profileApiProvider;
+        private readonly IDialogApiProvider _dialogApiProvider;
+
+        public MessageController(IProfileApiProvider profileApiProvider, IDialogApiProvider dialogApiProvider, IMessageApiProvider messageApiProvider)
+        {
+            _profileApiProvider = profileApiProvider;
+            _dialogApiProvider = dialogApiProvider;
+            _messageApiProvider = messageApiProvider;
+        }
 
         #region HTTP GET
 

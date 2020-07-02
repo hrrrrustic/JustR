@@ -1,12 +1,19 @@
 using System;
 using System.IO;
 using System.Reflection;
+using JustR.DialogService.InternalApi;
+using JustR.FriendService.InternalApi;
+using JustR.MessageService.InternalApi;
+using JustR.ProfileService.InternalApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Steeltoe.Common.Http.Discovery;
+using Steeltoe.Discovery.Client;
 
 namespace JustR.DesktopGateway
 {
@@ -21,6 +28,36 @@ namespace JustR.DesktopGateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDiscoveryClient(Configuration);
+
+            services
+                .AddHttpClient("ProfileService", k =>
+                {
+                    k.BaseAddress = new Uri("http://ProfileService/api/Profile/");
+                })
+                .AddHttpMessageHandler<DiscoveryHttpMessageHandler>()
+                .AddTypedClient<IProfileApiProvider, HttpProfileApiProvider>();
+
+            services.AddHttpClient("DialogService", k =>
+                {
+                    k.BaseAddress = new Uri("http://DialogService/api/Dialog/");
+                })
+                .AddHttpMessageHandler<DiscoveryHttpMessageHandler>()
+                .AddTypedClient<IDialogApiProvider, HttpDialogApiProvider>();
+
+            services.AddHttpClient("FriendService", k =>
+                {
+                    k.BaseAddress = new Uri("http://FriendService/api/Friend/");
+                })
+                .AddHttpMessageHandler<DiscoveryHttpMessageHandler>()
+                .AddTypedClient<IFriendApiProvider, HttpFriendApiProvider>();
+
+            services.AddHttpClient("MessageService", k =>
+                {
+                    k.BaseAddress = new Uri("http://MessageService/api/Message/");
+                })
+                .AddHttpMessageHandler<DiscoveryHttpMessageHandler>()
+                .AddTypedClient<IMessageApiProvider, HttpMessageApiProvider>();
 
             services.AddSwaggerGen(c =>
             {
@@ -43,8 +80,6 @@ namespace JustR.DesktopGateway
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            ConfigureConnectionStrings();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -55,24 +90,13 @@ namespace JustR.DesktopGateway
 
             app.UseSwagger();
             app.ConfigureExceptionHandler();
-
+            app.UseDiscoveryClient();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
 
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/JustR/swagger.json", "JustR");
             });
-        }
-
-        private void ConfigureConnectionStrings()
-        {
-            ServiceConfigurations.MessageServiceUrl = GetConnectionString("MessageServiceUrl");
-            ServiceConfigurations.DialogServiceUrl = GetConnectionString("DialogServiceUrl");
-            ServiceConfigurations.FriendServiceUrl = GetConnectionString("FriendServiceUrl");
-            ServiceConfigurations.ProfileServiceUrl = GetConnectionString("ProfileServiceUrl");
-
-            String GetConnectionString(String connectionKey) => 
-                Configuration.GetConnectionString(connectionKey);
         }
     }
 }

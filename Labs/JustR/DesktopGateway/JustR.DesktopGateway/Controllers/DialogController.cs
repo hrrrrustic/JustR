@@ -19,10 +19,15 @@ namespace JustR.DesktopGateway.Controllers
     [Route("api/" + DesktopGatewayHttpEndpoints.DialogEndpoints.ControllerEndpoint)]
     public class DialogController : Controller
     {
-        private readonly IDialogApiProvider _dialogApiProvider = new HttpDialogApiProvider(ServiceConfigurations.DialogServiceUrl);
+        private readonly IDialogApiProvider _dialogApiProvider;
 
-        private readonly IProfileApiProvider _profileApiProvider = new HttpProfileApiProvider(ServiceConfigurations.ProfileServiceUrl);
+        private readonly IProfileApiProvider _profileApiProvider;
 
+        public DialogController(IProfileApiProvider profileApiProvider, IDialogApiProvider dialogApiProvider)
+        {
+            _profileApiProvider = profileApiProvider;
+            _dialogApiProvider = dialogApiProvider;
+        }
         #region HTTP GET
 
         [HttpGet(DesktopGatewayHttpEndpoints.DialogEndpoints.GetDialogId)]

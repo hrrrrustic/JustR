@@ -13,7 +13,7 @@ namespace JustR.DesktopGateway
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args)
+        public static IHostBuilder CreateHostBuilder(String[] args)
         {
             IHostBuilder hostBuilder = Host.CreateDefaultBuilder(args);
 

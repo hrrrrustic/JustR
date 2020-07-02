@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Steeltoe.Discovery.Client;
 
 namespace JustR.MessageService
 {
@@ -24,6 +25,7 @@ namespace JustR.MessageService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDiscoveryClient(Configuration);
 
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IMessageService, Service.MessageService>();
@@ -60,7 +62,7 @@ namespace JustR.MessageService
             }
 
             app.UseRouting();
-
+            app.UseDiscoveryClient();
             app.UseSwagger();
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());

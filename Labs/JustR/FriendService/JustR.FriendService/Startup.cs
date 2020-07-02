@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Steeltoe.Discovery.Client;
 
 namespace JustR.FriendService
 {
@@ -24,6 +25,7 @@ namespace JustR.FriendService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDiscoveryClient(Configuration);
 
             services.AddScoped<IFriendRepository, FriendRepository>();
             services.AddScoped<IFriendService, Service.FriendService>();
@@ -57,6 +59,7 @@ namespace JustR.FriendService
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseDiscoveryClient();
             app.UseRouting();
             app.UseSwagger();
 

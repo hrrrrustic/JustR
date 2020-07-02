@@ -15,12 +15,13 @@ namespace JustR.DialogService
     [Route("api/[controller]")]
     public class DialogController : Controller
     {
-        private readonly IMessageApiProvider _messageApiProvider = new HttpMessageApiProvider(ServiceConfiguration.MessageServiceUrl);
+        private readonly IMessageApiProvider _messageApiProvider;
         private readonly IDialogService _dialogService;
          
-        public DialogController(IDialogService dialogService)
+        public DialogController(IDialogService dialogService, IMessageApiProvider messageApiProvider)
         {
             _dialogService = dialogService;
+            _messageApiProvider = messageApiProvider;
         }
 
         #region HTTP GET
