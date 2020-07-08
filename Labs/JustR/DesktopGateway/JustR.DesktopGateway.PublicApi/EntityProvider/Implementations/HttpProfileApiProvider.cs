@@ -18,6 +18,7 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
         {
             _restClient = new RestClient(baseUrl).UseNewtonsoftJson();
         }
+
         public Task<UserProfileDto> GetUserProfile(Guid userId)
         {
             throw new NotImplementedException();

@@ -4,6 +4,11 @@ namespace JustR.ClientRelatedShare.Dto
 {
     public class DialogInfoDto
     {
+        // TODO : Убрать бы сеттеры
+        public Guid DialogId { get; set; }
+
+        public UserPreviewDto Interlocutor { get; set; }
+
         public DialogInfoDto(Guid dialogId, UserPreviewDto interlocutor)
         {
             DialogId = dialogId;
@@ -12,13 +17,6 @@ namespace JustR.ClientRelatedShare.Dto
 
         public DialogInfoDto()
         {
-            
         }
-
-        // TODO : Убрать бы сеттеры
-        public Guid DialogId { get; set; }
-        
-        public UserPreviewDto Interlocutor { get; set; }
-        
     }
 }

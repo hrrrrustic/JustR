@@ -1,8 +1,8 @@
 ﻿<Page x:Class="JustR.Desktop.View.UserDialogsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:JustR.Desktop.View"
       xmlns:controls="clr-namespace:JustR.Desktop.Controls"
       xmlns:viewModels="clr-namespace:JustR.Desktop.ViewModel"
@@ -13,21 +13,23 @@
       Title="UserDialogsPage">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*" MinWidth="375"></ColumnDefinition>
-            <ColumnDefinition Width="7*"></ColumnDefinition>
+            <ColumnDefinition Width="3*" MinWidth="375" />
+            <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" BorderBrush="Black" BorderThickness="0,0,1,0"></Border>
+        <Border Grid.Column="0" BorderBrush="Black" BorderThickness="0,0,1,0" />
         <ListBox ItemsSource="{Binding DialogsPreview}" Grid.Column="0" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <controls:DialogPreviewControl DialogPreview="{Binding}">
                         <controls:DialogPreviewControl.InputBindings>
-                            <MouseBinding MouseAction="LeftClick" Command="{Binding DataContext.OpenDialogByDialogId, RelativeSource={RelativeSource AncestorType={x:Type local:UserDialogsPage}}}" CommandParameter="{Binding DialogId}" />
+                            <MouseBinding MouseAction="LeftClick"
+                                          Command="{Binding DataContext.OpenDialogByDialogId, RelativeSource={RelativeSource AncestorType={x:Type local:UserDialogsPage}}}"
+                                          CommandParameter="{Binding DialogId}" />
                         </controls:DialogPreviewControl.InputBindings>
                     </controls:DialogPreviewControl>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Frame Content="{Binding CurrentDialog}" Grid.Column="1"></Frame>
+        <Frame Content="{Binding CurrentDialog}" Grid.Column="1" />
     </Grid>
 </Page>

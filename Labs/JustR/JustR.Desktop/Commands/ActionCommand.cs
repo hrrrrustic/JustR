@@ -24,6 +24,7 @@ namespace JustR.Desktop.Commands
 
         public event EventHandler CanExecuteChanged;
     }
+
     public class ActionCommand<T> : ICommand
     {
         private readonly Action<T> _action;
@@ -40,7 +41,7 @@ namespace JustR.Desktop.Commands
 
         public void Execute(Object parameter)
         {
-            _action((T)parameter);
+            _action((T) parameter);
         }
 
         public event EventHandler CanExecuteChanged;

@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using JustR.Core.Entity;
-using JustR.Core.Extensions;
 using Microsoft.AspNetCore.WebUtilities;
-using RestSharp;
-using RestSharp.Serializers.NewtonsoftJson;
 
 namespace JustR.MessageService.InternalApi
 {
@@ -18,13 +15,15 @@ namespace JustR.MessageService.InternalApi
         {
             _client = client;
         }
+
         public async Task<IReadOnlyList<Message>> GetMessages(Guid dialogId, Int32 offset, Int32 count)
         {
-            String query = QueryHelpers.AddQueryString(MessageServiceHttpEndpoints.GetMessages, "dialogId", dialogId.ToString());
+            String query = QueryHelpers.AddQueryString(MessageServiceHttpEndpoints.GetMessages, "dialogId",
+                dialogId.ToString());
             query = QueryHelpers.AddQueryString(query, "offset", offset.ToString());
             query = QueryHelpers.AddQueryString(query, "count", count.ToString());
 
-            var response = await _client.GetAsync(query);
+            HttpResponseMessage response = await _client.GetAsync(query);
 
             IReadOnlyList<Message> messages = await response.Content.ReadAsAsync<List<Message>>();
 
@@ -33,11 +32,12 @@ namespace JustR.MessageService.InternalApi
 
         public async Task<Message> SendMessage(Guid userId, Guid dialogId, Guid receiverId, String text)
         {
-            String query = QueryHelpers.AddQueryString(MessageServiceHttpEndpoints.SendMessage, "userId", userId.ToString());
+            String query =
+                QueryHelpers.AddQueryString(MessageServiceHttpEndpoints.SendMessage, "userId", userId.ToString());
             query = QueryHelpers.AddQueryString(query, "dialogId", dialogId.ToString());
             query = QueryHelpers.AddQueryString(query, "receiverId", receiverId.ToString());
 
-            var response = await _client.PostAsJsonAsync(query, text);
+            HttpResponseMessage response = await _client.PostAsJsonAsync(query, text);
 
             Message message = await response.Content.ReadAsAsync<Message>();
 

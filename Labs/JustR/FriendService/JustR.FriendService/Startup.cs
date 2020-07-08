@@ -16,12 +16,13 @@ namespace JustR.FriendService
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
-            this.Configuration = configuration;
+            Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -30,7 +31,8 @@ namespace JustR.FriendService
             services.AddScoped<IFriendRepository, FriendRepository>();
             services.AddScoped<IFriendService, Service.FriendService>();
 
-            services.AddDbContext<FriendDbContext>(options => options.UseSqlServer(ServiceConfigurations.DbConnectionString));
+            services.AddDbContext<FriendDbContext>(options =>
+                options.UseSqlServer(ServiceConfigurations.DbConnectionString));
 
             services.AddSwaggerGen(c =>
             {
@@ -54,10 +56,7 @@ namespace JustR.FriendService
         {
             ServiceConfigurations.DbConnectionString = Configuration.GetConnectionString("LocalDb");
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseDiscoveryClient();
             app.UseRouting();
@@ -65,10 +64,7 @@ namespace JustR.FriendService
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
 
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/Friends/swagger.json", "Friends");
-            });
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/Friends/swagger.json", "Friends"); });
         }
     }
 }

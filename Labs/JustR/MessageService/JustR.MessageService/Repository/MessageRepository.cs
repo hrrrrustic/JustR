@@ -7,7 +7,6 @@ namespace JustR.MessageService.Repository
 {
     public class MessageRepository : IMessageRepository
     {
-
         private readonly MessageDbContext _context;
 
         public MessageRepository(MessageDbContext context)

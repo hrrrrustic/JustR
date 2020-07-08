@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using JustR.Core.Extensions;
 using JustR.Core.Entity;
+using JustR.DialogService.InternalApi;
 using JustR.DialogService.Service;
 using JustR.MessageService.InternalApi;
 using Microsoft.AspNetCore.Mvc;
-using JustR.DialogService.InternalApi;
 
 namespace JustR.DialogService
 {
@@ -15,9 +14,9 @@ namespace JustR.DialogService
     [Route("api/[controller]")]
     public class DialogController : Controller
     {
-        private readonly IMessageApiProvider _messageApiProvider;
         private readonly IDialogService _dialogService;
-         
+        private readonly IMessageApiProvider _messageApiProvider;
+
         public DialogController(IDialogService dialogService, IMessageApiProvider messageApiProvider)
         {
             _dialogService = dialogService;
@@ -61,7 +60,7 @@ namespace JustR.DialogService
 
             return Ok(createdDialog);
         }
-       
+
         [HttpPost(DialogServiceHttpEndpoints.SendMessage)]
         public async Task<ActionResult> SendMessage([FromQuery] Guid dialogId, Guid authorId, [FromBody] String text)
         {

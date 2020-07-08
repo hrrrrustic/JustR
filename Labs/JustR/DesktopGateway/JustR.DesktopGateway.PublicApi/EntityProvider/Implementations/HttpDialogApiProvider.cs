@@ -17,6 +17,7 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
         {
             _restClient = new RestClient(baseUrl).UseNewtonsoftJson();
         }
+
         public async Task<Guid> GetDialogId(Guid firstUserId, Guid secondUserId)
         {
             IRestRequest request = new RestRequest(DesktopGatewayHttpEndpoints.DialogEndpoints.GetDialogId)

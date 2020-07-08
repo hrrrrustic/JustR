@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Threading.Tasks.Sources;
 using JustR.ClientRelatedShare.Dto;
 using JustR.Desktop.Services.Abstractions;
-using JustR.Core.Extensions;
 using JustR.DesktopGateway.PublicApi;
-using Microsoft.AspNetCore.SignalR.Client;
-using RestSharp;
-using RestSharp.Serializers.NewtonsoftJson;
 
 namespace JustR.Desktop.Services.Implementations
 {
@@ -18,7 +13,8 @@ namespace JustR.Desktop.Services.Implementations
             new HttpDesktopGatewayApiProvider(GatewayConfiguration.ApiGatewaySource);
 
         public async Task<IReadOnlyList<DialogPreviewDto>> GetDialogsPreviewAsync(Guid userId)
-        { // TODO : Убрать хардкор оффсета
+        {
+            // TODO : Убрать хардкор оффсета
             return await _desktopGatewayApiProvider.DialogEntityApiProvider.GetDialogs(userId, 0, 100);
         }
 

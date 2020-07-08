@@ -1,13 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using JustR.NotificationService.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +19,7 @@ namespace JustR.NotificationService
         {
             Configuration = configuration;
         }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -53,11 +50,7 @@ namespace JustR.NotificationService
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseRouting();
             app.UseSwagger();
@@ -69,10 +62,7 @@ namespace JustR.NotificationService
             });
 
 
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/Notifications/swagger.json", "Notifications");
-            });
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/Notifications/swagger.json", "Notifications"); });
         }
     }
 }

@@ -49,7 +49,7 @@ namespace JustR.DialogService.Service
 
         public Dialog UpdateLastMessage(Guid authorId, Guid dialogId, String text)
         {
-            return _dialogRepository.UpdateLastMessage(dialogId, authorId, text, DateTime.Now);
+            return _dialogRepository.UpdateLastMessage(dialogId, authorId, text, DateTime.UtcNow);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace JustR.ProfileService.Service
 {
     public interface IProfileService
     {
-        User GetUserProfile(Guid userId);
+        User FindUserProfile(Guid userId);
         User GetUserPreview(Guid userId);
         IReadOnlyList<User> SearchUser(String query);
         User FakeLogIn(String userTag);

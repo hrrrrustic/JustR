@@ -1,28 +1,57 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
 using JustR.ClientRelatedShare.Dto;
 using JustR.Core.Entity;
 using JustR.Desktop.Commands;
 using JustR.Desktop.Notifications;
 using JustR.Desktop.Services.Abstractions;
-using JustR.Desktop.Services.Implementations;
 
 namespace JustR.Desktop.ViewModel
 {
     public class DialogViewModel : BaseViewModel
     {
         private readonly NotificationHandler _handler = NotificationHandler.Instance.Value;
+        private DialogInfoDto _currentDialog;
+
+        private String _typedMessage;
+
+        public DialogInfoDto CurrentDialog
+        {
+            get => _currentDialog;
+            set
+            {
+                _currentDialog = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand GetMessages { get; }
+
+        public ICommand GetDialogInfoCommand { get; }
+
+        public ObservableCollection<MessageDto> Messages { get; } = new ObservableCollection<MessageDto>();
+
+        public String TypedMessage
+        {
+            get => _typedMessage;
+            set
+            {
+                _typedMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand SendMessage { get; }
+
         public DialogViewModel(IDialogService dialogService, IMessageService messageService)
         {
-
             SendMessage = new ActionCommand<String>(async arg =>
             {
-
                 if (CurrentDialog.DialogId == Guid.Empty)
                 {
                     DialogInfoDto info = await dialogService
@@ -38,29 +67,30 @@ namespace JustR.Desktop.ViewModel
 
                 TypedMessage = String.Empty;
             });
-            
+
 
             GetMessages = new ActionCommand<Guid>(async arg =>
             {
-                var messages = await messageService.GetMessagesAsync(arg, UserInfo.CurrentUser.UserId);
+                IReadOnlyList<MessageDto> messages =
+                    await messageService.GetMessagesAsync(arg, UserInfo.CurrentUser.UserId);
                 //TODO : Кажется это не нужно
                 CurrentDialog.DialogId = messages.First().DialogId;
 
-                foreach (var message in messages)
+                foreach (MessageDto message in messages)
                     Messages.Add(message);
             });
 
-            GetDialogInfoCommand = new ActionCommand<Guid>(async arg => 
+            GetDialogInfoCommand = new ActionCommand<Guid>(async arg =>
             {
                 CurrentDialog = await dialogService.GetDialogInfoAsync(arg, UserInfo.CurrentUser.UserId);
             });
 
             _handler.NewMessageReceive += NewMessageReceive;
-         }
+        }
 
         public async Task NewMessageReceive(Message newMessage)
         {
-            if(CurrentDialog.DialogId != newMessage.DialogId)
+            if (CurrentDialog.DialogId != newMessage.DialogId)
                 return;
 
             MessageDto dto = new MessageDto();
@@ -80,35 +110,5 @@ namespace JustR.Desktop.ViewModel
             _currentDialog.Interlocutor = dto;
             OnPropertyChanged(nameof(CurrentDialog));
         }
-        public DialogInfoDto CurrentDialog
-        {
-            get => _currentDialog;
-            set
-            {
-                _currentDialog = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ICommand GetMessages { get; }
-
-        public ICommand GetDialogInfoCommand { get; }
-
-        public ObservableCollection<MessageDto> Messages { get; } = new ObservableCollection<MessageDto>();
-
-        private String _typedMessage;
-        private DialogInfoDto _currentDialog;
-
-        public String TypedMessage
-        {
-            get => _typedMessage;
-            set
-            {
-                _typedMessage = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ICommand SendMessage { get; }
     }
 }

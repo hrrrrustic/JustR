@@ -10,6 +10,7 @@ namespace JustR.DialogService
         public DialogDbContext(DbContextOptions<DialogDbContext> context) : base(context)
         {
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(ServiceConfiguration.DbConnectionString);

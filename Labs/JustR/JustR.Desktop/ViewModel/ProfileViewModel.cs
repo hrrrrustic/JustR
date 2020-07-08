@@ -1,11 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Windows;
 using System.Windows.Input;
 using JustR.Core.Entity;
 using JustR.Desktop.Commands;
 using JustR.Desktop.Services.Abstractions;
-using JustR.Desktop.Services.Implementations;
 using Microsoft.Win32;
 
 namespace JustR.Desktop.ViewModel
@@ -13,6 +11,48 @@ namespace JustR.Desktop.ViewModel
     public class ProfileViewModel : BaseViewModel
     {
         private const String Filters = "Image files (*.jpg, *.jpeg, *.jpe, *.png) | *.jpg; *.jpeg; *.jpe; *.png";
+
+        public ICommand ChangeAvatarCommand { get; }
+
+        public Byte[] Avatar
+        {
+            get => UserInfo.CurrentUser.Avatar;
+            set
+            {
+                UserInfo.CurrentUser.Avatar = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public String FirstName
+        {
+            get => UserInfo.CurrentUser.FirstName;
+            set
+            {
+                UserInfo.CurrentUser.FirstName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public String LastName
+        {
+            get => UserInfo.CurrentUser.LastName;
+            set
+            {
+                UserInfo.CurrentUser.LastName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public String UserTag
+        {
+            get => UserInfo.CurrentUser.UniqueTag;
+            set
+            {
+                UserInfo.CurrentUser.UniqueTag = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ProfileViewModel(IProfileService profileService)
         {
@@ -28,7 +68,7 @@ namespace JustR.Desktop.ViewModel
 
                 if (!result)
                     return;
-                
+
 
                 User user = new User
                 {
@@ -57,44 +97,6 @@ namespace JustR.Desktop.ViewModel
             catch (Exception)
             {
                 return false;
-            }
-        }
-        public ICommand ChangeAvatarCommand { get; }
-        public Byte[] Avatar
-        {
-            get => UserInfo.CurrentUser.Avatar;
-            set
-            {
-                UserInfo.CurrentUser.Avatar = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public String FirstName
-        {
-            get => UserInfo.CurrentUser.FirstName;
-            set
-            {
-                UserInfo.CurrentUser.FirstName = value;
-                OnPropertyChanged();
-            }
-        }
-        public String LastName
-        {
-            get => UserInfo.CurrentUser.LastName;
-            set
-            {
-                UserInfo.CurrentUser.LastName = value;
-                OnPropertyChanged();
-            }
-        }
-        public String UserTag
-        {
-            get => UserInfo.CurrentUser.UniqueTag;
-            set
-            {
-                UserInfo.CurrentUser.UniqueTag = value;
-                OnPropertyChanged();
             }
         }
     }

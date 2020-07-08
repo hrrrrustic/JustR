@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
 using JustR.ClientRelatedShare.Dto;
 using JustR.Core.Entity;
 using JustR.Desktop.Commands;
@@ -22,44 +21,13 @@ namespace JustR.Desktop.ViewModel
     {
         private readonly IDialogService _dialogService;
 
-        private readonly IProfileService _profileService;
-
         private readonly NotificationHandler _handler = NotificationHandler.Instance.Value;
 
-        public UserDialogsViewModel(IDialogService dialogService, IProfileService profileService)
-        {
-            _profileService = profileService;
-            _dialogService = dialogService;
-            GetDialogsCommand = new ActionCommand<Guid>(async arg =>
-            {
-                IReadOnlyList<DialogPreviewDto> dialogs = await _dialogService
-                    .GetDialogsPreviewAsync(arg);
-
-                if (dialogs is null)
-                    return;
-
-                foreach (DialogPreviewDto dialog in dialogs)
-                    DialogsPreview.Add(DialogModel.FromDto(dialog));
-            });
-
-            _handler.NewMessageReceive += ReceiveNewMessage;
-        }
+        private readonly IProfileService _profileService;
+        private Page _currentDialog = new DialogEmptyPage();
 
         public ObservableCollection<DialogModel> DialogsPreview { get; } = new ObservableCollection<DialogModel>();
 
-        public async Task ReceiveNewMessage(Message newMessage)
-        {
-            var dialog = DialogsPreview.SingleOrDefault(k => k.DialogId == newMessage.DialogId);
-            
-            // TODO : Надо сделать добавление нового диалога
-            if(dialog is null)
-                return;
-
-            await Application.Current.Dispatcher.InvokeAsync(() =>
-            {
-                dialog.UpdateLastMessage(newMessage.MessageText, newMessage.SendDate);
-            });
-        }
         public ICommand OpenDialogByDialogId => new ActionCommand<Guid>(arg =>
         {
             Page page = new DialogPage(new DialogViewModel(new DialogService(), new MessageService()));
@@ -71,6 +39,7 @@ namespace JustR.Desktop.ViewModel
 
             CurrentDialog = page;
         });
+
         public ICommand OpenDialogByInterlocutorId => new ActionCommand<Guid>(async arg =>
         {
             Page page = new DialogPage(new DialogViewModel(new DialogService(), new MessageService()));
@@ -96,7 +65,7 @@ namespace JustR.Desktop.ViewModel
         });
 
         public ICommand GetDialogsCommand { get; }
-        private Page _currentDialog = new DialogEmptyPage();
+
         public Page CurrentDialog
         {
             get => _currentDialog;
@@ -105,6 +74,39 @@ namespace JustR.Desktop.ViewModel
                 _currentDialog = value;
                 OnPropertyChanged();
             }
+        }
+
+        public UserDialogsViewModel(IDialogService dialogService, IProfileService profileService)
+        {
+            _profileService = profileService;
+            _dialogService = dialogService;
+            GetDialogsCommand = new ActionCommand<Guid>(async arg =>
+            {
+                IReadOnlyList<DialogPreviewDto> dialogs = await _dialogService
+                    .GetDialogsPreviewAsync(arg);
+
+                if (dialogs is null)
+                    return;
+
+                foreach (DialogPreviewDto dialog in dialogs)
+                    DialogsPreview.Add(DialogModel.FromDto(dialog));
+            });
+
+            _handler.NewMessageReceive += ReceiveNewMessage;
+        }
+
+        public async Task ReceiveNewMessage(Message newMessage)
+        {
+            DialogModel dialog = DialogsPreview.SingleOrDefault(k => k.DialogId == newMessage.DialogId);
+
+            // TODO : Надо сделать добавление нового диалога
+            if (dialog is null)
+                return;
+
+            await Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                dialog.UpdateLastMessage(newMessage.MessageText, newMessage.SendDate);
+            });
         }
     }
 }

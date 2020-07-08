@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using JustR.ClientRelatedShare.Dto;
-using JustR.Core.Extensions;
 using JustR.Desktop.Services.Abstractions;
 using JustR.DesktopGateway.PublicApi;
-using RestSharp;
-using RestSharp.Serializers.NewtonsoftJson;
 
 namespace JustR.Desktop.Services.Implementations
 {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace JustR.MessageService
+﻿namespace JustR.MessageService
 {
     public static class DbConfiguration
     {

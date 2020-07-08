@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Accessibility;
 using JustR.ClientRelatedShare.Dto;
 using JustR.Desktop.Services.Abstractions;
-using JustR.Core.Extensions;
 using JustR.DesktopGateway.PublicApi;
 
 namespace JustR.Desktop.Services.Implementations
@@ -13,6 +11,7 @@ namespace JustR.Desktop.Services.Implementations
     {
         private readonly IDesktopGatewayApiProvider _desktopGatewayApiProvider =
             new HttpDesktopGatewayApiProvider(GatewayConfiguration.ApiGatewaySource);
+
         public async Task<IReadOnlyList<UserPreviewDto>> GetFriendsAsync(Guid userId)
         {
             return await _desktopGatewayApiProvider.FriendEntityApiProvider.GetUserFriends(userId);

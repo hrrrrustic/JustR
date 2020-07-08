@@ -20,25 +20,33 @@ namespace JustR.ProfileService
             _profileService = profileService;
         }
 
+        #region HTTP PUT
+
+        [HttpPut(ProfileServiceHttpEndpoints.UpdateUserProfile)]
+        public ActionResult<User> UpdateUserProfile([FromBody] User user)
+        {
+            User updatedUserProfile = _profileService.UpdateUserProfile(user);
+
+            return Ok(updatedUserProfile);
+        }
+
+        #endregion
+
         #region HTTP GET
 
         [HttpGet(ProfileServiceHttpEndpoints.GetUserProfile)]
         public ActionResult<User> GetUserProfile([FromQuery] Guid userId)
         {
-            User userProfile = _profileService.GetUserProfile(userId);
-
-            if (userProfile is null)
-                userProfile = new User {FirstName = "TEST"};
+            User userProfile = _profileService.FindUserProfile(userId);
 
             return Ok(userProfile);
         }
 
         [HttpGet(ProfileServiceHttpEndpoints.GetUsersPreview)]
-        
         public ActionResult<IReadOnlyList<User>> GetUsersPreview([FromQuery] List<Guid> usersId)
         {
             IReadOnlyList<User> usersProfile = usersId
-                .Select(k => _profileService.GetUserProfile(k))
+                .Select(k => _profileService.FindUserProfile(k))
                 .ToList();
 
             return Ok(usersProfile);
@@ -67,20 +75,8 @@ namespace JustR.ProfileService
         public ActionResult<User> SimpleLogIn([FromQuery] String userTag)
         {
             User loggedUser = _profileService.FakeLogIn(userTag);
-
+            
             return Ok(loggedUser);
-        }
-
-        #endregion
-
-        #region HTTP PUT
-
-        [HttpPut(ProfileServiceHttpEndpoints.UpdateUserProfile)]
-        public ActionResult<User> UpdateUserProfile([FromBody] User user)
-        {
-            User updatedUserProfile = _profileService.UpdateUserProfile(user);
-
-            return Ok(updatedUserProfile);
         }
 
         #endregion

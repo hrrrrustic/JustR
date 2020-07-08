@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JustR.ClientRelatedShare.Dto;
-using JustR.Core.Extensions;
 using JustR.Core.Entity;
 using JustR.DesktopGateway.PublicApi;
 using JustR.ProfileService.InternalApi;
 using Microsoft.AspNetCore.Mvc;
-using RestSharp;
-using RestSharp.Serializers.NewtonsoftJson;
 
 namespace JustR.DesktopGateway.Controllers
 {
@@ -24,6 +21,22 @@ namespace JustR.DesktopGateway.Controllers
         {
             _profileApiProvider = provider;
         }
+
+        #region HTTP PUT
+
+        [HttpPut(DesktopGatewayHttpEndpoints.ProfileEndpoints.UpdateUserProfile)]
+        public async Task<ActionResult<User>> UpdateUserProfile([FromBody] User newUserProfile)
+        {
+            User updatedProfile = await _profileApiProvider.UpdateUserProfile(newUserProfile);
+
+            //TODO : Больше инфы
+            if (updatedProfile is null)
+                return BadRequest();
+
+            return Ok(updatedProfile);
+        }
+
+        #endregion
 
         #region HTTP GET
 
@@ -52,7 +65,7 @@ namespace JustR.DesktopGateway.Controllers
         {
             User user = await _profileApiProvider.GetUserPreview(userId);
 
-            var preview = UserPreviewDto.FromUser(user);
+            UserPreviewDto preview = UserPreviewDto.FromUser(user);
 
             return Ok(preview);
         }
@@ -63,21 +76,6 @@ namespace JustR.DesktopGateway.Controllers
             User user = await _profileApiProvider.SimpleLogIn(userTag);
 
             return Ok(user);
-        }
-
-        #endregion
-
-        #region HTTP PUT
-
-        [HttpPut(DesktopGatewayHttpEndpoints.ProfileEndpoints.UpdateUserProfile)]
-        public async Task<ActionResult<User>> UpdateUserProfile([FromBody] User newUserProfile)
-        {
-            User updatedProfile = await _profileApiProvider.UpdateUserProfile(newUserProfile);
-
-            if (updatedProfile is null)
-                return BadRequest();
-
-            return Ok(updatedProfile);
         }
 
         #endregion

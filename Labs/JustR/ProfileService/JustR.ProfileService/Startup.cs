@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using JustR.ProfileService.Repository;
 using JustR.ProfileService.Service;
@@ -23,6 +22,7 @@ namespace JustR.ProfileService
         {
             Configuration = configuration;
         }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -31,7 +31,8 @@ namespace JustR.ProfileService
             services.AddScoped<IProfileRepository, ProfileRepository>();
             services.AddScoped<IProfileService, Service.ProfileService>();
 
-            services.AddDbContext<ProfileDbContext>(options => options.UseSqlServer(ServiceConfigurations.DbConnectionString));
+            services.AddDbContext<ProfileDbContext>(options =>
+                options.UseSqlServer(ServiceConfigurations.DbConnectionString));
 
             services.AddSwaggerGen(c =>
             {
@@ -56,10 +57,7 @@ namespace JustR.ProfileService
         {
             ServiceConfigurations.DbConnectionString = Configuration.GetConnectionString("LocalDb");
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseRouting();
             app.UseSwagger();
@@ -68,10 +66,7 @@ namespace JustR.ProfileService
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
 
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/Profile/swagger.json", "Profile");
-            });
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/Profile/swagger.json", "Profile"); });
         }
     }
 }

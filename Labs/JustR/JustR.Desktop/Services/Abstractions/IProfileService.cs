@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using JustR.ClientRelatedShare.Dto;
 using JustR.Core.Entity;
 using JustR.Desktop.Annotations;
-using JustR.Models.Entity;
 
 namespace JustR.Desktop.Services.Abstractions
 {
@@ -12,6 +11,8 @@ namespace JustR.Desktop.Services.Abstractions
         Task<UserPreviewDto> GetProfilePreviewAsync(Guid userId);
         Task<UserProfileDto> GetProfileAsync(Guid userId);
         Task<User> UpdateProfile(User user);
-        [ItemCanBeNull] Task<User> SimpleLogin(String userTag);
+
+        [ItemCanBeNull]
+        Task<User> SimpleLogin(String userTag);
     }
 }

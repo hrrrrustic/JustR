@@ -16,7 +16,11 @@ namespace JustR.ClientRelatedShare.Dto
             SecondUserId = secondUserId;
             State = state;
         }
-        public FriendRequestDto(){}
+
+        public FriendRequestDto()
+        {
+        }
+
         public Relationship ToRelationship()
         {
             Relationship relationship = new Relationship

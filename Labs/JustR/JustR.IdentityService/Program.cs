@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace JustR.IdentityService
 {
@@ -13,14 +10,38 @@ namespace JustR.IdentityService
     {
         public static void Main(String[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            IConfigurationBuilder configurationBuilder = GetConfigurationBuilder();
+
+            CreateHostBuilder(args, configurationBuilder)
+                .Build()
+                .Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(String[] args) =>
-            Host.CreateDefaultBuilder(args)
+        private static IConfigurationBuilder GetConfigurationBuilder()
+        {
+            String directory = Directory.GetCurrentDirectory();
+            String fileName = "hosting.json";
+
+            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
+                .SetBasePath(directory)
+                .AddJsonFile(fileName);
+
+            return configurationBuilder;
+        }
+
+        public static IHostBuilder CreateHostBuilder(String[] args, IConfigurationBuilder configurationBuilder)
+        {
+            IHostBuilder hostBuilder = Host.CreateDefaultBuilder(args);
+
+            hostBuilder = hostBuilder
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                        .UseConfiguration(configurationBuilder.Build())
+                        .UseStartup<Startup>();
                 });
+
+            return hostBuilder;
+        }
     }
 }

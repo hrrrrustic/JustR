@@ -13,7 +13,14 @@ namespace JustR.Core.Entity
 
         public Guid GetInterlocutorId(Guid currentUserId)
         {
-            return currentUserId == FirstUserId ? SecondUserid : FirstUserId;
+            if (currentUserId == FirstUserId)
+                return SecondUserid;
+
+            if (currentUserId == SecondUserid)
+                return FirstUserId;
+
+            //TODO : Хоть сообщение какое-нибудь написать
+            throw new ArgumentException();
         }
     }
 }

@@ -5,6 +5,13 @@ namespace JustR.ClientRelatedShare.Dto
 {
     public class UserPreviewDto
     {
+        public Guid UserId { get; set; }
+        public String FirstName { get; set; }
+
+        public String LastName { get; set; }
+        public String UniqueTag { get; set; }
+        public Byte[] Avatar { get; set; }
+
         private UserPreviewDto(Guid userId, String firstName, String lastName, String uniqueTag, Byte[] avatar)
         {
             UserId = userId;
@@ -13,14 +20,10 @@ namespace JustR.ClientRelatedShare.Dto
             UniqueTag = uniqueTag;
             Avatar = avatar;
         }
-        public UserPreviewDto()
-        {}
-        public Guid UserId { get; set; }
-        public String FirstName { get; set; }
 
-        public String LastName { get; set; }
-        public String UniqueTag { get; set; }
-        public Byte[] Avatar { get; set; }
+        public UserPreviewDto()
+        {
+        }
 
         public static UserPreviewDto FromUser(User user)
         {

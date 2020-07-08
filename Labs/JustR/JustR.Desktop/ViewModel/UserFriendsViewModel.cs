@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using JustR.ClientRelatedShare.Dto;
-using JustR.Core.Enum;
 using JustR.Desktop.Commands;
 using JustR.Desktop.Services.Abstractions;
 using JustR.Desktop.Services.Implementations;
@@ -17,6 +13,24 @@ namespace JustR.Desktop.ViewModel
 {
     public class UserFriendsViewModel : BaseViewModel
     {
+        public ObservableCollection<UserPreviewDto> Friends { get; } = new ObservableCollection<UserPreviewDto>();
+
+        public ICommand GetFriendsCommand { get; }
+
+        public ICommand OpedDialogCommand { get; } = new ActionCommand<Guid>(arg =>
+        {
+            UserDialogsPage page =
+                new UserDialogsPage(new UserDialogsViewModel(new DialogService(), new ProfileService()));
+            page
+                .GetViewModel<UserDialogsViewModel>()
+                .OpenDialogByInterlocutorId
+                .Execute(arg);
+
+            PageNavigator.NavigateTo(page);
+        });
+
+        public ICommand DeleteFriendCommand { get; }
+
         public UserFriendsViewModel(IFriendService friendService)
         {
             DeleteFriendCommand = new ActionCommand<Guid>(async arg =>
@@ -47,19 +61,5 @@ namespace JustR.Desktop.ViewModel
                     Friends.Add(friend);
             });
         }
-        public ObservableCollection<UserPreviewDto> Friends { get; } = new ObservableCollection<UserPreviewDto>();
-
-        public ICommand GetFriendsCommand { get; }
-        public ICommand OpedDialogCommand { get; } = new ActionCommand<Guid>(arg =>
-        {
-            var page = new UserDialogsPage(new UserDialogsViewModel(new DialogService(), new ProfileService()));
-            page
-                .GetViewModel<UserDialogsViewModel>()
-                .OpenDialogByInterlocutorId
-                .Execute(arg);
-
-            PageNavigator.NavigateTo(page);
-        });
-        public ICommand DeleteFriendCommand { get; } 
     }
 }

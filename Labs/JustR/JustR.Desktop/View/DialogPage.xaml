@@ -1,38 +1,41 @@
 ﻿<Page x:Class="JustR.Desktop.View.DialogPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:JustR.Desktop.View"
       xmlns:controls="clr-namespace:JustR.Desktop.Controls"
       xmlns:viewModels="clr-namespace:JustR.Desktop.ViewModel"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DialogPage">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="9*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="9*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="{Binding CurrentDialog.Interlocutor.FirstName}" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="0" Text="{Binding CurrentDialog.Interlocutor.FirstName}" HorizontalAlignment="Center" />
         <ListView Grid.Row="1" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Messages}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <controls:MessageControl Message="{Binding}"></controls:MessageControl>
+                    <controls:MessageControl Message="{Binding}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="8*"></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="8*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding TypedMessage}"></TextBox>
-            <Button Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Command="{Binding SendMessage}" CommandParameter="{Binding TypedMessage}">Send</Button>
+            <TextBox Grid.Column="0" Text="{Binding TypedMessage}" />
+            <Button Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"
+                    Command="{Binding SendMessage}" CommandParameter="{Binding TypedMessage}">
+                Send
+            </Button>
         </Grid>
     </Grid>
 </Page>

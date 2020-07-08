@@ -9,17 +9,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
-        <viewModels:MainWindowViewModel/>
+        <viewModels:MainWindowViewModel />
     </Window.DataContext>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" MaxWidth="200" MinWidth="100"></ColumnDefinition>
-            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="2*" MaxWidth="200" MinWidth="100" />
+            <ColumnDefinition Width="10*" />
         </Grid.ColumnDefinitions>
-        <controls:MenuControl Grid.Column="0"></controls:MenuControl>
-        <Border Grid.Column="0" BorderBrush="Black" BorderThickness="0,0,1,0"></Border>
-        <Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden" Grid.Column="1">
-        </Frame>
+        <controls:MenuControl Grid.Column="0" />
+        <Border Grid.Column="0" BorderBrush="Black" BorderThickness="0,0,1,0" />
+        <Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden" Grid.Column="1" />
     </Grid>
 </Window>

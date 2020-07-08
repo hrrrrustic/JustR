@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 using JustR.ClientRelatedShare.Dto;
 using JustR.Core.Entity;
 using JustR.DesktopGateway.PublicApi;
-using JustR.Models.Entity;
-using Microsoft.AspNetCore.Mvc;
-using RestSharp;
 using JustR.FriendService.InternalApi;
+using JustR.Models.Entity;
 using JustR.ProfileService.InternalApi;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JustR.DesktopGateway.Controllers
 {
@@ -26,15 +25,13 @@ namespace JustR.DesktopGateway.Controllers
             _profileApiProvider = profileApiProvider;
             _friendApiProvider = friendApiProvider;
         }
+
         #region HTTP GET
 
         [HttpGet(DesktopGatewayHttpEndpoints.FriendEndpoints.GetUserFriends)]
         public async Task<ActionResult<IReadOnlyList<UserPreviewDto>>> GetUserFriends([FromQuery] Guid userId)
         {
             IReadOnlyList<Guid> friendsId = await _friendApiProvider.GetUserFriends(userId);
-
-            if (friendsId is null)
-                return Ok(Array.Empty<UserPreviewDto>());
 
             IReadOnlyList<User> users = await _profileApiProvider.GetUsersPreview(friendsId);
 

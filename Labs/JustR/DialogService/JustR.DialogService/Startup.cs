@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using JustR.DialogService.Repository;
@@ -8,10 +7,10 @@ using JustR.MessageService.InternalApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.Configuration;
 using Steeltoe.Common.Http.Discovery;
 using Steeltoe.Discovery.Client;
 
@@ -19,12 +18,13 @@ namespace JustR.DialogService
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -33,12 +33,11 @@ namespace JustR.DialogService
             services.AddScoped<IDialogRepository, DialogRepository>();
             services.AddScoped<IDialogService, Service.DialogService>();
 
-            services.AddDbContext<DialogDbContext>(options => options.UseSqlServer(ServiceConfiguration.DbConnectionString));
+            services.AddDbContext<DialogDbContext>(options =>
+                options.UseSqlServer(ServiceConfiguration.DbConnectionString));
 
-            services.AddHttpClient("MessageService", k =>
-                {
-                    k.BaseAddress = new Uri("http://MessageService/api/Message/");
-                })
+            services.AddHttpClient("MessageService",
+                    k => { k.BaseAddress = new Uri("http://MessageService/api/Message/"); })
                 .AddHttpMessageHandler<DiscoveryHttpMessageHandler>()
                 .AddTypedClient<IMessageApiProvider, HttpMessageApiProvider>();
 
@@ -64,20 +63,14 @@ namespace JustR.DialogService
         {
             ServiceConfiguration.DbConnectionString = Configuration.GetConnectionString("LocalDb");
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseRouting();
             app.UseSwagger();
             app.UseDiscoveryClient();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
 
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/Dialogs/swagger.json", "Dialogs");
-            });
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/Dialogs/swagger.json", "Dialogs"); });
         }
     }
 }

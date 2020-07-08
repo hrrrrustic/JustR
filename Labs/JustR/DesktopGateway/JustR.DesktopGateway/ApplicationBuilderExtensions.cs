@@ -14,15 +14,12 @@ namespace JustR.DesktopGateway
             {
                 appError.Run(async context =>
                 {
-                    context.Response.StatusCode = (Int32)HttpStatusCode.BadRequest;
+                    context.Response.StatusCode = (Int32) HttpStatusCode.BadRequest;
                     context.Response.ContentType = "application/json";
 
                     IExceptionHandlerFeature contextFeature = context.Features.Get<IExceptionHandlerFeature>();
 
-                    if (!(contextFeature is null))
-                    {
-                        await context.Response.WriteAsync(contextFeature.Error.ToString());
-                    }
+                    if (!(contextFeature is null)) await context.Response.WriteAsync(contextFeature.Error.ToString());
                 });
             });
         }

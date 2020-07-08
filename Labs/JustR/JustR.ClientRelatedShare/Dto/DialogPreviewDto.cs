@@ -1,5 +1,5 @@
-﻿using JustR.Core.Entity;
-using System;
+﻿using System;
+using JustR.Core.Entity;
 
 namespace JustR.ClientRelatedShare.Dto
 {
@@ -18,17 +18,20 @@ namespace JustR.ClientRelatedShare.Dto
         {
         }
 
-        public static DialogPreviewDto NewDialog(UserPreviewDto preview)
-        {
-            return new DialogPreviewDto(preview);
-        }
-        private DialogPreviewDto(Guid dialogId, DateTime lastMessageTime, String lastMessageText, UserPreviewDto interlocutorPreview)
+        private DialogPreviewDto(Guid dialogId, DateTime lastMessageTime, String lastMessageText,
+            UserPreviewDto interlocutorPreview)
         {
             DialogId = dialogId;
             LastMessageTime = lastMessageTime;
             LastMessageText = lastMessageText;
             InterlocutorPreview = interlocutorPreview;
         }
+
+        public static DialogPreviewDto NewDialog(UserPreviewDto preview)
+        {
+            return new DialogPreviewDto(preview);
+        }
+
         public static DialogPreviewDto FromDialogAndUser(Dialog dialog, User user)
         {
             DialogPreviewDto dto = new DialogPreviewDto(dialog.DialogId, dialog.LastMessageTime, dialog.LastMessageText,
@@ -36,7 +39,5 @@ namespace JustR.ClientRelatedShare.Dto
 
             return dto;
         }
-
-       
     }
 }

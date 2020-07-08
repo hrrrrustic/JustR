@@ -12,10 +12,19 @@ using Microsoft.Extensions.DependencyInjection;
 namespace JustR.Desktop
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    ///     Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            DispatcherUnhandledException += Application_DispatcherUnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+
+            GatewayConfiguration.ApiGatewaySource =
+                ConfigurationManager.ConnectionStrings["GatewayUrl"].ConnectionString;
+        }
+
         private void ConfigureServices(ServiceCollection services)
         {
             services.AddScoped<IProfileService, ProfileService>();
@@ -40,13 +49,6 @@ namespace JustR.Desktop
             services.AddScoped<SettingsPage>();
             services.AddScoped<ProfilePage>();
         }
-        public App()
-        {
-            DispatcherUnhandledException += Application_DispatcherUnhandledException;
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
-
-            GatewayConfiguration.ApiGatewaySource = ConfigurationManager.ConnectionStrings["GatewayUrl"].ConnectionString;
-        }
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -64,14 +66,13 @@ namespace JustR.Desktop
             HandleUnhandledException(exception);
         }
 
-        private void CurrentDomainOnUnhandledException(Object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
+        private void CurrentDomainOnUnhandledException(Object sender,
+            UnhandledExceptionEventArgs unhandledExceptionEventArgs)
         {
             HandleUnhandledException(unhandledExceptionEventArgs.ExceptionObject as Exception);
 
             if (unhandledExceptionEventArgs.IsTerminating)
-            {
                 MessageBox.Show("Application is terminating due to an unhandled exception in a secondary thread.");
-            }
         }
 
         private void HandleUnhandledException(Exception exception)

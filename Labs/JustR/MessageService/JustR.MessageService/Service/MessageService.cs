@@ -21,7 +21,7 @@ namespace JustR.MessageService.Service
                 AuthorId = userId,
                 DialogId = dialogId,
                 MessageText = text,
-                SendDate = DateTime.Now
+                SendDate = DateTime.UtcNow
             };
 
             return _messageRepository.CreateMessage(message);

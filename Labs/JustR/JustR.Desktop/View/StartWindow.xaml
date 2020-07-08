@@ -14,9 +14,9 @@
             <Grid>
                 <StackPanel Margin="5, 40, 5, 0">
                     <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center">Логин:</TextBlock>
-                    <TextBox Text="{Binding Login}"></TextBox>
+                    <TextBox Text="{Binding Login}" />
                     <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center">Пароль:</TextBlock>
-                    <TextBox Text="{Binding Password}"></TextBox>
+                    <TextBox Text="{Binding Password}" />
                     <Button Command="{Binding LoginCommand}" Margin="0, 10, 0, 0">Войти</Button>
                     <Button Visibility="Collapsed">Зарегистрироваться</Button>
                 </StackPanel>

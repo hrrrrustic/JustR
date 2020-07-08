@@ -8,6 +8,5 @@ namespace JustR.Models.Entity
         public Guid FirstUserId { get; set; }
         public Guid SecondUserId { get; set; }
         public RelationshipState State { get; set; }
-        
     }
 }

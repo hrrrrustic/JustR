@@ -1,7 +1,7 @@
-﻿using JustR.Core.Entity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using JustR.Core.Entity;
 
 namespace JustR.MessageService.InternalApi
 {

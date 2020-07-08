@@ -12,7 +12,6 @@ namespace JustR.DesktopGateway.PublicApi
             public const String GetUserPreview = "preview";
             public const String SimpleAuth = "login";
             public const String UpdateUserProfile = "";
-
         }
 
         public static class MessageEndpoints
@@ -29,7 +28,6 @@ namespace JustR.DesktopGateway.PublicApi
             public const String GetDialogs = "all";
             public const String GetDialog = "";
             public const String CreateDialog = "";
-
         }
 
         public static class FriendEndpoints

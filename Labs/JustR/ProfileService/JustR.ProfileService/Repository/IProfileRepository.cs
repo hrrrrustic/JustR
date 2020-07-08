@@ -6,8 +6,8 @@ namespace JustR.ProfileService.Repository
 {
     public interface IProfileRepository
     {
-        User ReadUserProfile(Guid userId);
-        IReadOnlyList<User> ReadUserProfiles(String userTag);
+        User FindUserProfile(Guid userId);
+        IReadOnlyList<User> FindUserProfiles(String userTag);
         User UpdateUserProfile(User newProfile);
         User FakeLogIn(String userTag);
     }

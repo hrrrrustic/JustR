@@ -9,6 +9,5 @@ namespace JustR.ClientRelatedShare.Dto
         public String UniqueTag { get; }
         public Byte[] Avatar { get; }
         public Guid UserId { get; }
-        
     }
 }

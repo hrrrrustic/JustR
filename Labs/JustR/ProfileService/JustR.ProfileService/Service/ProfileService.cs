@@ -8,25 +8,25 @@ namespace JustR.ProfileService.Service
     public class ProfileService : IProfileService
     {
         private readonly IProfileRepository _profileRepository;
-        
+
         public ProfileService(IProfileRepository profileRepository)
         {
             _profileRepository = profileRepository;
         }
 
-        public User GetUserProfile(Guid userId)
+        public User FindUserProfile(Guid userId)
         {
-            return _profileRepository.ReadUserProfile(userId);
+            return _profileRepository.FindUserProfile(userId);
         }
 
         public User GetUserPreview(Guid userId)
         {
-            return _profileRepository.ReadUserProfile(userId);
+            return _profileRepository.FindUserProfile(userId);
         }
 
         public IReadOnlyList<User> SearchUser(String query)
         {
-            return _profileRepository.ReadUserProfiles(query);
+            return _profileRepository.FindUserProfiles(query);
         }
 
         public User FakeLogIn(String userTag)

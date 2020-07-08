@@ -10,7 +10,9 @@ namespace JustR.ClientRelatedShare.Dto
         public String MessageText { get; set; }
         public DateTime SendDate { get; set; }
 
-        public MessageDto(){}
+        public MessageDto()
+        {
+        }
 
         private MessageDto(Guid dialogId, String messageText, DateTime sendDate, UserPreviewDto preview)
         {
@@ -19,11 +21,12 @@ namespace JustR.ClientRelatedShare.Dto
             MessageText = messageText;
             SendDate = sendDate;
         }
+
         public static MessageDto FromMessageAndUser(User user, Message message)
         {
             MessageDto dto = new MessageDto(message.DialogId, message.MessageText, message.SendDate,
                 UserPreviewDto.FromUser(user));
-            
+
             return dto;
         }
 
@@ -31,5 +34,5 @@ namespace JustR.ClientRelatedShare.Dto
         {
             return new MessageDto(dialogId, messageText, DateTime.MinValue, UserPreviewDto.FromUser(sender));
         }
-    }   
+    }
 }

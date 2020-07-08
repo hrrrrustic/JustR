@@ -10,6 +10,7 @@ namespace JustR.MessageService
         public MessageDbContext(DbContextOptions<MessageDbContext> options) : base(options)
         {
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(ServiceConfigurations.DbConnectionString);

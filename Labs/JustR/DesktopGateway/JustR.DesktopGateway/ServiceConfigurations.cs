@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace JustR.DesktopGateway
+﻿namespace JustR.DesktopGateway
 {
     public static class ServiceConfigurations
     {
         // TODO : ээээкмхм? 
     }
-}       
+}

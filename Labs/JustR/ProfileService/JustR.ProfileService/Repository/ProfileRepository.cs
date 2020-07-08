@@ -9,19 +9,20 @@ namespace JustR.ProfileService.Repository
     public class ProfileRepository : IProfileRepository
     {
         private readonly ProfileDbContext _context;
+
         public ProfileRepository(ProfileDbContext context)
         {
             _context = context;
         }
 
-        public User ReadUserProfile(Guid userId)
+        public User FindUserProfile(Guid userId)
         {
             return _context
                 .Users
                 .Find(userId);
         }
 
-        public IReadOnlyList<User> ReadUserProfiles(String userTag)
+        public IReadOnlyList<User> FindUserProfiles(String userTag)
         {
             String lowerUserTag = userTag.ToLower();
 

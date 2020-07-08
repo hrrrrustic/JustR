@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using JustR.Core.Enum;
 using JustR.Models.Entity;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace JustR.FriendService.Repository
 {
     public class FriendRepository : IFriendRepository
     {
-
         private readonly FriendDbContext _context;
 
         public FriendRepository(FriendDbContext context)
@@ -18,14 +18,14 @@ namespace JustR.FriendService.Repository
 
         public Relationship CreateFriendRequest(Relationship request)
         {
-            var res = _context.Relationships.Find(request.FirstUserId, request.SecondUserId);
+            Relationship res = _context.Relationships.Find(request.FirstUserId, request.SecondUserId);
             if (!(res is null))
             {
                 request.State = RelationshipState.Friend;
                 return UpdateFriendRequest(request);
             }
 
-            var directRelation = _context.Relationships.Add(request);
+            EntityEntry<Relationship> directRelation = _context.Relationships.Add(request);
 
             Relationship reverseRelation = new Relationship();
             reverseRelation.SecondUserId = request.FirstUserId;
@@ -46,17 +46,17 @@ namespace JustR.FriendService.Repository
                 .Select(k => k.SecondUserId)
                 .ToList();
         }
-        
+
         public Relationship UpdateFriendRequest(Relationship request)
         {
-            var relation = _context.Relationships.Find(request.FirstUserId, request.SecondUserId);
+            Relationship relation = _context.Relationships.Find(request.FirstUserId, request.SecondUserId);
             relation.State = request.State;
 
-            var reverseRelation = _context.Relationships.Find(request.SecondUserId, request.FirstUserId);
+            Relationship reverseRelation = _context.Relationships.Find(request.SecondUserId, request.FirstUserId);
             reverseRelation.State = request.State;
 
             _context.SaveChanges();
-            
+
             return relation;
         }
 
@@ -64,9 +64,9 @@ namespace JustR.FriendService.Repository
         {
             Relationship directRequest = _context.Relationships.Find(firstUserId, secondUserId);
 
-            if(directRequest is null || directRequest.State != RelationshipState.Friend)
+            if (directRequest is null || directRequest.State != RelationshipState.Friend)
                 return;
-            
+
             directRequest.State = RelationshipState.InputFriendRequest;
 
             Relationship reverseRequest = _context.Relationships.Find(secondUserId, firstUserId);

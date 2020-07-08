@@ -22,6 +22,7 @@ namespace JustR.MessageService
         {
             Configuration = configuration;
         }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -30,7 +31,8 @@ namespace JustR.MessageService
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IMessageService, Service.MessageService>();
 
-            services.AddDbContext<MessageDbContext>(options => options.UseSqlServer(ServiceConfigurations.DbConnectionString));
+            services.AddDbContext<MessageDbContext>(options =>
+                options.UseSqlServer(ServiceConfigurations.DbConnectionString));
 
             services.AddSwaggerGen(c =>
             {
@@ -56,10 +58,7 @@ namespace JustR.MessageService
             ServiceConfigurations.DbConnectionString = Configuration.GetConnectionString("LocalDb");
             ServiceConfigurations.NotificationServiceUrl = Configuration.GetConnectionString("NotificationServiceUrl");
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseRouting();
             app.UseDiscoveryClient();
@@ -67,10 +66,7 @@ namespace JustR.MessageService
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
 
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/Messages/swagger.json", "Messages");
-            });
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/Messages/swagger.json", "Messages"); });
         }
     }
 }

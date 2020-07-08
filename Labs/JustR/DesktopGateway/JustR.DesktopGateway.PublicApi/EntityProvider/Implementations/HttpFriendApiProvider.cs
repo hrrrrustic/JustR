@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using JustR.ClientRelatedShare.Dto;
 using JustR.Core.Extensions;
@@ -30,7 +29,7 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
 
         public async Task<FriendRequestDto> CreateFriendRequest(FriendRequestDto dto)
         {
-            var request = new RestRequest(DesktopGatewayHttpEndpoints.FriendEndpoints.CreateFriendRequest)
+            IRestRequest request = new RestRequest(DesktopGatewayHttpEndpoints.FriendEndpoints.CreateFriendRequest)
                 .AddJsonBody(dto);
 
             // TODO : Явно нужно что-то ловить и использовать

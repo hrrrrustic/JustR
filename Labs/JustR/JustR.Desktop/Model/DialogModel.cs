@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JustR.ClientRelatedShare.Dto;
@@ -9,16 +8,8 @@ namespace JustR.Desktop.Model
 {
     public class DialogModel : INotifyPropertyChanged
     {
-        private DateTime _lastMessageTime;
         private String _lastMessageText;
-
-        private DialogModel(Guid dialogId, DateTime lastMessageTime, String lastMessageText, UserPreviewDto interlocutorPreview)
-        {
-            DialogId = dialogId;
-            LastMessageTime = lastMessageTime;
-            LastMessageText = lastMessageText;
-            InterlocutorPreview = interlocutorPreview;
-        }
+        private DateTime _lastMessageTime;
 
         public Guid DialogId { get; }
 
@@ -44,6 +35,17 @@ namespace JustR.Desktop.Model
 
         public UserPreviewDto InterlocutorPreview { get; }
 
+        private DialogModel(Guid dialogId, DateTime lastMessageTime, String lastMessageText,
+            UserPreviewDto interlocutorPreview)
+        {
+            DialogId = dialogId;
+            LastMessageTime = lastMessageTime;
+            LastMessageText = lastMessageText;
+            InterlocutorPreview = interlocutorPreview;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public void UpdateLastMessage(String text, DateTime time)
         {
             LastMessageText = text;
@@ -54,8 +56,6 @@ namespace JustR.Desktop.Model
         {
             return new DialogModel(dto.DialogId, dto.LastMessageTime, dto.LastMessageText, dto.InterlocutorPreview);
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] String propertyName = null)

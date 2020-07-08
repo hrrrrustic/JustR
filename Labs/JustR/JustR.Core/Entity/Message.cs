@@ -9,6 +9,5 @@ namespace JustR.Core.Entity
         public DateTime SendDate { get; set; }
         public Guid AuthorId { get; set; }
         public Guid DialogId { get; set; }
-        
     }
 }

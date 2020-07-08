@@ -1,5 +1,4 @@
-﻿using JustR.DesktopGateway.PublicApi.EntityProvider;
-using JustR.DesktopGateway.PublicApi.EntityProvider.Abstractions;
+﻿using JustR.DesktopGateway.PublicApi.EntityProvider.Abstractions;
 
 namespace JustR.DesktopGateway.PublicApi
 {
