@@ -54,7 +54,7 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Implementations
             return profile;
         }
 
-        public async Task<User> UpdateUserProfile(User newUserProfile)
+        public async Task<User> UpdateUserProfile(ChangeProfileDto newUserProfile)
         {
             IRestRequest request = new RestRequest(DesktopGatewayHttpEndpoints.ProfileEndpoints.UpdateUserProfile)
                 .AddJsonBody(newUserProfile);

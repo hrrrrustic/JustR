@@ -14,7 +14,7 @@ namespace JustR.MessageService.InternalApi
         public HttpMessageApiProvider(HttpClient client)
         {
             _client = client;
-        }
+        }       
 
         public async Task<IReadOnlyList<Message>> GetMessages(Guid dialogId, Int32 offset, Int32 count)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Input;
+using JustR.ClientRelatedShare.Dto;
 using JustR.Core.Entity;
 using JustR.Desktop.Commands;
 using JustR.Desktop.Services.Abstractions;
@@ -69,17 +70,13 @@ namespace JustR.Desktop.ViewModel
                 if (!result)
                     return;
 
-
-                User user = new User
+                ChangeProfileDto dto = new ChangeProfileDto
                 {
                     Avatar = avatar,
-                    FirstName = FirstName,
-                    LastName = LastName,
-                    UniqueTag = UserTag,
                     UserId = UserInfo.CurrentUser.UserId
                 };
 
-                User updatedUser = await profileService.UpdateProfile(user);
+                User updatedUser = await profileService.UpdateProfile(dto);
 
                 Avatar = updatedUser.Avatar;
             });

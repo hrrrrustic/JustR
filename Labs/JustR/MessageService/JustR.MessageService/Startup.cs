@@ -11,10 +11,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Steeltoe.Discovery.Client;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 
 namespace JustR.MessageService
 {
-    public class Startup
+    public class Startup 
     {
         public IConfiguration Configuration { get; }
 
@@ -27,7 +29,6 @@ namespace JustR.MessageService
         {
             services.AddControllers();
             services.AddDiscoveryClient(Configuration);
-
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IMessageService, Service.MessageService>();
 

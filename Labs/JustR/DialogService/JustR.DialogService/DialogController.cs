@@ -6,6 +6,7 @@ using JustR.DialogService.InternalApi;
 using JustR.DialogService.Service;
 using JustR.MessageService.InternalApi;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace JustR.DialogService
 {
@@ -28,7 +29,7 @@ namespace JustR.DialogService
         [HttpGet(DialogServiceHttpEndpoints.GetDialogId)]
         public ActionResult<Guid> GetDialogId([FromQuery] Guid firstUserId, Guid secondUserId)
         {
-            Guid id = _dialogService.GetDialogId(firstUserId, secondUserId);
+            Guid id = _dialogService.FindDialogId(firstUserId, secondUserId);
 
             return Ok(id);
         }
@@ -36,7 +37,7 @@ namespace JustR.DialogService
         [HttpGet(DialogServiceHttpEndpoints.GetDialogsPreview)]
         public ActionResult<IReadOnlyList<Dialog>> GetDialogsPreview([FromQuery] Guid userId, Int32 count, Int32 offset)
         {
-            IReadOnlyList<Dialog> dialogs = _dialogService.GetDialogsPreview(userId, offset, count);
+            IReadOnlyList<Dialog> dialogs = _dialogService.FindDialogsPreview(userId, offset, count);
 
             return Ok(dialogs);
         }
@@ -44,7 +45,8 @@ namespace JustR.DialogService
         [HttpGet(DialogServiceHttpEndpoints.GetDialog)]
         public ActionResult<Dialog> GetDialog([FromQuery] Guid dialogId)
         {
-            Dialog dialog = _dialogService.GetDialog(dialogId);
+            Response.StatusCode = 200;
+            Dialog dialog = _dialogService.FindDialog(dialogId);
 
             return Ok(dialog);
         }
@@ -64,10 +66,15 @@ namespace JustR.DialogService
         [HttpPost(DialogServiceHttpEndpoints.SendMessage)]
         public async Task<ActionResult> SendMessage([FromQuery] Guid dialogId, Guid authorId, [FromBody] String text)
         {
-            Dialog dialog = _dialogService.UpdateLastMessage(authorId, dialogId, text);
-
-            if (dialog is null)
+            Dialog dialog;
+            try
+            {
+                dialog = _dialogService.UpdateLastMessage(authorId, dialogId, text);
+            }
+            catch (ArgumentException)
+            {
                 return BadRequest();
+            }
 
             await _messageApiProvider.SendMessage(authorId, dialogId, dialog.GetInterlocutorId(authorId), text);
 

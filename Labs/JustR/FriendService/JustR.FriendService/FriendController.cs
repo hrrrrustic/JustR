@@ -64,7 +64,14 @@ namespace JustR.FriendService
         [HttpDelete(FriendSerivceHttpEndpoints.DeleteFriend)]
         public ActionResult DeleteFriend([FromQuery] Guid firstUserId, Guid secondUserId)
         {
-            _friendService.DeleteFriend(firstUserId, secondUserId);
+            try
+            {
+                _friendService.DeleteFriend(firstUserId, secondUserId);
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
 
             return Ok();
         }

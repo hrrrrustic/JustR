@@ -36,7 +36,12 @@ namespace JustR.ProfileService.Service
 
         public User UpdateUserProfile(User user)
         {
-            return _profileRepository.UpdateUserProfile(user);
+            var t = _profileRepository.FindUserProfile(user.UserId);
+
+                t.Avatar = user.Avatar;
+
+
+            return _profileRepository.UpdateUserProfile(t);
         }
     }
 }

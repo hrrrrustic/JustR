@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using JustR.Core.Entity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace JustR.ProfileService.Repository
@@ -37,10 +38,10 @@ namespace JustR.ProfileService.Repository
 
         public User UpdateUserProfile(User newProfile)
         {
-            EntityEntry<User> updatedUser = _context.Users.Update(newProfile);
+            User updatedUser = _context.Users.Update(newProfile).Entity;
             _context.SaveChanges();
 
-            return updatedUser.Entity;
+            return updatedUser;
         }
 
         public User FakeLogIn(String userTag)

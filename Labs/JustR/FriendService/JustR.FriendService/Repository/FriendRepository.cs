@@ -65,7 +65,8 @@ namespace JustR.FriendService.Repository
             Relationship directRequest = _context.Relationships.Find(firstUserId, secondUserId);
 
             if (directRequest is null || directRequest.State != RelationshipState.Friend)
-                return;
+                //TODO : Кастомный эксепшн
+                throw new ArgumentException();
 
             directRequest.State = RelationshipState.InputFriendRequest;
 

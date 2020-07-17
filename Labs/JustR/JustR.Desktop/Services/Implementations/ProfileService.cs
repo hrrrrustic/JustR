@@ -24,7 +24,7 @@ namespace JustR.Desktop.Services.Implementations
             return await _desktopGatewayApiProvider.ProfileEntityApiProvider.GetUserProfile(userId);
         }
 
-        public async Task<User> UpdateProfile(User user)
+        public async Task<User> UpdateProfile(ChangeProfileDto user)
         {
             return await _desktopGatewayApiProvider.ProfileEntityApiProvider.UpdateUserProfile(user);
         }

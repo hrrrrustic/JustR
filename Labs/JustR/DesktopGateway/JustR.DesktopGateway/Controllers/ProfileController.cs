@@ -25,9 +25,9 @@ namespace JustR.DesktopGateway.Controllers
         #region HTTP PUT
 
         [HttpPut(DesktopGatewayHttpEndpoints.ProfileEndpoints.UpdateUserProfile)]
-        public async Task<ActionResult<User>> UpdateUserProfile([FromBody] User newUserProfile)
+        public async Task<ActionResult<User>> UpdateUserProfile([FromBody] ChangeProfileDto newUserProfile)
         {
-            User updatedProfile = await _profileApiProvider.UpdateUserProfile(newUserProfile);
+            User updatedProfile = await _profileApiProvider.UpdateUserProfile(newUserProfile.ToUser());
 
             //TODO : Больше инфы
             if (updatedProfile is null)

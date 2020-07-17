@@ -33,21 +33,23 @@ namespace JustR.Desktop
             services.AddScoped<ISearchService, SearchService>();
             services.AddScoped<IFriendService, FriendService>();
 
-            //TODO : Нужен не скоуп. Сейчас при переоткрытии вкладки будут каждый раз дублироваться данные
-            services.AddScoped<DialogViewModel>();
-            services.AddScoped<StartWindowViewModel>();
-            services.AddScoped<UserDialogsViewModel>();
-            services.AddScoped<ProfileViewModel>();
-            services.AddScoped<UserFriendsViewModel>();
-            services.AddScoped<SearchViewModel>();
+            services.AddTransient<DialogViewModel>();
+            services.AddTransient<UserFriendsViewModel>();
+            services.AddTransient<UserDialogsViewModel>();
+            services.AddTransient<SearchViewModel>();
 
-            services.AddScoped<StartWindow>();
-            services.AddScoped<DialogPage>();
-            services.AddScoped<SearchPage>();
-            services.AddScoped<UserFriendsPage>();
-            services.AddScoped<UserDialogsPage>();
+            services.AddSingleton<StartWindowViewModel>();
+            services.AddSingleton<ProfileViewModel>();
+
+            services.AddTransient<UserFriendsPage>();
+            services.AddTransient<UserDialogsPage>();
+            services.AddTransient<DialogPage>();
+            services.AddTransient<SearchPage>();
+
+            services.AddSingleton<StartWindow>();
+            services.AddSingleton<ProfilePage>();
+
             services.AddScoped<SettingsPage>();
-            services.AddScoped<ProfilePage>();
         }
 
         protected override void OnStartup(StartupEventArgs e)

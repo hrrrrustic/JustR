@@ -12,6 +12,6 @@ namespace JustR.DesktopGateway.PublicApi.EntityProvider.Abstractions
         Task<IReadOnlyList<UserPreviewDto>> SearchUser(String query);
         Task<UserPreviewDto> GetUserPreview(Guid userId);
         Task<User> SimpleAuth(String userTag);
-        Task<User> UpdateUserProfile(User newUserProfile);
+        Task<User> UpdateUserProfile(ChangeProfileDto newUserProfile);
     }
 }

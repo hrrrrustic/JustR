@@ -10,7 +10,7 @@ namespace JustR.Desktop.Services.Abstractions
     {
         Task<UserPreviewDto> GetProfilePreviewAsync(Guid userId);
         Task<UserProfileDto> GetProfileAsync(Guid userId);
-        Task<User> UpdateProfile(User user);
+        Task<User> UpdateProfile(ChangeProfileDto user);
 
         [ItemCanBeNull]
         Task<User> SimpleLogin(String userTag);

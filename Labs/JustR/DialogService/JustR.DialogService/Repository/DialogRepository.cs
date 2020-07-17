@@ -14,7 +14,7 @@ namespace JustR.DialogService.Repository
             _context = context;
         }
 
-        public Dialog ReadDialog(Guid dialogId)
+        public Dialog FindDialog(Guid dialogId)
         {
             return _context.Dialogs.Find(dialogId);
         }
@@ -27,7 +27,7 @@ namespace JustR.DialogService.Repository
             return entity;
         }
 
-        public IReadOnlyList<Dialog> ReadDialogs(Guid userId, Int32 count, Int32 offset = 0)
+        public IReadOnlyList<Dialog> FindDialogs(Guid userId, Int32 count, Int32 offset = 0)
         {
             return _context
                 .Dialogs
@@ -38,7 +38,7 @@ namespace JustR.DialogService.Repository
                 .ToList();
         }
 
-        public Guid ReadDialogId(Guid firstUserId, Guid secondUserId)
+        public Guid FindDialogId(Guid firstUserId, Guid secondUserId)
         {
             Dialog dialog = _context.Dialogs.SingleOrDefault(k =>
                 k.FirstUserId == firstUserId && k.SecondUserid == secondUserId ||
@@ -52,7 +52,8 @@ namespace JustR.DialogService.Repository
             Dialog dialog = _context.Dialogs.Find(dialogId);
 
             if (dialog is null)
-                return null;
+                //TODO : Кастомный бы эксепшн
+                throw new ArgumentException();
 
             dialog.LastMessageText = text;
             dialog.LastMessageTime = sendDate;

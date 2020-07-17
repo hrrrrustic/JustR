@@ -13,4 +13,8 @@
     <ProjectReference Include="..\..\JustR.Core\JustR.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Types\" />
+  </ItemGroup>
+
 </Project>

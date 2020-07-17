@@ -14,15 +14,15 @@ namespace JustR.DialogService.Service
             _dialogRepository = dialogRepository;
         }
 
-        public Dialog GetDialog(Guid dialogId)
+        public Dialog FindDialog(Guid dialogId)
         {
-            Dialog dialog = _dialogRepository.ReadDialog(dialogId);
+            Dialog dialog = _dialogRepository.FindDialog(dialogId);
             return dialog;
         }
 
-        public IReadOnlyList<Dialog> GetDialogsPreview(Guid userId, Int32? offset, Int32 count)
+        public IReadOnlyList<Dialog> FindDialogsPreview(Guid userId, Int32? offset, Int32 count)
         {
-            IReadOnlyList<Dialog> dialogs = _dialogRepository.ReadDialogs(userId, count, offset ?? 0);
+            IReadOnlyList<Dialog> dialogs = _dialogRepository.FindDialogs(userId, count, offset ?? 0);
 
             return dialogs;
         }
@@ -42,9 +42,9 @@ namespace JustR.DialogService.Service
             return _dialogRepository.CreateDialog(dialog);
         }
 
-        public Guid GetDialogId(Guid firstUserId, Guid secondUserId)
+        public Guid FindDialogId(Guid firstUserId, Guid secondUserId)
         {
-            return _dialogRepository.ReadDialogId(firstUserId, secondUserId);
+            return _dialogRepository.FindDialogId(firstUserId, secondUserId);
         }
 
         public Dialog UpdateLastMessage(Guid authorId, Guid dialogId, String text)
